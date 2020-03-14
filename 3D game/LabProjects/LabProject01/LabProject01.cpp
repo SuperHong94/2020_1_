@@ -1,7 +1,7 @@
 ﻿// LabProject01.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
 
-#include "framework.h"
+#include "stdafx.h"
 #include "LabProject01.h"
 
 #define MAX_LOADSTRING 100
@@ -77,7 +77,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
     wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_LABPROJECT01);
-    wcex.lpszClassName  = szWindowClass;au카
+    wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
     return RegisterClassExW(&wcex);
