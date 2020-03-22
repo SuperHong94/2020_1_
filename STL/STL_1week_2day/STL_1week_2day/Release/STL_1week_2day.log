@@ -1,0 +1,4 @@
+﻿  load.cpp
+  main.cpp
+load.obj : error LNK2005: _main이(가) load.obj에 이미 정의되어 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\STL\STL_1week_2day\Release\STL_1week_2day.exe : fatal error LNK1169: 여러 번 정의된 기호가 있습니다.
