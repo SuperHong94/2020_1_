@@ -1,0 +1,3 @@
+﻿  drill.cpp
+C:\Users\SuperHong\source\repos\2020_1_\STL\STL_2week_1day\2day\drill.cpp(71,32): error C2440: '=': 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'에서 'int'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\STL\STL_2week_1day\2day\drill.cpp(71,19): message : 이 변환을 수행할 수 있는 사용 가능한 사용자 정의 변환 연산자가 없거나 연산자를 호출할 수 없습니다.
