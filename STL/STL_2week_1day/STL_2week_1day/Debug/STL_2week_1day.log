@@ -1,5 +1,2 @@
 ﻿  Drill.cpp
-  main.cpp
-  코드를 생성하고 있습니다...
-main.obj : error LNK2005: _main이(가) Drill.obj에 이미 정의되어 있습니다.
-C:\Users\SuperHong\source\repos\2020_1_\STL\STL_2week_1day\Debug\STL_2week_1day.exe : fatal error LNK1169: 여러 번 정의된 기호가 있습니다.
+c1xx : fatal error C1083: 소스 파일을 열 수 없습니다. 'Drill.cpp': No such file or directory
