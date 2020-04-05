@@ -1,0 +1,97 @@
+﻿  Camera.cpp
+  GameFramework.cpp
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.h(5,1): error C2236: 예기치 않은 토큰 'class'입니다. ';'이 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.h(6,1): error C2059: 구문 오류: '{'
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.h(6,1): error C2143: 구문 오류: ';'이(가) '{' 앞에 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.h(6,1): error C2447: '{': 함수 헤더가 없습니다. 이전 스타일의 형식 목록입니까?
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(3,30): error C2653: 'CGameFramework': 클래스 또는 네임스페이스 이름이 아닙니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(5,2): error C2065: 'm_hInstance': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(6,2): error C2065: 'm_hWnd': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(8,2): error C3861: 'BuildFrameBuffer': 식별자를 찾을 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(10,2): error C3861: 'BuildObjects': 식별자를 찾을 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(12,31): error C2653: 'CGameFramework': 클래스 또는 네임스페이스 이름이 아닙니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(14,2): error C3861: 'ReleaseObjects': 식별자를 찾을 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(15,6): error C2065: 'm_hBitmapFrameBuffer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(15,43): error C2065: 'm_hBitmapFrameBuffer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(16,6): error C2065: 'm_hDCFrameBuffer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(16,35): error C2065: 'm_hDCFrameBuffer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(19,38): error C2653: 'CGameFramework': 클래스 또는 네임스페이스 이름이 아닙니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(21,18): error C2065: 'm_hWnd': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(21,27): error C2065: 'm_rcClient': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(22,20): error C2065: 'm_hWnd': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(23,2): error C2065: 'm_hDCFrameBuffer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(24,2): error C2065: 'm_hBitmapFrameBuffer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(24,55): error C2065: 'm_rcClient': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(24,74): error C2065: 'm_rcClient': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(24,91): error C2065: 'm_rcClient': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(24,111): error C2065: 'm_rcClient': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(24,125): error C2660: 'CreateCompatibleBitmap': 함수는 1개의 인수를 사용하지 않습니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\wingdi.h(3757,26): message : 'CreateCompatibleBitmap' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(25,17): error C2065: 'm_hDCFrameBuffer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(25,35): error C2065: 'm_hBitmapFrameBuffer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(26,14): error C2065: 'm_hWnd': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(27,14): error C2065: 'm_hDCFrameBuffer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(29,38): error C2653: 'CGameFramework': 클래스 또는 네임스페이스 이름이 아닙니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(32,38): error C2065: 'm_hDCFrameBuffer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(34,44): error C2065: 'm_hDCFrameBuffer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(35,14): error C2065: 'm_hDCFrameBuffer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(35,32): error C2065: 'm_rcClient': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(35,49): error C2065: 'm_rcClient': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(35,65): error C2065: 'm_rcClient': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(35,83): error C2065: 'm_rcClient': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(36,17): error C2065: 'm_hDCFrameBuffer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(37,17): error C2065: 'm_hDCFrameBuffer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(41,40): error C2653: 'CGameFramework': 클래스 또는 네임스페이스 이름이 아닙니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(43,20): error C2065: 'm_hWnd': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(44,16): error C2065: 'm_rcClient': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(44,33): error C2065: 'm_rcClient': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(44,49): error C2065: 'm_rcClient': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(44,68): error C2065: 'm_rcClient': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(44,85): error C2065: 'm_rcClient': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(44,105): error C2065: 'm_rcClient': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(44,121): error C2065: 'm_hDCFrameBuffer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(44,139): error C2065: 'm_rcClient': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(44,156): error C2065: 'm_rcClient': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(45,14): error C2065: 'm_hWnd': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(48,34): error C2653: 'CGameFramework': 클래스 또는 네임스페이스 이름이 아닙니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(55,2): error C2065: 'm_pPlayer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(56,2): error C2065: 'm_pPlayer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(57,2): error C2065: 'm_pPlayer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(59,2): error C2065: 'm_pScene': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(60,2): error C2065: 'm_pScene': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(62,36): error C2653: 'CGameFramework': 클래스 또는 네임스페이스 이름이 아닙니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(65,6): error C2065: 'm_pScene': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(65,16): error C2065: 'm_pScene': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(66,6): error C2065: 'm_pScene': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(66,23): error C2065: 'm_pScene': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(66,31): error C2541: 'delete': 포인터가 아닌 개체를 삭제할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(67,6): error C2065: 'm_pPlayer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(67,24): error C2065: 'm_pPlayer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(67,33): error C2541: 'delete': 포인터가 아닌 개체를 삭제할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(70,34): error C2653: 'CGameFramework': 클래스 또는 네임스페이스 이름이 아닙니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(82,3): error C2065: 'm_pPlayer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(86,36): error C2653: 'CGameFramework': 클래스 또는 네임스페이스 이름이 아닙니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(88,6): error C2065: 'm_pScene': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(88,16): error C2065: 'm_pScene': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(91,34): error C2653: 'CGameFramework': 클래스 또는 네임스페이스 이름이 아닙니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(99,21): error C2065: 'm_pPlayer': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(100,6): error C2065: 'm_pScene': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(100,16): error C2065: 'm_pScene': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.cpp(100,33): error C2065: 'm_hDCFrameBuffer': 선언되지 않은 식별자입니다.
+  GameObject.cpp
+  GraphicsPipeline.cpp
+  LabProject02-1.cpp
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.h(5,1): error C2236: 예기치 않은 토큰 'class'입니다. ';'이 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.h(6,1): error C2059: 구문 오류: '{'
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.h(6,1): error C2143: 구문 오류: ';'이(가) '{' 앞에 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GameFramework.h(6,1): error C2447: '{': 함수 헤더가 없습니다. 이전 스타일의 형식 목록입니까?
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\LabProject02-1.cpp(15,30): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\LabProject02-1.cpp(15,16): error C2146: 구문 오류: ';'이(가) 'gGameFramework' 식별자 앞에 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\LabProject02-1.cpp(70,13): error C2065: 'gGameFramework': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\LabProject02-1.cpp(73,5): error C2065: 'gGameFramework': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\LabProject02-1.cpp(130,4): error C2065: 'gGameFramework': 선언되지 않은 식별자입니다.
+  Mesh.cpp
+  Player.cpp
+  Scene.cpp
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject02-1\GraphicsPipeline.h(2,1): error C2236: 예기치 않은 토큰 'class'입니다. ';'이 없습니다.
+  코드를 생성하고 있습니다...
