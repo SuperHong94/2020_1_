@@ -5,7 +5,7 @@
 void CScene::BuildObjects()
 {
 	//직육면체 메쉬를 생성한다. 
-	CCubeMesh *pCubeMesh = new CCubeMesh(8.0f, 8.0f, 8.0f);
+	CCubeMesh* pCubeMesh = new CCubeMesh(8.0f, 8.0f, 8.0f);
 	//게임 객체 2 개를 생성한다.
 	m_nObjects = 2;
 	m_ppObjects = new CGameObject * [m_nObjects];

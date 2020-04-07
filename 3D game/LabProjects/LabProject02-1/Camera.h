@@ -18,7 +18,7 @@ class CCamera
 {
 public:
 	CCamera() { }
-	virtual ~CCamera() { }
+	virtual ~CCamera() { if (m_pViewport) delete m_pViewport; }
 private:
 	//카메라의 위치(월드 좌표계)
 	float m_fxPosition = 0.0f;

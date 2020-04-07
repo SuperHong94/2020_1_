@@ -1,5 +1,7 @@
 #include "stdafx.h"
+
 #include "Camera.h"
+
 void CCamera::SetViewport(int nLeft, int nTop, int nWidth, int
 	nHeight)
 {

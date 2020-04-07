@@ -6,13 +6,13 @@
 #include "GameFramework.h"
 
 #define MAX_LOADSTRING 100
-
+CGameFramework gGameFramework;
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
 
-CGameFramework gGameFramework;
+
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -72,7 +72,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
     gGameFramework.OnDestroy();
 
-   // return (int) msg.wParam;
+    return (int) msg.wParam;
 }
 
 

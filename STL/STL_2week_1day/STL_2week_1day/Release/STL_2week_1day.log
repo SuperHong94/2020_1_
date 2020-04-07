@@ -1,6 +1,2 @@
 ﻿  drill.cpp
-  코드를 생성하고 있습니다.
-  Previous IPDB not found, fall back to full compilation.
-  All 167 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  코드를 생성했습니다.
-  STL_2week_1day.vcxproj -> C:\Users\SuperHong\source\repos\2020_1_\STL\STL_2week_1day\Release\STL_2week_1day.exe
+C:\Users\SuperHong\source\repos\2020_1_\STL\STL_2week_1day\STL_2week_1day\drill.cpp(223,11): error C2106: '=': 왼쪽 피연산자는 l-value이어야 합니다.

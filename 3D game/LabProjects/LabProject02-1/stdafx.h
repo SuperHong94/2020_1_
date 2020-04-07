@@ -13,7 +13,8 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
-#include <cmath>
+#include <math.h>
+
 #define FRAMEBUFFER_WIDTH 640
 #define FRAMEBUFFER_HEIGHT 480
 

@@ -2,11 +2,13 @@
 #include "Player.h"
 #include "Scene.h"
 
+
+
 class CGameFramework
 {
 public:
-	CGameFramework() { }
-	~CGameFramework() { }
+	CGameFramework() {}
+	~CGameFramework() {}
 private:
 	//윈도우 응용프로그램의 인스턴스 핸들과 주 윈도우 핸들이다. 
 	HINSTANCE m_hInstance = NULL;
@@ -38,3 +40,4 @@ public:
 	void AnimateObjects();
 	void FrameAdvance();
 };
+

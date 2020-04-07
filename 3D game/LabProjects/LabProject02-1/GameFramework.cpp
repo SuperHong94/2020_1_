@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GameFramework.h"
+
 void CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 {
 	m_hInstance = hInstance;

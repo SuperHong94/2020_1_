@@ -18,4 +18,4 @@ public:
 	virtual void Animate(float fElapsedTime);
 	//게임 객체들을 렌더링한다. 
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
-}
+};
