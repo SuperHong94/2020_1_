@@ -5,6 +5,7 @@ class String
 	char* p{ nullptr };
 
 public:
+	
 	String();
 	String(const char* s);
 	virtual ~String();
@@ -14,7 +15,6 @@ public:
 	String& operator=(String&& rhs)noexcept;
 	char& operator[](size_t idx);
 	char operator[](size_t idx) const;
-
 	size_t size() const;
 	std::string getString()const;
 	friend std::ostream& operator<<(std::ostream& os, const String& s);
