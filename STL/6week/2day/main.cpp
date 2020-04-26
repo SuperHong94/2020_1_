@@ -321,58 +321,28 @@ int main()
 		return 0;
 	}
 
-	string temp;
-	string s;
-	string ss;
-	vector<string> v;
-	v.reserve(850);
-	while (!in.eof()) {
-		//char a = char(in.get());
-		//if (a != ' ')
-		//	temp += a;
-		//else {
-		//	a = char(in.get());
-		//	if (a == '\n') {
-		//		temp +=a;
-		//		v.emplace_back(temp);
-		//	}
-		//	else {
-		//		//in.putback(a);
-		//		v.emplace_back(temp);
-		//	}
-		//	temp = "";
-		//}
-		std::getline(in, temp);
-		for (int i = 0; i < temp.size(); ++i) {
-			if (temp[i] != ' ') {
-				s += temp[i];
+	vector<char> v{ istreambuf_iterator<char>(in),istreambuf_iterator<char>() };
+	ofstream out("STL Wiki 단어 역순.txt");
+
+	int index = 0;
+	for (int i = 0; i < v.size(); ++i) {
+		if (v[i] == ' ') {
+			for (int j = i - 1; j >= index; --j) {
+				out << v[j];
 			}
-			else {
-				for (auto i = s.crbegin(); i != s.crend(); ++i){
-					cout << *i;
-					ss += *i;
-				}
-				cout << " ";
-				ss += " ";
-				s = "";
-			}
+			index = i + 1;
+			out << " ";
 		}
-		cout << '\n';
-		ss += " \n";
+		if (v[i] == '\n') {
+			for (int j = i - 1; j >= index; --j) {
+				out << v[j];
+			}
+			index = i + 1;
+			out << '\n';
+		}
 
-
+		
 	}
-	/*for (auto d : v)
-		cout << d << ' ';
-	cout << endl;*/
-	/*for (int i = 0; i < v.size(); ++i) {
-		for (int j = v[i].size() - 1; j >= 0; --j)
-			cout << v[i][j];
-		cout << ' ';
-	}*/
-	ofstream out("되나.txt");
-	out << ss;
-
 	cout << endl;
 }
 
