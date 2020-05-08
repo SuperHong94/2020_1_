@@ -1,0 +1,25 @@
+﻿  GameFramework.cpp
+  GameObject.cpp
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject01_pro\GameObject.cpp(26,38): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject01_pro\GameObject.cpp(26,64): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject01_pro\GameObject.cpp(27,35): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject01_pro\GameObject.cpp(27,65): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject01_pro\GameObject.cpp(41,19): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject01_pro\GameObject.cpp(41,59): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject01_pro\GameObject.cpp(43,19): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject01_pro\GameObject.cpp(43,61): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject01_pro\GameObject.cpp(57,19): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject01_pro\GameObject.cpp(57,44): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject01_pro\GameObject.cpp(58,16): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\LabProject01_pro\GameObject.cpp(58,45): warning C4244: '=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  GraphicsPipeline.cpp
+  LabProject01.cpp
+  Mesh.cpp
+  Player.cpp
+  Scene.cpp
+  코드를 생성하고 있습니다.
+  32 of 127 functions (25.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    16 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  LabProject01_pro.vcxproj -> C:\Users\SuperHong\source\repos\2020_1_\3D game\LabProjects\Release\LabProject01_pro.exe
