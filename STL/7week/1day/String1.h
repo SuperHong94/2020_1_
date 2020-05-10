@@ -11,6 +11,7 @@ public:
 	String_iterator& operator--() { p--; return *this; };
 
 	char& operator*() const { return *p; };
+	//char operator*(){ return *p; };
 	bool operator!=(const String_iterator& rhs) const { return p != rhs.p; };
 	bool operator==(const String_iterator& rhs) const { return p == rhs.p; };
 	bool operator<(const String_iterator& rhs) const { return p < rhs.p; };
