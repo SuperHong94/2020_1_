@@ -23,16 +23,35 @@ public:
 	float z = 0.0f;
 };
 
-class CVertex
+//8주차 수정-----------
+//class CVertex 바뀌기 전
+//{
+//public:
+//	CVertex() { }
+//	CVertex(float x, float y, float z) { m_f3Position = CPoint3D(x, y, z); }
+//	virtual ~CVertex() { }
+//
+//	CPoint3D					m_f3Position;
+//};
+class CVertex   //바뀐후
 {
 public:
 	CVertex() { }
-	CVertex(float x, float y, float z) { m_f3Position = CPoint3D(x, y, z); }
+	CVertex(float x, float y, float z) {
+		m_xmf3Position = XMFLOAT3(x, y,
+			z);
+	}
 	virtual ~CVertex() { }
-
-	CPoint3D					m_f3Position;
+	XMFLOAT3 m_xmf3Position;
 };
 
+class CAirplaneMesh : public CMesh  //추가된 클래스
+{
+public:
+	CAirplaneMesh(float fWidth, float fHeight, float fDepth);
+	virtual ~CAirplaneMesh() { }
+};
+//----------------
 class CPolygon
 {
 public:

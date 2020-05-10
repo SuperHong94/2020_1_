@@ -35,6 +35,24 @@ using namespace DirectX::PackedVector;
 
 #define EPSILON					1.0e-2f
 
+//8주차 추가내용----------
+#define DIR_FORWARD 0x01
+#define DIR_BACKWARD 0x02
+#define DIR_LEFT 0x04
+#define DIR_RIGHT 0x08
+#define DIR_UP 0x10
+#define DIR_DOWN 0x20
+namespace Matrix4x4
+{
+	inline XMFLOAT4X4 Identity()
+	{
+		XMFLOAT4X4 xmmtx4x4Result;
+		XMStoreFloat4x4(&xmmtx4x4Result, XMMatrixIdentity());
+		return(xmmtx4x4Result);
+	}
+}
+//------------
+
 inline bool IsZero(float fValue) { return((fabsf(fValue) <= EPSILON)); }
 inline bool IsEqual(float fA, float fB) { return(::IsZero(fA - fB)); }
 
