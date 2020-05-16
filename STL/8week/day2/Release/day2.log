@@ -1,0 +1,9 @@
+﻿  String.cpp
+C:\Users\SuperHong\source\repos\2020_1_\STL\8week\day2\String.cpp(123,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  main.cpp
+  코드를 생성하고 있습니다.
+  128 of 259 functions (49.4%) were compiled, the rest were copied from previous compilation.
+    44 functions were new in current compilation
+    11 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  day2.vcxproj -> C:\Users\SuperHong\source\repos\2020_1_\STL\8week\Release\day2.exe

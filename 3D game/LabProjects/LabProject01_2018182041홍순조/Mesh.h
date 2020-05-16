@@ -33,7 +33,7 @@ public:
 //
 //	CPoint3D					m_f3Position;
 //};
-class CVertex   //바뀐후
+class CVertex
 {
 public:
 	CVertex() { }
@@ -45,13 +45,7 @@ public:
 	XMFLOAT3 m_xmf3Position;
 };
 
-class CAirplaneMesh : public CMesh  //추가된 클래스
-{
-public:
-	CAirplaneMesh(float fWidth, float fHeight, float fDepth);
-	virtual ~CAirplaneMesh() { }
-};
-//----------------
+
 class CPolygon
 {
 public:
@@ -60,13 +54,10 @@ public:
 	virtual ~CPolygon();
 
 	int							m_nVertices = 0;
-	CVertex						*m_pVertices = NULL;
+	CVertex* m_pVertices = NULL;
 
 	void SetVertex(int nIndex, CVertex vertex);
 };
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
 class CMesh
 {
 public:
@@ -98,3 +89,10 @@ public:
 	virtual ~CCubeMesh();
 };
 
+class CAirplaneMesh : public CMesh  //추가된 클래스
+{
+public:
+	CAirplaneMesh(float fWidth, float fHeight, float fDepth);
+	virtual ~CAirplaneMesh() { }
+};
+//----------------

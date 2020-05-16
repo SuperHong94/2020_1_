@@ -44,8 +44,8 @@ void CMesh::SetPolygon(int nIndex, CPolygon *pPolygon)
 {
 	if ((0 <= nIndex) && (nIndex < m_nPolygons)) m_ppPolygons[nIndex] = pPolygon;
 }
-
-void Draw2DLine(HDC hDCFrameBuffer, XMFLOAT3& f3PreviousProject,//8주차 수정 CPoint3D를 XMFLOAT3로 바꿈
+//8주차 수정 CPoint3D를 XMFLOAT3로 바꿈
+void Draw2DLine(HDC hDCFrameBuffer, XMFLOAT3& f3PreviousProject,
 	XMFLOAT3& f3CurrentProject)
 {
 	XMFLOAT3 f3Previous =
@@ -55,8 +55,7 @@ void Draw2DLine(HDC hDCFrameBuffer, XMFLOAT3& f3PreviousProject,//8주차 수정 CPo
 	::MoveToEx(hDCFrameBuffer, (long)f3Previous.x, (long)f3Previous.y,
 		NULL);
 	::LineTo(hDCFrameBuffer, (long)f3Current.x, (long)f3Current.y);
-} //
-
+}
 
  //8주차 수정 CPoint3D를 XMFLOAT3로 바꿈
 void CMesh::Render(HDC hDCFrameBuffer)
