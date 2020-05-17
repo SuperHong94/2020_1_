@@ -403,8 +403,14 @@ void CGameFramework::ProcessInput()
 void CGameFramework::AnimateObjects()
 {
 	float fTimeElapsed = m_GameTimer.GetTimeElapsed();
-	if (m_pPlayer) m_pPlayer->Animate(fTimeElapsed);
+	if (m_pPlayer) {
+		m_pPlayer->Animate(fTimeElapsed);
+		if (m_pPlayer->bullets)
+			for (int i = 0; i < m_pPlayer->curBulletCount; ++i)
+				m_pPlayer->bullets[i]->Animate(fTimeElapsed);
+	}
 	if (m_pScene) m_pScene->Animate(fTimeElapsed);
+
 }
 
 void CGameFramework::FrameAdvance()
@@ -417,7 +423,19 @@ void CGameFramework::FrameAdvance()
 	CCamera* pCamera = m_pPlayer->GetCamera();
 	if (m_pScene) m_pScene->Render(m_hDCFrameBuffer, pCamera);
 	//플레이어(비행기)를 렌더링한다. 
-	if (m_pPlayer) m_pPlayer->Render(m_hDCFrameBuffer, pCamera);
+	if (m_pPlayer) {
+		m_pPlayer->Render(m_hDCFrameBuffer, pCamera);
+		if (m_pPlayer->bullets){
+			for (int i = 0; i < m_pPlayer->curBulletCount; ++i){
+				m_pPlayer->bullets[i]->Render(m_hDCFrameBuffer, pCamera);
+				
+			}
+			//std::cout << "총알위치" << m_pPlayer->bullets[0]->GetPosition().x << '\n';
+	
+		}
+		
+		//std::cout << "플레이어위치" << m_pPlayer->GetPosition().x << '\n';
+	}
 	PresentFrameBuffer();
 	//현재 프레임 레이트를 윈도우 캡션(타이틀 바)에 출력한다.
 	m_GameTimer.GetFrameRate(m_pszFrameRate + 12, 37);

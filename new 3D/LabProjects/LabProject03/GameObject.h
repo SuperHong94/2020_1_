@@ -83,8 +83,10 @@ public:
 	float m_fRotationSpeed = 0.0f;
 public:
 	void SetMesh(CMesh* pMesh) {
-		m_pMesh = pMesh; if (pMesh)
+		m_pMesh = pMesh;
+		if (pMesh)
 			pMesh->AddRef();
+		
 	}
 	void SetActive(bool bActive) { m_bActive = bActive; }
 	void SetColor(DWORD dwColor) { m_dwColor = dwColor; }
@@ -112,6 +114,7 @@ class CBullet :public CGameObject
 
 public:
 	CBullet(const XMFLOAT3&);
+	XMFLOAT3& GetStartPos();
 
 	virtual void Move(XMFLOAT3& vDirection, float fSpeed);
 	virtual ~CBullet();

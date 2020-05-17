@@ -8,7 +8,7 @@
 #define WIN32_LEAN_AND_MEAN		// 거의 사용되지 않는 내용은 Windows 헤더에서 제외합니다.
 // Windows 헤더 파일:
 #include <windows.h>
-
+#include <iostream>
 // C의 런타임 헤더 파일입니다.
 #include <stdlib.h>
 #include <malloc.h>
@@ -25,7 +25,7 @@
 using namespace DirectX;
 using namespace DirectX::PackedVector;
 #pragma comment(lib, "winmm.lib")
-
+#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
 #define FRAMEBUFFER_WIDTH		640
 #define FRAMEBUFFER_HEIGHT		480
 

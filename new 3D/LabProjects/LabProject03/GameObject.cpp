@@ -198,3 +198,10 @@ const XMFLOAT3& CGameObject::GetPosition() const
 {
 	return XMFLOAT3(m_xmf4x4World._41, m_xmf4x4World._42, m_xmf4x4World._43);
 }
+
+
+
+XMFLOAT3& CBullet::GetStartPos()
+{
+	return startPos;
+}

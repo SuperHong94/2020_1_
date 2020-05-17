@@ -43,7 +43,7 @@ CPlayer::CPlayer() : CGameObject{} {
 	Initialize();
 }
 CPlayer::~CPlayer() {
-	if (m_pCamera) delete m_pCamera; 
+	/*if (m_pCamera) delete m_pCamera; 
 	for (int iBullets = 0; iBullets < bulletCount; ++iBullets) {
 		if (bullets[iBullets]) {
 			delete bullets[iBullets];
@@ -53,15 +53,20 @@ CPlayer::~CPlayer() {
 	if (bullets) {
 		delete bullets;
 		bullets = nullptr;
-	}
+	}*/
 
 }
 bool CPlayer::Initialize() {
 	
-	bullets = new CBullet * [bulletCount];
+	bullets = new CBullet*[bulletCount];
 	if (bullets == nullptr) {
 		return false;
 	}
+
+	//for (int iBullets = 0; iBullets < bulletCount; ++iBullets) {
+	//	bullets[iBullets] = new CBullet(m_xmf3Position);
+	//	
+	//}
 	return true;
 }
 //8주차 수정
@@ -112,8 +117,10 @@ void CPlayer::Move(DWORD dwDirection, float fDistance)
 			XMVectorAdd(XMLoadFloat3(&xmf3Shift),
 				XMVectorScale(XMLoadFloat3(&m_xmf3Up), -fDistance)));
 		//플레이어를 현재 위치 벡터에서 xmf3Shift 벡터만큼 이동한다.
+		dir = xmf3Shift;
 		Move(xmf3Shift, true);
 	}
+	
 }
 void CPlayer::Move(XMFLOAT3& xmf3Shift, bool bUpdateVelocity)
 {
@@ -129,6 +136,7 @@ void CPlayer::Move(XMFLOAT3& xmf3Shift, bool bUpdateVelocity)
 		//플레이어를 현재 위치 벡터에서 xmf3Shift 벡터만큼 이동한다.
 		XMStoreFloat3(&m_xmf3Position,
 			XMVectorAdd(XMLoadFloat3(&m_xmf3Position), XMLoadFloat3(&xmf3Shift)));
+		
 		//플레이어의 위치가 변경되었으므로 카메라의 위치도 xmf3Shift 벡터만큼 이동한다. 
 		if (m_pCamera) m_pCamera->Move(xmf3Shift);
 	}
@@ -263,9 +271,25 @@ void CAirplanePlayer::OnUpdateTransform()
 void CPlayer::Fire()
 {
 	
-	bullets[curBulletCount] = new CBullet(GetPosition());
+	bullets[curBulletCount] = new CBullet(m_xmf3Position);
+	CCubeMesh* pCubeMesh = new CCubeMesh(1.0f, 1.0f, 1.0f);
+	bullets[curBulletCount]->SetMesh(pCubeMesh);
+	//bullets[curBulletCount]->SetPosition(m_xmf3Right.x, m_xmf3Up.y, m_xmf3Look.z);
+	bullets[curBulletCount]->SetColor(RGB(255, 0, 0));
+	/*XMFLOAT3 dir= m_xmf3Position;
+	XMFLOAT3 startPos = XMFLOAT3(
+		m_xmf3Right.x, m_xmf3Up.y, m_xmf3Look.z);
+	XMStoreFloat3(&dir,XMVector3Normalize(XMVectorSubtract(
+		XMLoadFloat3(&dir), XMLoadFloat3(&startPos))));*/
+
+	
+	bullets[curBulletCount]->SetMovingDirection(dir);
+	std::cout << "dir: " << dir.x << ' ' << dir.y << dir.z;
+	bullets[curBulletCount]->SetMovingSpeed(10.0f);
+
 	if (bullets[curBulletCount]) {
-		curBulletCount++;
+		if (curBulletCount < bulletCount)
+			curBulletCount++;
 	}
 
 }
