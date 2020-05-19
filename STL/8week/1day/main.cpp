@@ -219,50 +219,50 @@
 
 
 //마지막 실습
-#include <iostream>
-#include <map>
-#include <fstream>
-#include <string>
-#include <algorithm>
-#include <vector>
-using namespace std;
-
-int main()
-{
-	cout << "읽을 파일은? ";
-	string name = "이상한나라의앨리스.txt";
-	
-
-	ifstream in(name);
-
-	if (!in) {
-		cout << name << "-파일 열기 실패" << endl;
-		return 0;
-	}
-	map<string, int> words;
-	string str;
-
-	while (in >> str) {
-		words[str]++;
-
-	}
-	cout << name << "에는" << words.size() << "가지의 단어가 사용되었습니다" << endl;
-	//출력
-	
-	vector<pair<string, int>> v;
-	v.reserve(6020);
-
-	map<string, int>::iterator iter;
-	for (iter = words.begin(); iter != words.end(); ++iter)
-	{
-		v.emplace_back(make_pair(iter->first, iter->second));
-	}
-
-	sort(v.begin(), v.end(), [](pair<string, int> a, pair<string, int> b) {
-		return a.second > b.second;
-		});
-
-	for (const auto& d : v)
-		cout << d.first << " - " << d.second << endl;
-
-}
+//#include <iostream>
+//#include <map>
+//#include <fstream>
+//#include <string>
+//#include <algorithm>
+//#include <vector>
+//using namespace std;
+//
+////int main()
+////{
+////	cout << "읽을 파일은? ";
+////	string name = "이상한나라의앨리스.txt";
+////	
+////
+////	ifstream in(name);
+////
+////	if (!in) {
+////		cout << name << "-파일 열기 실패" << endl;
+////		return 0;
+////	}
+////	map<string, int> words;
+////	string str;
+////
+////	while (in >> str) {
+////		words[str]++;
+////
+////	}
+////	cout << name << "에는" << words.size() << "가지의 단어가 사용되었습니다" << endl;
+////	//출력
+////	
+////	vector<pair<string, int>> v;
+////	v.reserve(6020);
+////
+////	map<string, int>::iterator iter;
+////	for (iter = words.begin(); iter != words.end(); ++iter)
+////	{
+////		v.emplace_back(make_pair(iter->first, iter->second));
+////	}
+////
+////	sort(v.begin(), v.end(), [](pair<string, int> a, pair<string, int> b) {
+////		return a.second > b.second;
+////		});
+////
+////	for (const auto& d : v)
+////		cout << d.first << " - " << d.second << endl;
+////
+////}
