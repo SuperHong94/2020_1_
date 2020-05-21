@@ -428,7 +428,6 @@ void CGameFramework::FrameAdvance()
 		if (m_pPlayer->bullets){
 			for (int i = 0; i < m_pPlayer->curBulletCount; ++i){
 				m_pPlayer->bullets[i]->Render(m_hDCFrameBuffer, pCamera);
-				
 			}
 			//std::cout << "ÃÑ¾ËÀ§Ä¡" << m_pPlayer->bullets[0]->GetPosition().x << '\n';
 	

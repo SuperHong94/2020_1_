@@ -77,8 +77,9 @@ private:
 	CPolygon** m_ppPolygons = NULL;
 
 public:
+	int Get_nPolygons() const;
+	CPolygon** Get_ppPolygons() const;
 	void SetPolygon(int nIndex, CPolygon* pPolygon);
-
 	virtual void Render(HDC hDCFrameBuffer);
 };
 
@@ -92,6 +93,7 @@ class CMapMesh : public CMesh
 {
 public:
 	CMapMesh(float fWidth = 40.0f, float fHeight = 10.0f, float fDepth = 40.0f);
+	void Render(HDC hDCFrameBuffer);
 	virtual ~CMapMesh() {};
 };
 
@@ -99,6 +101,7 @@ class CAirplaneMesh : public CMesh  //추가된 클래스
 {
 public:
 	CAirplaneMesh(float fWidth, float fHeight, float fDepth);
+
 	virtual ~CAirplaneMesh() { }
 };
 //----------------

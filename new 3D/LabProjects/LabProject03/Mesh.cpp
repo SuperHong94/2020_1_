@@ -48,10 +48,8 @@ void CMesh::SetPolygon(int nIndex, CPolygon* pPolygon)
 void Draw2DLine(HDC hDCFrameBuffer, XMFLOAT3& f3PreviousProject,
 	XMFLOAT3& f3CurrentProject)
 {
-	XMFLOAT3 f3Previous =
-		CGraphicsPipeline::ScreenTransform(f3PreviousProject);
-	XMFLOAT3 f3Current =
-		CGraphicsPipeline::ScreenTransform(f3CurrentProject);
+	XMFLOAT3 f3Previous = CGraphicsPipeline::ScreenTransform(f3PreviousProject);
+	XMFLOAT3 f3Current = CGraphicsPipeline::ScreenTransform(f3CurrentProject);
 	::MoveToEx(hDCFrameBuffer, (long)f3Previous.x, (long)f3Previous.y,
 		NULL);
 	::LineTo(hDCFrameBuffer, (long)f3Current.x, (long)f3Current.y);
@@ -61,8 +59,7 @@ void Draw2DLine(HDC hDCFrameBuffer, XMFLOAT3& f3PreviousProject,
 void CMesh::Render(HDC hDCFrameBuffer)
 {
 	XMFLOAT3 f3InitialProject, f3PreviousProject;
-	bool bPreviousInside = false, bInitialInside = false, bCurrentInside
-		= false, bIntersectInside = false;
+	bool bPreviousInside = false, bInitialInside = false, bCurrentInside = false, bIntersectInside = false;
 	for (int j = 0; j < m_nPolygons; j++)
 	{
 		int nVertices = m_ppPolygons[j]->m_nVertices;
@@ -73,13 +70,66 @@ void CMesh::Render(HDC hDCFrameBuffer)
 			(f3InitialProject.y <= 1.0f);
 		for (int i = 1; i < nVertices; i++)
 		{
-			XMFLOAT3 f3CurrentProject =
-				CGraphicsPipeline::Project(pVertices[i].m_xmf3Position);
+			XMFLOAT3 f3CurrentProject = CGraphicsPipeline::Project(pVertices[i].m_xmf3Position);
 			bCurrentInside = (-1.0f <= f3CurrentProject.x) &&
 				(f3CurrentProject.x <= 1.0f) && (-1.0f <= f3CurrentProject.y) &&
 				(f3CurrentProject.y <= 1.0f);
-			if (((0.0f <= f3CurrentProject.z) && (f3CurrentProject.z <=
-				1.0f)) && ((bCurrentInside || bPreviousInside)))
+			//¿©±â¼­ ÂÉ°³¾ßµÊ 
+			if (((0.0f <= f3CurrentProject.z) && (f3CurrentProject.z <= 1.0f)) && ((bCurrentInside || bPreviousInside))) {
+
+				::Draw2DLine(hDCFrameBuffer, f3PreviousProject, f3CurrentProject);
+			}
+			f3PreviousProject = f3CurrentProject;
+			bPreviousInside = bCurrentInside;
+		}
+		if (((0.0f <= f3InitialProject.z) && (f3InitialProject.z <= 1.0f))
+			&& ((bInitialInside || bPreviousInside)))
+			::Draw2DLine(hDCFrameBuffer, f3PreviousProject, f3InitialProject);
+
+	}
+}
+int CMesh::Get_nPolygons() const
+{
+	return m_nPolygons;
+}
+
+CPolygon** CMesh::Get_ppPolygons() const
+{
+	return m_ppPolygons;
+}
+void CMapMesh::Render(HDC hDCFrameBuffer)
+{
+	XMFLOAT3 f3InitialProject, f3PreviousProject;
+	bool bPreviousInside = false, bInitialInside = false, bCurrentInside = false, bIntersectInside = false;
+	int m_nPolygons = Get_nPolygons();
+	CPolygon** m_ppPolygons = Get_ppPolygons();
+	for (int j = 0; j < m_nPolygons; j++)
+	{
+		int nVertices = m_ppPolygons[j]->m_nVertices;
+		CVertex* pVertices = m_ppPolygons[j]->m_pVertices;
+		f3PreviousProject = f3InitialProject = CGraphicsPipeline::Project(pVertices[0].m_xmf3Position);
+		bPreviousInside = bInitialInside = (-1.0f <= f3InitialProject.x)
+			&& (f3InitialProject.x <= 1.0f) && (-1.0f <= f3InitialProject.y) &&
+			(f3InitialProject.y <= 1.0f);
+		for (int i = 1; i < nVertices; i++)
+		{
+			XMFLOAT3 f3CurrentProject = CGraphicsPipeline::Project(pVertices[i].m_xmf3Position);
+			bCurrentInside = (-1.0f <= f3CurrentProject.x) && (f3CurrentProject.x <= 1.0f) && (-1.0f <= f3CurrentProject.y) &&
+				(f3CurrentProject.y <= 1.0f);
+			/*if (((0.0f <= f3CurrentProject.z) && (f3CurrentProject.z <= 1.0f)) && ((bCurrentInside || bPreviousInside))) {
+				float disX = abs(f3CurrentProject.x - f3PreviousProject.x);
+				float disY = abs(f3CurrentProject.y - f3PreviousProject.y);
+				for (float k = 0; k < disX; k += disX / 10) {
+					f3PreviousProject.x += k;
+					f3CurrentProject.x += k;
+					for (float j1 = disY / 10; j1 < disY; j1 += disY / 10) {
+						f3PreviousProject.y += j1;
+						f3CurrentProject.y += j;
+						::Draw2DLine(hDCFrameBuffer, f3PreviousProject, f3CurrentProject);
+					}
+				}
+			}*/
+			if (((0.0f <= f3CurrentProject.z) && (f3CurrentProject.z <= 1.0f)) && ((bCurrentInside || bPreviousInside)))
 				::Draw2DLine(hDCFrameBuffer, f3PreviousProject, f3CurrentProject);
 			f3PreviousProject = f3CurrentProject;
 			bPreviousInside = bCurrentInside;
@@ -87,8 +137,10 @@ void CMesh::Render(HDC hDCFrameBuffer)
 		if (((0.0f <= f3InitialProject.z) && (f3InitialProject.z <= 1.0f))
 			&& ((bInitialInside || bPreviousInside))) ::Draw2DLine(hDCFrameBuffer,
 				f3PreviousProject, f3InitialProject);
+
 	}
 }
+
 
 
 
