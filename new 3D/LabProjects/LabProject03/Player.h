@@ -52,10 +52,12 @@ public:
 
 	//총알 추가
 	
-
+	CBullet** bullets{ nullptr };
+	int curBulletCount = 0;
+	const int bulletCount{ 10 };
 	
 public:
-	XMFLOAT3 dir;
+	XMFLOAT3 dir=XMFLOAT3(0,0,0);
 	void SetPosition(float x, float y, float z);
 	void SetRotation(float x, float y, float z);
 	//플레이어가 어떤 지점을 향하도록 하는 함수이다.
@@ -76,9 +78,8 @@ public:
 	CCamera* GetCamera() { return(m_pCamera); }
 	
 	void Fire(); //총알발사
-	CBullet** bullets{ nullptr };
-	int curBulletCount = 0;
-	const int bulletCount{ 100 };
+	
+	XMFLOAT3 GetBulletPos() const;
 protected:
 	bool Initialize();
 };

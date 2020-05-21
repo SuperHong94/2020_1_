@@ -66,14 +66,14 @@ public:
 	virtual ~CMesh();
 
 private:
-	int							m_nReferences = 1;
+	int	m_nReferences = 1;
 
 public:
 	void AddRef() { m_nReferences++; }
 	void Release() { m_nReferences--; if (m_nReferences <= 0) delete this; }
 
 private:
-	int							m_nPolygons = 0;
+	int	 m_nPolygons = 0;
 	CPolygon** m_ppPolygons = NULL;
 
 public:
@@ -87,6 +87,12 @@ class CCubeMesh : public CMesh
 public:
 	CCubeMesh(float fWidth = 4.0f, float fHeight = 4.0f, float fDepth = 4.0f);
 	virtual ~CCubeMesh();
+};
+class CMapMesh : public CMesh
+{
+public:
+	CMapMesh(float fWidth = 4.0f, float fHeight = 4.0f, float fDepth = 4.0f);
+	virtual ~CMapMesh() {};
 };
 
 class CAirplaneMesh : public CMesh  //추가된 클래스

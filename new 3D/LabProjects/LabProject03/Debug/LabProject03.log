@@ -1,2 +1,10 @@
-﻿  Player.cpp
+﻿  Camera.cpp
+  GameFramework.cpp
+  GameObject.cpp
+  GraphicsPipeline.cpp
+  Mesh.cpp
+  Player.cpp
+  Scene.cpp
+  코드를 생성하고 있습니다...
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.cpp(112): warning C4172: 지역 변수 또는 임시의 주소를 반환하고 있습니다.
   LabProject03.vcxproj -> C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\Debug\LabProject03.exe

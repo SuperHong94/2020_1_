@@ -263,6 +263,7 @@ void CCamera::Rotate(float fPitch, float fYaw, float fRoll)
 		XMStoreFloat3(&m_xmf3Right,
 			XMVector3TransformNormal(XMLoadFloat3(&m_xmf3Right), xmmtxRotate));
 	}
+	
 }
 //----------------
 //8주차 Update()함수 추가
@@ -308,8 +309,6 @@ void CCamera::Update(CPlayer* pPlayer, XMFLOAT3& xmf3LookAt, float
 		SetLookAt(pPlayer->m_xmf3Position, pPlayer->m_xmf3Up);
 	}
 }
-
-
 
 
 //8주차 삭제된 함수

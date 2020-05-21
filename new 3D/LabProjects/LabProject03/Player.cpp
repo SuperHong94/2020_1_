@@ -1,44 +1,7 @@
 #include "stdafx.h"
 #include "Player.h"
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-//CPlayer::CPlayer()
-//{
-//}
-//
-//CPlayer::~CPlayer()
-//{
-//	if (m_pCamera) delete m_pCamera;
-//}
-//
-//void CPlayer::SetPosition(float x, float y, float z)
-//{
-//	CGameObject::SetPosition(x, y, z);
-//
-//	if (m_pCamera) m_pCamera->SetPosition(x, y, z);
-//}
-//
-//void CPlayer::SetRotation(float x, float y, float z)
-//{
-//	CGameObject::SetRotation(x, y, z);
-//
-//	if (m_pCamera) m_pCamera->SetRotation(x, y, z);
-//}
-//
-//void CPlayer::Move(float x, float y, float z)
-//{
-//	if (m_pCamera) m_pCamera->Move(x, y, z);
-//
-//	CGameObject::Move(x, y, z);
-//}
-//
-//void CPlayer::Rotate(float fPitch, float fYaw, float fRoll)
-//{
-//	if (m_pCamera) m_pCamera->Rotate(fPitch, fYaw, fRoll);
-//
-//	CGameObject::Rotate(fPitch, fYaw, fRoll);
-//}
+
 CPlayer::CPlayer() : CGameObject{} {
 	Initialize();
 }
@@ -95,10 +58,13 @@ void CPlayer::Move(DWORD dwDirection, float fDistance)
 	if (dwDirection)
 	{
 		XMFLOAT3 xmf3Shift = XMFLOAT3(0, 0, 0);
+		
 		//화살표 키 ‘↑’를 누르면 로컬 z-축 방향으로 이동(전진)한다. ‘↓’를 누르면 반대 방향으로 이동한다.
-		if (dwDirection & DIR_FORWARD) XMStoreFloat3(&xmf3Shift,
-			XMVectorAdd(XMLoadFloat3(&xmf3Shift),
-				XMVectorScale(XMLoadFloat3(&m_xmf3Look), fDistance)));
+		if (dwDirection & DIR_FORWARD) {
+			XMStoreFloat3(&xmf3Shift,
+				XMVectorAdd(XMLoadFloat3(&xmf3Shift),
+					XMVectorScale(XMLoadFloat3(&m_xmf3Look), fDistance)));
+		}
 		if (dwDirection & DIR_BACKWARD) XMStoreFloat3(&xmf3Shift,
 			XMVectorAdd(XMLoadFloat3(&xmf3Shift),
 				XMVectorScale(XMLoadFloat3(&m_xmf3Look), -fDistance)));
@@ -117,7 +83,7 @@ void CPlayer::Move(DWORD dwDirection, float fDistance)
 			XMVectorAdd(XMLoadFloat3(&xmf3Shift),
 				XMVectorScale(XMLoadFloat3(&m_xmf3Up), -fDistance)));
 		//플레이어를 현재 위치 벡터에서 xmf3Shift 벡터만큼 이동한다.
-		dir = xmf3Shift;
+		//dir = xmf3Shift;
 		Move(xmf3Shift, true);
 	}
 	
@@ -266,32 +232,34 @@ void CAirplanePlayer::OnUpdateTransform()
 //------
 
 //총알발사
-
+XMFLOAT3 CPlayer::GetBulletPos() const
+{
+	return m_xmf3Position;
+}
 
 void CPlayer::Fire()
 {
 	
-	bullets[curBulletCount] = new CBullet(m_xmf3Position);
+	bullets[curBulletCount] = new CBullet(GetBulletPos());
 	CCubeMesh* pCubeMesh = new CCubeMesh(1.0f, 1.0f, 1.0f);
+	dir = XMFLOAT3(0, 0, 0);
 	bullets[curBulletCount]->SetMesh(pCubeMesh);
-	//bullets[curBulletCount]->SetPosition(m_xmf3Right.x, m_xmf3Up.y, m_xmf3Look.z);
 	bullets[curBulletCount]->SetColor(RGB(255, 0, 0));
-	/*XMFLOAT3 dir= m_xmf3Position;
-	XMFLOAT3 startPos = XMFLOAT3(
-		m_xmf3Right.x, m_xmf3Up.y, m_xmf3Look.z);
-	XMStoreFloat3(&dir,XMVector3Normalize(XMVectorSubtract(
-		XMLoadFloat3(&dir), XMLoadFloat3(&startPos))));*/
 
-	
+	XMStoreFloat3(&dir,XMVectorAdd(XMLoadFloat3(&dir),
+		XMVectorScale(XMLoadFloat3(&m_xmf3Look), 10.0f)));
+
 	bullets[curBulletCount]->SetMovingDirection(dir);
-	std::cout << "dir: " << dir.x << ' ' << dir.y << dir.z;
-	bullets[curBulletCount]->SetMovingSpeed(10.0f);
+	// std::cout << "dir: " << m_xmf3Right.x << ' ' << dir.y << dir.z;
+	bullets[curBulletCount]->SetMovingSpeed(100.0f);
+
 
 	if (bullets[curBulletCount]) {
 		if (curBulletCount < bulletCount)
 			curBulletCount++;
+		else
+			curBulletCount = 0;
 	}
-
 }
 
 
