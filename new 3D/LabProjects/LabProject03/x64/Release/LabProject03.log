@@ -1,0 +1,54 @@
+﻿  Camera.cpp
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Camera.cpp(148,24): error C2664: 'void CCamera::Move(float,float,float)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Camera.cpp(148,15): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Camera.cpp(141,15): message : 'CCamera::Move' 선언을 참조하십시오.
+  GameFramework.cpp
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameFramework.cpp(256,57): error C2664: 'void CPlayer::SetCameraOffset(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameFramework.cpp(256,37): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Player.h(71,7): message : 'CPlayer::SetCameraOffset' 선언을 참조하십시오.
+  GameObject.cpp
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.cpp(93,33): error C2664: 'void CGameObject::SetPosition(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.cpp(93,22): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.cpp(24,19): message : 'CGameObject::SetPosition' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.cpp(112,74): error C2440: 'return': 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.cpp(112,17): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+  GraphicsPipeline.cpp
+  LabProject03.cpp
+  Mesh.cpp
+  Player.cpp
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Player.cpp(112,31): error C2664: 'void CPlayer::Move(float,float,float)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DWORD'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Player.cpp(112,15): message : 이 변환을 수행할 수 있는 사용 가능한 사용자 정의 변환 연산자가 없거나 연산자를 호출할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Player.cpp(56,15): message : 'CPlayer::Move' 선언을 참조하십시오.
+  Scene.cpp
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(77,60): error C2664: 'void CGameObject::SetRotationAxis(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(77,42): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.h(42,7): message : 'CGameObject::SetRotationAxis' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(79,63): error C2664: 'void CGameObject::SetMovingDirection(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(79,45): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.h(39,7): message : 'CGameObject::SetMovingDirection' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(85,60): error C2664: 'void CGameObject::SetRotationAxis(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(85,42): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.h(42,7): message : 'CGameObject::SetRotationAxis' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(87,64): error C2664: 'void CGameObject::SetMovingDirection(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(87,45): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.h(39,7): message : 'CGameObject::SetMovingDirection' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(93,60): error C2664: 'void CGameObject::SetRotationAxis(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(93,42): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.h(42,7): message : 'CGameObject::SetRotationAxis' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(95,64): error C2664: 'void CGameObject::SetMovingDirection(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(95,45): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.h(39,7): message : 'CGameObject::SetMovingDirection' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(101,60): error C2664: 'void CGameObject::SetRotationAxis(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(101,42): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.h(42,7): message : 'CGameObject::SetRotationAxis' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(103,63): error C2664: 'void CGameObject::SetMovingDirection(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(103,45): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.h(39,7): message : 'CGameObject::SetMovingDirection' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(109,60): error C2664: 'void CGameObject::SetRotationAxis(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(109,42): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.h(42,7): message : 'CGameObject::SetRotationAxis' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(111,63): error C2664: 'void CGameObject::SetMovingDirection(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(111,45): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.h(39,7): message : 'CGameObject::SetMovingDirection' 선언을 참조하십시오.
+  stdafx.cpp
+  Timer.cpp

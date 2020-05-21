@@ -91,7 +91,7 @@ public:
 class CMapMesh : public CMesh
 {
 public:
-	CMapMesh(float fWidth = 4.0f, float fHeight = 4.0f, float fDepth = 4.0f);
+	CMapMesh(float fWidth = 40.0f, float fHeight = 10.0f, float fDepth = 40.0f);
 	virtual ~CMapMesh() {};
 };
 

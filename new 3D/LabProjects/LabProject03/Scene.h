@@ -36,6 +36,7 @@ private:
 	int m_nObjects = 0;
 	CGameObject** m_ppObjects = NULL;
 	CPlayer* m_pPlayer = NULL;
+	CMap* m_Map = NULL;
 public:
 	virtual void BuildObjects();
 	virtual void ReleaseObjects();

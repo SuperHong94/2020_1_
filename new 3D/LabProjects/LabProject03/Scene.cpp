@@ -65,7 +65,9 @@
 
 void CScene::BuildObjects()
 {
+
 	CCubeMesh* pCubeMesh = new CCubeMesh(4.0f, 4.0f, 4.0f);
+	
 	m_nObjects = 5;
 	m_ppObjects = new CGameObject * [m_nObjects];
 	m_ppObjects[0] = new CGameObject();
@@ -107,6 +109,13 @@ void CScene::BuildObjects()
 	m_ppObjects[4]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 1.0f));
 	m_ppObjects[4]->SetRotationSpeed(50.06f);
 	m_ppObjects[4]->SetMovingDirection(XMFLOAT3(0.0f, 1.0f, 1.0f));
+	m_ppObjects[4]->SetMovingSpeed(0.0f);
+	CMapMesh* pMapMesh = new CMapMesh();
+	m_Map = new CMap();
+	m_ppObjects[4]->SetMesh(pMapMesh);
+	m_ppObjects[4]->SetColor(RGB(0, 0, 0));
+	m_ppObjects[4]->SetRotationSpeed(0.0f);
+	m_ppObjects[4]->SetPosition(0.0f, 0.0f, 0.0f);
 	m_ppObjects[4]->SetMovingSpeed(0.0f);
 }
 
@@ -156,4 +165,5 @@ void CScene::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 	CGraphicsPipeline::SetViewProjectTransform(&pCamera->m_xmf4x4ViewProject);
 	for (int i = 0; i < m_nObjects; i++)
 		m_ppObjects[i]->Render(hDCFrameBuffer, pCamera);
+	m_Map->Render(hDCFrameBuffer, pCamera);
 }
