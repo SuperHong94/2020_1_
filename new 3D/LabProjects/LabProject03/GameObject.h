@@ -30,7 +30,7 @@ public:
 		m_pMesh = pMesh;
 		if (pMesh)
 			pMesh->AddRef();
-		
+
 	}
 	void SetActive(bool bActive) { m_bActive = bActive; }
 	void SetColor(DWORD dwColor) { m_dwColor = dwColor; }
@@ -68,4 +68,11 @@ public:
 class CMap :public CGameObject
 {
 	float widht, depth, height;
+public:
+	CMap() {
+
+	}
+	virtual ~CMap() {
+
+	}
 };

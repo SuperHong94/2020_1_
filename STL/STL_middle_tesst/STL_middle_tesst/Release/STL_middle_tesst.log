@@ -1,8 +1,12 @@
-﻿  main.cpp
-  The contents of <filesystem> are only available with C++17 or later.
+﻿  review.cpp
+C:\Users\SuperHong\source\repos\2020_1_\STL\STL_middle_tesst\STL_middle_tesst\review.cpp(39,17): warning C4244: '초기화 중': '_Ty'에서 '__int64'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty=double
+          ]
   코드를 생성하고 있습니다.
-  42 of 187 functions (22.5%) were compiled, the rest were copied from previous compilation.
-    37 functions were new in current compilation
-    13 functions had inline decision re-evaluated but remain unchanged
+  2 of 233 functions ( 0.9%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    6 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   STL_middle_tesst.vcxproj -> C:\Users\SuperHong\source\repos\2020_1_\STL\STL_middle_tesst\Release\STL_middle_tesst.exe

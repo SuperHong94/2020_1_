@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Mesh.h"
+#include "Camera.h"
 #include "GraphicsPipeline.h"
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -56,15 +57,16 @@ void Draw2DLine(HDC hDCFrameBuffer, XMFLOAT3& f3PreviousProject,
 }
 
 //8주차 수정 CPoint3D를 XMFLOAT3로 바꿈
-void CMesh::Render(HDC hDCFrameBuffer)
+void CMesh::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 {
-	XMFLOAT3 f3InitialProject, f3PreviousProject;
+	XMFLOAT3 f3InitialProject, f3PreviousProject,f3ProjectCamera;
 	bool bPreviousInside = false, bInitialInside = false, bCurrentInside = false, bIntersectInside = false;
 	for (int j = 0; j < m_nPolygons; j++)
 	{
 		int nVertices = m_ppPolygons[j]->m_nVertices;
 		CVertex* pVertices = m_ppPolygons[j]->m_pVertices;
 		f3PreviousProject = f3InitialProject = CGraphicsPipeline::Project(pVertices[0].m_xmf3Position);
+		std::cout << pVertices[0].m_xmf3Position.z << std::endl;
 		bPreviousInside = bInitialInside = (-1.0f <= f3InitialProject.x)
 			&& (f3InitialProject.x <= 1.0f) && (-1.0f <= f3InitialProject.y) &&
 			(f3InitialProject.y <= 1.0f);
@@ -74,7 +76,6 @@ void CMesh::Render(HDC hDCFrameBuffer)
 			bCurrentInside = (-1.0f <= f3CurrentProject.x) &&
 				(f3CurrentProject.x <= 1.0f) && (-1.0f <= f3CurrentProject.y) &&
 				(f3CurrentProject.y <= 1.0f);
-			//여기서 쪼개야됨 
 			if (((0.0f <= f3CurrentProject.z) && (f3CurrentProject.z <= 1.0f)) && ((bCurrentInside || bPreviousInside))) {
 
 				::Draw2DLine(hDCFrameBuffer, f3PreviousProject, f3CurrentProject);
@@ -97,49 +98,7 @@ CPolygon** CMesh::Get_ppPolygons() const
 {
 	return m_ppPolygons;
 }
-void CMapMesh::Render(HDC hDCFrameBuffer)
-{
-	XMFLOAT3 f3InitialProject, f3PreviousProject;
-	bool bPreviousInside = false, bInitialInside = false, bCurrentInside = false, bIntersectInside = false;
-	int m_nPolygons = Get_nPolygons();
-	CPolygon** m_ppPolygons = Get_ppPolygons();
-	for (int j = 0; j < m_nPolygons; j++)
-	{
-		int nVertices = m_ppPolygons[j]->m_nVertices;
-		CVertex* pVertices = m_ppPolygons[j]->m_pVertices;
-		f3PreviousProject = f3InitialProject = CGraphicsPipeline::Project(pVertices[0].m_xmf3Position);
-		bPreviousInside = bInitialInside = (-1.0f <= f3InitialProject.x)
-			&& (f3InitialProject.x <= 1.0f) && (-1.0f <= f3InitialProject.y) &&
-			(f3InitialProject.y <= 1.0f);
-		for (int i = 1; i < nVertices; i++)
-		{
-			XMFLOAT3 f3CurrentProject = CGraphicsPipeline::Project(pVertices[i].m_xmf3Position);
-			bCurrentInside = (-1.0f <= f3CurrentProject.x) && (f3CurrentProject.x <= 1.0f) && (-1.0f <= f3CurrentProject.y) &&
-				(f3CurrentProject.y <= 1.0f);
-			/*if (((0.0f <= f3CurrentProject.z) && (f3CurrentProject.z <= 1.0f)) && ((bCurrentInside || bPreviousInside))) {
-				float disX = abs(f3CurrentProject.x - f3PreviousProject.x);
-				float disY = abs(f3CurrentProject.y - f3PreviousProject.y);
-				for (float k = 0; k < disX; k += disX / 10) {
-					f3PreviousProject.x += k;
-					f3CurrentProject.x += k;
-					for (float j1 = disY / 10; j1 < disY; j1 += disY / 10) {
-						f3PreviousProject.y += j1;
-						f3CurrentProject.y += j;
-						::Draw2DLine(hDCFrameBuffer, f3PreviousProject, f3CurrentProject);
-					}
-				}
-			}*/
-			if (((0.0f <= f3CurrentProject.z) && (f3CurrentProject.z <= 1.0f)) && ((bCurrentInside || bPreviousInside)))
-				::Draw2DLine(hDCFrameBuffer, f3PreviousProject, f3CurrentProject);
-			f3PreviousProject = f3CurrentProject;
-			bPreviousInside = bCurrentInside;
-		}
-		if (((0.0f <= f3InitialProject.z) && (f3InitialProject.z <= 1.0f))
-			&& ((bInitialInside || bPreviousInside))) ::Draw2DLine(hDCFrameBuffer,
-				f3PreviousProject, f3InitialProject);
 
-	}
-}
 
 
 
@@ -198,41 +157,109 @@ CCubeMesh::CCubeMesh(float fWidth, float fHeight, float fDepth) : CMesh(6)
 CCubeMesh::~CCubeMesh()
 {
 }
-CMapMesh::CMapMesh(float fWidth, float fHeight, float fDepth) : CMesh(4) {
+//CMapMesh::CMapMesh(float fWidth, float fHeight, float fDepth) : CMesh(4) {  //수정전
+//
+//
+//	float fHalfWidth = fWidth * 0.5f;
+//	float fHalfHeight = fHeight * 0.5f;
+//	float fHalfDepth = fDepth * 0.5f;
+//	CPolygon* pTopFace = new CPolygon(4);
+//	pTopFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, +fHalfDepth));
+//	pTopFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth));
+//	pTopFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth));
+//	pTopFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth));
+//	SetPolygon(0, pTopFace);
+//
+//
+//	CPolygon* pBottomFace = new CPolygon(4);
+//	pBottomFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth));
+//	pBottomFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth));
+//	pBottomFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth));
+//	pBottomFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth));
+//	SetPolygon(1, pBottomFace);
+//
+//	CPolygon* pLeftFace = new CPolygon(4);
+//	pLeftFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, +fHalfDepth));
+//	pLeftFace->SetVertex(1, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth));
+//	pLeftFace->SetVertex(2, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth));
+//	pLeftFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth));
+//	SetPolygon(2, pLeftFace);
+//
+//	CPolygon* pRightFace = new CPolygon(4);
+//	pRightFace->SetVertex(0, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth));
+//	pRightFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth));
+//	pRightFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth));
+//	pRightFace->SetVertex(3, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth));
+//	SetPolygon(3, pRightFace);
+//}
+
+
+CMapMesh::CMapMesh(float fWidth, float fHeight, float fDepth) :  CMesh(91){  //수정후
+
 	float fHalfWidth = fWidth * 0.5f;
 	float fHalfHeight = fHeight * 0.5f;
 	float fHalfDepth = fDepth * 0.5f;
+	int setcount = 0; //Set하는 개수;
+	int nowSetCount = 0; //현재셋카운트(루프돌리때 씀)
+	float value = fDepth / (float)(lineCount/2); //중감하는량
+	float startVertex = -fHalfDepth; //시작위치
 
+	for (setcount = 0; setcount < lineCount/2; ++setcount) {
+		CPolygon* pFrontFace = new CPolygon(4);
+		pFrontFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, startVertex));
+		pFrontFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, startVertex));
+		pFrontFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, startVertex));
+		pFrontFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, startVertex));
+		SetPolygon(setcount, pFrontFace);	
+		startVertex += value;
+	}
+	nowSetCount = setcount;
+	//윗면 세로줄그리자!
+	value = fWidth / ((float)(lineCount));
+	startVertex = -fHalfWidth;
+	for (; setcount < (lineCount+ nowSetCount); ++setcount) {
+		CPolygon* pTopline = new CPolygon(2);
+		pTopline->SetVertex(0, CVertex(startVertex, +fHalfHeight, fHalfDepth));
+		pTopline->SetVertex(1, CVertex(startVertex, +fHalfHeight, -fHalfDepth));
+		SetPolygon(setcount, pTopline);
+		startVertex += value;
+	}
+	nowSetCount = setcount;
 
-	CPolygon* pTopFace = new CPolygon(4);
-	pTopFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, +fHalfDepth));
-	pTopFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth));
-	pTopFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth));
-	pTopFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth));
-	SetPolygon(0, pTopFace);
+	//아랫면 그리자!
+	startVertex = -fHalfWidth;
+	for (; setcount < (lineCount + nowSetCount); ++setcount) {
+		CPolygon* pBottomline = new CPolygon(2);
+		pBottomline->SetVertex(0, CVertex(startVertex, -fHalfHeight, fHalfDepth));
+		pBottomline->SetVertex(1, CVertex(startVertex, -fHalfHeight, -fHalfDepth));
+		SetPolygon(setcount, pBottomline);
+		startVertex += value;
+	}
+	nowSetCount = setcount;
 
+	//좌측면 그리자!.
+	value = fHeight / ((float)(lineCount));
+	startVertex = -fHalfHeight;
+	for (; setcount < (lineCount + nowSetCount); ++setcount) {
+		CPolygon* pLeftLine = new CPolygon(2);
+		pLeftLine->SetVertex(0, CVertex(-fHalfWidth, startVertex, fHalfDepth));
+		pLeftLine->SetVertex(1, CVertex(-fHalfWidth, startVertex, -fHalfDepth));
+		SetPolygon(setcount, pLeftLine);
+		startVertex += value;
+	}
+	nowSetCount = setcount;
 
-	CPolygon* pBottomFace = new CPolygon(4);
-	pBottomFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth));
-	pBottomFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth));
-	pBottomFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth));
-	pBottomFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth));
-	SetPolygon(1, pBottomFace);
-
-	CPolygon* pLeftFace = new CPolygon(4);
-	pLeftFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, +fHalfDepth));
-	pLeftFace->SetVertex(1, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth));
-	pLeftFace->SetVertex(2, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth));
-	pLeftFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth));
-	SetPolygon(2, pLeftFace);
-
-	CPolygon* pRightFace = new CPolygon(4);
-	pRightFace->SetVertex(0, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth));
-	pRightFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth));
-	pRightFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth));
-	pRightFace->SetVertex(3, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth));
-	SetPolygon(3, pRightFace);
+	//우측면 그리자!
+	startVertex = -fHalfHeight;
+	for (; setcount < (lineCount + nowSetCount)+1; ++setcount) {
+		CPolygon* pRightLine = new CPolygon(2);
+		pRightLine->SetVertex(0, CVertex(+fHalfWidth, startVertex, fHalfDepth));
+		pRightLine->SetVertex(1, CVertex(+fHalfWidth, startVertex, -fHalfDepth));
+		SetPolygon(setcount, pRightLine);
+		startVertex += value;
+	}
 }
+
 
 //8주차 추가사항
 CAirplaneMesh::CAirplaneMesh(float fWidth, float fHeight, float fDepth)

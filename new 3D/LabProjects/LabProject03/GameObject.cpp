@@ -81,10 +81,14 @@ void CGameObject::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 		CGraphicsPipeline::SetWorldTransform(&m_xmf4x4World);
 		HPEN hPen = ::CreatePen(PS_SOLID, 0, m_dwColor);
 		HPEN hOldPen = (HPEN)::SelectObject(hDCFrameBuffer, hPen);
-		m_pMesh->Render(hDCFrameBuffer);
+
+
+		m_pMesh->Render(hDCFrameBuffer, pCamera);
 		::SelectObject(hDCFrameBuffer, hOldPen);
 		::DeleteObject(hPen);
+
 	}
+
 }
 
 

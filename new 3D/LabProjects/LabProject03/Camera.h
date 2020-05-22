@@ -54,8 +54,7 @@ public:
 	void SetViewport(int nLeft, int nTop, int nWidth, int nHeight);
 	//3인칭 카메라에서 카메라가 바라보는 지점을 설정한다. 일반적으로 플레이어를 바라보도록 설정한다. 
 	void SetLookAt(XMFLOAT3& xmf3LookAt, XMFLOAT3& xmf3Up);
-	void SetLookAt(XMFLOAT3& xmf3Position, XMFLOAT3& xmf3LookAt,
-		XMFLOAT3& xmf3Up);
+	void SetLookAt(XMFLOAT3& xmf3Position, XMFLOAT3& xmf3LookAt,XMFLOAT3& xmf3Up);
 	//카메라를 xmf3Shift 만큼 이동한다.
 	void Move(XMFLOAT3& xmf3Shift);
 	void Move(float x, float y, float z);
@@ -65,4 +64,5 @@ public:
 	//카메라의 이동, 회전에 따라 카메라의 정보를 갱신하는 가상함수이다. 
 	void Update(CPlayer* pPlayer, XMFLOAT3& xmf3LookAt, float
 		fTimeElapsed = 0.016f);
+	XMFLOAT3& GetPosition()const;
 };

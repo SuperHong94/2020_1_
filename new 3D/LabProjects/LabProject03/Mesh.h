@@ -2,6 +2,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
+class CCamera;
 class CPoint3D
 {
 public:
@@ -80,7 +81,7 @@ public:
 	int Get_nPolygons() const;
 	CPolygon** Get_ppPolygons() const;
 	void SetPolygon(int nIndex, CPolygon* pPolygon);
-	virtual void Render(HDC hDCFrameBuffer);
+	virtual void Render(HDC hDCFrameBuffer,CCamera* pCamera);
 };
 
 class CCubeMesh : public CMesh
@@ -91,9 +92,10 @@ public:
 };
 class CMapMesh : public CMesh
 {
+	int lineCount = { 20 };
 public:
-	CMapMesh(float fWidth = 40.0f, float fHeight = 10.0f, float fDepth = 40.0f);
-	void Render(HDC hDCFrameBuffer);
+	CMapMesh(float fWidth = 30.0f, float fHeight = 30.0f, float fDepth = 100.0f);
+	//void Render(HDC hDCFrameBuffer);
 	virtual ~CMapMesh() {};
 };
 

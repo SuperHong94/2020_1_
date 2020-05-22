@@ -243,7 +243,8 @@ void CGameFramework::BuildObjects()
 {
 	CCamera* pCamera = new CCamera();
 	pCamera->SetViewport(0, 0, FRAMEBUFFER_WIDTH, FRAMEBUFFER_HEIGHT);
-	pCamera->GeneratePerspectiveProjectionMatrix(1.01f, 500.0f, 60.0f);
+	pCamera->GeneratePerspectiveProjectionMatrix(1.01f, 500.0f, 60.0f); //원본
+	
 	pCamera->SetFOVAngle(60.0f);
 	//비행기 메쉬를 생성하고 플레이어 객체에 연결한다.
 	CAirplaneMesh* pAirplaneMesh = new CAirplaneMesh(6.0f, 6.0f, 1.0f);
@@ -421,7 +422,9 @@ void CGameFramework::FrameAdvance()
 	AnimateObjects();
 	ClearFrameBuffer(RGB(75, 45, 105));
 	CCamera* pCamera = m_pPlayer->GetCamera();
-	if (m_pScene) m_pScene->Render(m_hDCFrameBuffer, pCamera);
+	if (m_pScene){
+		m_pScene->Render(m_hDCFrameBuffer, pCamera);
+	}
 	//플레이어(비행기)를 렌더링한다. 
 	if (m_pPlayer) {
 		m_pPlayer->Render(m_hDCFrameBuffer, pCamera);

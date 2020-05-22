@@ -1,4 +1,5 @@
 ﻿  Mesh.cpp
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Mesh.cpp(62,47): warning C4101: 'f3ProjectCamera' :참조되지 않은 지역 변수입니다.
   코드를 생성하고 있습니다.
   1 of 183 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
