@@ -39,8 +39,7 @@ class CVertex
 public:
 	CVertex() { }
 	CVertex(float x, float y, float z) {
-		m_xmf3Position = XMFLOAT3(x, y,
-			z);
+		m_xmf3Position = XMFLOAT3(x, y,z);
 	}
 	virtual ~CVertex() { }
 	XMFLOAT3 m_xmf3Position;
@@ -61,12 +60,15 @@ public:
 };
 class CMesh
 {
+
 public:
+	BoundingBox m_xmBoundingBox;
 	CMesh() { }
 	CMesh(int nPolygons);
 	virtual ~CMesh();
 
 private:
+	
 	int	m_nReferences = 1;
 
 public:

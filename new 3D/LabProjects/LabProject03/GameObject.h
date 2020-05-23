@@ -9,8 +9,9 @@ class CGameObject
 {
 public:
 	CGameObject() { }
-	~CGameObject();
+	virtual ~CGameObject();
 public:
+	bool isBullet = false;
 	bool m_bActive = true;
 	//게임 객체의 모양(메쉬, 모델)이다. 
 	CMesh* m_pMesh = NULL;
@@ -25,6 +26,10 @@ public:
 	//게임 객체의 회전축을 나타내는 벡터이다. 
 	XMFLOAT3 m_xmf3RotationAxis = XMFLOAT3(0.0f, 1.0f, 0.0f);
 	float m_fRotationSpeed = 0.0f;
+
+	//안보이기
+	bool IsVisible(CCamera* pCamera);
+
 public:
 	void SetMesh(CMesh* pMesh) {
 		m_pMesh = pMesh;
@@ -32,6 +37,7 @@ public:
 			pMesh->AddRef();
 
 	}
+	XMFLOAT4X4* GetWorldMatrix();
 	void SetActive(bool bActive) { m_bActive = bActive; }
 	void SetColor(DWORD dwColor) { m_dwColor = dwColor; }
 	void SetPosition(float x, float y, float z);
@@ -49,16 +55,34 @@ public:
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
 
 	XMFLOAT3& GetPosition() const;
+
+
+
 };
+
+class CExplosion :public CGameObject
+{
+	CGameObject** explorObjects{ nullptr };
+	XMFLOAT3 startPos;
+	const int m_explosionCount = 100;
+public:
+	CExplosion();
+	virtual ~CExplosion() {};
+
+	void SetParticlePosition();
+	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
+	virtual void Animate(float fElapsedTime);
+};
+
+
 
 class CBullet :public CGameObject
 {
-	XMFLOAT3 startPos;
-	XMFLOAT3 nowPos;
+
 
 public:
+	bool IsCollision(CGameObject**, int objectsCount);
 	CBullet(const XMFLOAT3&);
-	XMFLOAT3& GetStartPos();
 
 	virtual void Move(XMFLOAT3& vDirection, float fSpeed);
 	virtual ~CBullet();
@@ -67,7 +91,6 @@ public:
 
 class CMap :public CGameObject
 {
-	float widht, depth, height;
 public:
 	CMap() {
 

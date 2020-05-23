@@ -40,6 +40,9 @@ public:
 	XMFLOAT4X4 m_xmf4x4View = Matrix4x4::Identity();
 	//원근 투영 변환 행렬
 	XMFLOAT4X4 m_xmf4x4Project = Matrix4x4::Identity();
+
+	//절두체 컬링 
+	BoundingFrustum m_xmFrustum;
 	//카메라 변환 행렬 * 원근 투영 변환 행렬
 	XMFLOAT4X4 m_xmf4x4ViewProject = Matrix4x4::Identity();
 	//뷰포트
@@ -65,4 +68,9 @@ public:
 	void Update(CPlayer* pPlayer, XMFLOAT3& xmf3LookAt, float
 		fTimeElapsed = 0.016f);
 	XMFLOAT3& GetPosition()const;
+
+
+	//절두체 컬링
+	void GenerateFrustum();
+	bool IsInFrustum(BoundingBox& xmbbWorld);
 };

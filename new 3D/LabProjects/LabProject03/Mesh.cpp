@@ -66,10 +66,10 @@ void CMesh::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 		int nVertices = m_ppPolygons[j]->m_nVertices;
 		CVertex* pVertices = m_ppPolygons[j]->m_pVertices;
 		f3PreviousProject = f3InitialProject = CGraphicsPipeline::Project(pVertices[0].m_xmf3Position);
-		std::cout << pVertices[0].m_xmf3Position.z << std::endl;
 		bPreviousInside = bInitialInside = (-1.0f <= f3InitialProject.x)
 			&& (f3InitialProject.x <= 1.0f) && (-1.0f <= f3InitialProject.y) &&
 			(f3InitialProject.y <= 1.0f);
+
 		for (int i = 1; i < nVertices; i++)
 		{
 			XMFLOAT3 f3CurrentProject = CGraphicsPipeline::Project(pVertices[i].m_xmf3Position);
@@ -110,7 +110,6 @@ CCubeMesh::CCubeMesh(float fWidth, float fHeight, float fDepth) : CMesh(6)
 	float fHalfWidth = fWidth * 0.5f;
 	float fHalfHeight = fHeight * 0.5f;
 	float fHalfDepth = fDepth * 0.5f;
-
 	CPolygon* pFrontFace = new CPolygon(4);
 	pFrontFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth));
 	pFrontFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth));
@@ -152,46 +151,13 @@ CCubeMesh::CCubeMesh(float fWidth, float fHeight, float fDepth) : CMesh(6)
 	pRightFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth));
 	pRightFace->SetVertex(3, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth));
 	SetPolygon(5, pRightFace);
+	m_xmBoundingBox = BoundingBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(fHalfWidth, fHalfHeight, fHalfDepth));
 }
 
 CCubeMesh::~CCubeMesh()
 {
 }
-//CMapMesh::CMapMesh(float fWidth, float fHeight, float fDepth) : CMesh(4) {  //수정전
-//
-//
-//	float fHalfWidth = fWidth * 0.5f;
-//	float fHalfHeight = fHeight * 0.5f;
-//	float fHalfDepth = fDepth * 0.5f;
-//	CPolygon* pTopFace = new CPolygon(4);
-//	pTopFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, +fHalfDepth));
-//	pTopFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth));
-//	pTopFace->SetVertex(2, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth));
-//	pTopFace->SetVertex(3, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth));
-//	SetPolygon(0, pTopFace);
-//
-//
-//	CPolygon* pBottomFace = new CPolygon(4);
-//	pBottomFace->SetVertex(0, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth));
-//	pBottomFace->SetVertex(1, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth));
-//	pBottomFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth));
-//	pBottomFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth));
-//	SetPolygon(1, pBottomFace);
-//
-//	CPolygon* pLeftFace = new CPolygon(4);
-//	pLeftFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, +fHalfDepth));
-//	pLeftFace->SetVertex(1, CVertex(-fHalfWidth, +fHalfHeight, -fHalfDepth));
-//	pLeftFace->SetVertex(2, CVertex(-fHalfWidth, -fHalfHeight, -fHalfDepth));
-//	pLeftFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, +fHalfDepth));
-//	SetPolygon(2, pLeftFace);
-//
-//	CPolygon* pRightFace = new CPolygon(4);
-//	pRightFace->SetVertex(0, CVertex(+fHalfWidth, +fHalfHeight, -fHalfDepth));
-//	pRightFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, +fHalfDepth));
-//	pRightFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, +fHalfDepth));
-//	pRightFace->SetVertex(3, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth));
-//	SetPolygon(3, pRightFace);
-//}
+
 
 
 CMapMesh::CMapMesh(float fWidth, float fHeight, float fDepth) :  CMesh(91){  //수정후
@@ -201,7 +167,7 @@ CMapMesh::CMapMesh(float fWidth, float fHeight, float fDepth) :  CMesh(91){  //�
 	float fHalfDepth = fDepth * 0.5f;
 	int setcount = 0; //Set하는 개수;
 	int nowSetCount = 0; //현재셋카운트(루프돌리때 씀)
-	float value = fDepth / (float)(lineCount/2); //중감하는량
+	float value = fDepth / (float)(lineCount * 0.5); //중감하는량
 	float startVertex = -fHalfDepth; //시작위치
 
 	for (setcount = 0; setcount < lineCount/2; ++setcount) {
@@ -258,6 +224,8 @@ CMapMesh::CMapMesh(float fWidth, float fHeight, float fDepth) :  CMesh(91){  //�
 		SetPolygon(setcount, pRightLine);
 		startVertex += value;
 	}
+	m_xmBoundingBox = BoundingBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(fHalfWidth,
+		fHalfHeight, fHalfDepth));
 }
 
 

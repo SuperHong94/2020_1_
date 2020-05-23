@@ -8,182 +8,9 @@
 #include "GameFramework.h"
 #include "GameObject.h"
 
-//void CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
-//{
-//	m_hInstance = hInstance;
-//	m_hWnd = hMainWnd;
-//
-//	BuildFrameBuffer(); 
-//
-//	BuildObjects(); 
-//
-//	::srand(timeGetTime());
-//}
-//
-//void CGameFramework::OnDestroy()
-//{
-//	ReleaseObjects();
-//
-//	if (m_hBitmapFrameBuffer) ::DeleteObject(m_hBitmapFrameBuffer);
-//	if (m_hDCFrameBuffer) ::DeleteDC(m_hDCFrameBuffer);
-//}
-//
 
-//
-//void CGameFramework::BuildObjects()
-//{
-//	CCamera* pCamera = new CCamera();
-//	pCamera->SetViewport(0, 0, FRAMEBUFFER_WIDTH, FRAMEBUFFER_HEIGHT);
-//	pCamera->SetFOVAngle(60.0f);
-//
-//	m_pPlayer = new CPlayer();
-//	m_pPlayer->SetCamera(pCamera);
-//
-//	m_pPlayer->SetPosition(0.0f, 3.0f, -40.0f);
-//
-//	m_pScene = new CScene();
-//	m_pScene->BuildObjects();
-//}
-//
-//void CGameFramework::ReleaseObjects()
-//{
-//	if (m_pScene) m_pScene->ReleaseObjects();
-//
-//	if (m_pScene) delete m_pScene;
-//
-//	if (m_pPlayer) delete m_pPlayer;
-//}
-//
-//void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
-//{
-//	if (m_pScene) m_pScene->OnProcessingMouseMessage(hWnd, nMessageID, wParam, lParam);
-//
-//	switch (nMessageID)
-//	{
-//	case WM_LBUTTONDOWN:
-//	case WM_RBUTTONDOWN:
-//		::SetCapture(hWnd);
-//		::GetCursorPos(&m_ptOldCursorPos);
-//		break;
-//	case WM_LBUTTONUP:
-//	case WM_RBUTTONUP:
-//		::ReleaseCapture();
-//		break;
-//	case WM_MOUSEMOVE:
-//		break;
-//	default:
-//		break;
-//	}
-//}
-//
-//void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
-//{
-//	if (m_pScene) m_pScene->OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
-//
-//	switch (nMessageID)
-//	{
-//	case WM_KEYDOWN:
-//		switch (wParam)
-//		{
-//		case VK_ESCAPE:
-//			::PostQuitMessage(0);
-//			break;
-//		case VK_RETURN:
-//			break;
-//		default:
-//			break;
-//		}
-//		break;
-//	default:
-//		break;
-//	}
-//}
-//
-//LRESULT CALLBACK CGameFramework::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
-//{
-//	switch (nMessageID)
-//	{
-//	case WM_ACTIVATE:
-//	{
-//		if (LOWORD(wParam) == WA_INACTIVE)
-//			m_GameTimer.Stop();
-//		else
-//			m_GameTimer.Start();
-//		break;
-//	}
-//	case WM_SIZE:
-//		break;
-//	case WM_LBUTTONDOWN:
-//	case WM_RBUTTONDOWN:
-//	case WM_LBUTTONUP:
-//	case WM_RBUTTONUP:
-//	case WM_MOUSEMOVE:
-//		OnProcessingMouseMessage(hWnd, nMessageID, wParam, lParam);
-//		break;
-//	case WM_KEYDOWN:
-//	case WM_KEYUP:
-//		OnProcessingKeyboardMessage(hWnd, nMessageID, wParam, lParam);
-//		break;
-//	}
-//	return(0);
-//}
-//
-//void CGameFramework::ProcessInput()
-//{
-//	static UCHAR pKeyBuffer[256];
-//	if (::GetKeyboardState(pKeyBuffer))
-//	{
-//		float cxKeyDelta = 0.0f, cyKeyDelta = 0.0f, czKeyDelta = 0.0f;
-//		if (pKeyBuffer[VK_UP] & 0xF0) czKeyDelta = +0.125f;
-//		if (pKeyBuffer[VK_DOWN] & 0xF0) czKeyDelta = -0.125f;
-//		if (pKeyBuffer[VK_LEFT] & 0xF0) cxKeyDelta = -0.125f;
-//		if (pKeyBuffer[VK_RIGHT] & 0xF0) cxKeyDelta = +0.125f;
-//		if (pKeyBuffer[VK_PRIOR] & 0xF0) cyKeyDelta = +0.125f;
-//		if (pKeyBuffer[VK_NEXT] & 0xF0) cyKeyDelta = -0.125f;
-//
-//		if ((cxKeyDelta != 0.0f) || (cyKeyDelta != 0.0f) || (czKeyDelta != 0.0f)) m_pPlayer->Move(cxKeyDelta, cyKeyDelta, czKeyDelta);
-//	}
-//	if (GetCapture() == m_hWnd)
-//	{
-//		SetCursor(NULL);
-//		POINT ptCursorPos;
-//		GetCursorPos(&ptCursorPos);
-//		float cxMouseDelta = (float)(ptCursorPos.x - m_ptOldCursorPos.x) / 3.0f;
-//		float cyMouseDelta = (float)(ptCursorPos.y - m_ptOldCursorPos.y) / 3.0f;
-//		SetCursorPos(m_ptOldCursorPos.x, m_ptOldCursorPos.y);
-//		if (cxMouseDelta || cyMouseDelta)
-//		{
-//			if (pKeyBuffer[VK_RBUTTON] & 0xF0)
-//				m_pPlayer->Rotate(cyMouseDelta, 0.0f, -cxMouseDelta);
-//			else
-//				m_pPlayer->Rotate(cyMouseDelta, cxMouseDelta, 0.0f);
-//		}
-//	}
-//}
-//
-//void CGameFramework::AnimateObjects()
-//{
-//	float fTimeElapsed = m_GameTimer.GetTimeElapsed();
-//	if (m_pScene) m_pScene->Animate(fTimeElapsed);
-//}
-//
-//void CGameFramework::FrameAdvance()
-//{    
-//	m_GameTimer.Tick(60.0f);
-//
-//	ProcessInput();
-//
-//	AnimateObjects();
-//
-//    ClearFrameBuffer(RGB(90, 103, 224));
-//
-//	CCamera* pCamera = m_pPlayer->GetCamera();
-//	if (m_pScene) m_pScene->Render(m_hDCFrameBuffer, pCamera);
-//
-//	PresentFrameBuffer();
-//}
-//
-//
+
+
 
 
 //8주차 수정
@@ -244,8 +71,9 @@ void CGameFramework::BuildObjects()
 	CCamera* pCamera = new CCamera();
 	pCamera->SetViewport(0, 0, FRAMEBUFFER_WIDTH, FRAMEBUFFER_HEIGHT);
 	pCamera->GeneratePerspectiveProjectionMatrix(1.01f, 500.0f, 60.0f); //원본
-	
+
 	pCamera->SetFOVAngle(60.0f);
+
 	//비행기 메쉬를 생성하고 플레이어 객체에 연결한다.
 	CAirplaneMesh* pAirplaneMesh = new CAirplaneMesh(6.0f, 6.0f, 1.0f);
 	m_pPlayer = new CAirplanePlayer();
@@ -407,8 +235,12 @@ void CGameFramework::AnimateObjects()
 	if (m_pPlayer) {
 		m_pPlayer->Animate(fTimeElapsed);
 		if (m_pPlayer->bullets)
-			for (int i = 0; i < m_pPlayer->curBulletCount; ++i)
-				m_pPlayer->bullets[i]->Animate(fTimeElapsed);
+			for (int i = 0; i < m_pPlayer->curBulletCount; ++i) {
+				if (m_pPlayer->bullets[i]->m_bActive) {
+					m_pPlayer->bullets[i]->Animate(fTimeElapsed);
+				}
+			}
+
 	}
 	if (m_pScene) m_pScene->Animate(fTimeElapsed);
 
@@ -422,21 +254,19 @@ void CGameFramework::FrameAdvance()
 	AnimateObjects();
 	ClearFrameBuffer(RGB(75, 45, 105));
 	CCamera* pCamera = m_pPlayer->GetCamera();
-	if (m_pScene){
+	if (m_pScene) {
 		m_pScene->Render(m_hDCFrameBuffer, pCamera);
 	}
 	//플레이어(비행기)를 렌더링한다. 
 	if (m_pPlayer) {
 		m_pPlayer->Render(m_hDCFrameBuffer, pCamera);
-		if (m_pPlayer->bullets){
-			for (int i = 0; i < m_pPlayer->curBulletCount; ++i){
-				m_pPlayer->bullets[i]->Render(m_hDCFrameBuffer, pCamera);
+		if (m_pPlayer->bullets) {
+			for (int i = 0; i < m_pPlayer->curBulletCount; ++i) {
+				bool bIsVisible = m_pPlayer->bullets[i]->IsVisible(pCamera);
+				if (bIsVisible&& m_pPlayer->bullets[i]->m_bActive)
+					m_pPlayer->bullets[i]->Render(m_hDCFrameBuffer, pCamera);
 			}
-			//std::cout << "총알위치" << m_pPlayer->bullets[0]->GetPosition().x << '\n';
-	
 		}
-		
-		//std::cout << "플레이어위치" << m_pPlayer->GetPosition().x << '\n';
 	}
 	PresentFrameBuffer();
 	//현재 프레임 레이트를 윈도우 캡션(타이틀 바)에 출력한다.

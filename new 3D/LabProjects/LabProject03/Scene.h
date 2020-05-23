@@ -4,28 +4,7 @@
 #include "Camera.h"
 #include "Player.h"  //8주차에 추가
 
-//class CScene
-//{
-//public:
-//	CScene();
-//	virtual ~CScene();
-//
-//private:
-//	int							m_nObjects = 0;
-//	CGameObject					**m_ppObjects = NULL;
-//	CPlayer* m_pPlayer = NULL; //8주차 추가내용
-//
-//public:
-//	virtual void BuildObjects();
-//	virtual void ReleaseObjects();
-//
-//	virtual void Animate(float fElapsedTime);
-//	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
-//
-//	virtual void OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
-//	virtual void OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
-//};
-//
+
 
 class CScene
 {
@@ -34,10 +13,15 @@ public:
 	virtual ~CScene() { }
 private:
 	int m_nObjects = 0;
-	CGameObject** m_ppObjects = NULL;
+	CExplosion** m_ppObjects = NULL;
 	CPlayer* m_pPlayer = NULL;
 	CMap* m_pMap = NULL;
+
+	//CExplosion** m_ppExplosions = NULL;
 public:
+
+	bool IsCollision();
+	int GetObjectsCount();
 	virtual void BuildObjects();
 	virtual void ReleaseObjects();
 	virtual void Animate(float fElapsedTime);

@@ -27,8 +27,7 @@ void CCamera::GenerateViewMatrix()
 	//카메라의 z-축을 기준으로 카메라의 좌표축들이 직교하도록 만든다.
 	XMVECTOR xmvLook = XMVector3Normalize(XMLoadFloat3(&m_xmf3Look));
 	XMVECTOR xmvUp = XMVector3Normalize(XMLoadFloat3(&m_xmf3Up));
-	XMVECTOR xmvRight = XMVector3Normalize(XMVector3Cross(xmvUp,
-		xmvLook));
+	XMVECTOR xmvRight = XMVector3Normalize(XMVector3Cross(xmvUp, xmvLook));
 	xmvUp = XMVector3Normalize(XMVector3Cross(xmvLook, xmvRight));
 	XMStoreFloat3(&m_xmf3Look, xmvLook);
 	XMStoreFloat3(&m_xmf3Right, xmvRight);
@@ -100,6 +99,7 @@ void CCamera::GeneratePerspectiveProjectionMatrix(float
 	XMStoreFloat4x4(&m_xmf4x4Project,
 		XMMatrixPerspectiveFovLH(XMConvertToRadians(fFOVAngle), fAspectRatio,
 			fNearPlaneDistance, fFarPlaneDistance));
+	
 }
 
 
@@ -194,4 +194,21 @@ void CCamera::Update(CPlayer* pPlayer, XMFLOAT3& xmf3LookAt, float
 		//카메라가 플레이어를 바라보도록 한다. 
 		SetLookAt(pPlayer->m_xmf3Position, pPlayer->m_xmf3Up);
 	}
+}
+
+
+void CCamera::GenerateFrustum()
+{
+	m_xmFrustum.CreateFromMatrix(m_xmFrustum, XMLoadFloat4x4(&m_xmf4x4Project));
+
+	m_xmFrustum.Far = 100.0f;
+	XMMATRIX xmmtxInversView = XMMatrixInverse(NULL, XMLoadFloat4x4(&m_xmf4x4View));
+	m_xmFrustum.Transform(m_xmFrustum, xmmtxInversView);
+	
+}
+
+bool CCamera::IsInFrustum(BoundingBox& xmbbworld)
+{
+	GenerateFrustum();
+	return(m_xmFrustum.Contains(xmbbworld) != DirectX::DISJOINT);
 }

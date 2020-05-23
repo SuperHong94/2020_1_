@@ -6,17 +6,6 @@ CPlayer::CPlayer() : CGameObject{} {
 	Initialize();
 }
 CPlayer::~CPlayer() {
-	/*if (m_pCamera) delete m_pCamera; 
-	for (int iBullets = 0; iBullets < bulletCount; ++iBullets) {
-		if (bullets[iBullets]) {
-			delete bullets[iBullets];
-			bullets[iBullets] = nullptr;
-		}
-	}
-	if (bullets) {
-		delete bullets;
-		bullets = nullptr;
-	}*/
 
 }
 bool CPlayer::Initialize() {
@@ -239,18 +228,19 @@ XMFLOAT3 CPlayer::GetBulletPos() const
 
 void CPlayer::Fire()
 {
-	
 	bullets[curBulletCount] = new CBullet(GetBulletPos());
+	bullets[curBulletCount]->isBullet = true;
+	bullets[curBulletCount]->m_bActive = true;
 	CCubeMesh* pCubeMesh = new CCubeMesh(1.0f, 1.0f, 1.0f);
 	dir = XMFLOAT3(0, 0, 0);
 	bullets[curBulletCount]->SetMesh(pCubeMesh);
 	bullets[curBulletCount]->SetColor(RGB(255, 0, 0));
-
+	bullets[curBulletCount]->SetRotationAxis(XMFLOAT3(0.0f, 0.0f, -1.0f));
+	bullets[curBulletCount]->SetRotationSpeed(100.0f);
 	XMStoreFloat3(&dir,XMVectorAdd(XMLoadFloat3(&dir),
 		XMVectorScale(XMLoadFloat3(&m_xmf3Look), 10.0f)));
 
 	bullets[curBulletCount]->SetMovingDirection(dir);
-	// std::cout << "dir: " << m_xmf3Right.x << ' ' << dir.y << dir.z;
 	bullets[curBulletCount]->SetMovingSpeed(100.0f);
 
 

@@ -82,17 +82,15 @@ void CGameObject::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 		HPEN hPen = ::CreatePen(PS_SOLID, 0, m_dwColor);
 		HPEN hOldPen = (HPEN)::SelectObject(hDCFrameBuffer, hPen);
 
-
 		m_pMesh->Render(hDCFrameBuffer, pCamera);
 		::SelectObject(hDCFrameBuffer, hOldPen);
 		::DeleteObject(hPen);
-
 	}
 
 }
 
 
-CBullet::CBullet(const XMFLOAT3& playerPos) :startPos{ playerPos }, nowPos{ playerPos }
+CBullet::CBullet(const XMFLOAT3& playerPos)
 {
 	SetPosition(XMFLOAT3(playerPos));
 }
@@ -104,21 +102,115 @@ void CBullet::Move(XMFLOAT3& vDirection, float fSpeed)
 	SetPosition(m_xmf4x4World._41 + vDirection.x * fSpeed,
 		m_xmf4x4World._42 + vDirection.y * fSpeed, m_xmf4x4World._43 +
 		vDirection.z * fSpeed);
-
-	nowPos.x = m_xmf4x4World._41;
-	nowPos.y = m_xmf4x4World._42;
-	nowPos.z = m_xmf4x4World._43;
 }
+
 
 
 XMFLOAT3& CGameObject::GetPosition() const
 {
-	return XMFLOAT3(m_xmf4x4World._41, m_xmf4x4World._42, m_xmf4x4World._43);
+	XMFLOAT3 Pos = XMFLOAT3(m_xmf4x4World._41, m_xmf4x4World._42, m_xmf4x4World._43);
+	return Pos;
 }
 
 
 
-XMFLOAT3& CBullet::GetStartPos()
+bool CGameObject::IsVisible(CCamera* pCamera)
 {
-	return startPos;
+
+	if (m_pMesh) {
+		BoundingBox xmbbModel = m_pMesh->m_xmBoundingBox;
+		xmbbModel.Transform(xmbbModel, XMLoadFloat4x4(&m_xmf4x4World));
+		bool bIsVisible = pCamera->IsInFrustum(xmbbModel);
+		return (bIsVisible);
+	}
+
+}
+
+
+
+bool CBullet::IsCollision(CGameObject** pp_objects, int objectsCount)
+{
+	if (m_pMesh) {
+
+		BoundingBox xmbbModel = m_pMesh->m_xmBoundingBox;
+		xmbbModel.Transform(xmbbModel, XMLoadFloat4x4(&m_xmf4x4World));
+
+		for (int i = 0; i < objectsCount; ++i) {
+			if (pp_objects[i]->m_bActive) {
+				BoundingBox other = pp_objects[i]->m_pMesh->m_xmBoundingBox;
+				other.Transform(other, XMLoadFloat4x4(pp_objects[i]->GetWorldMatrix()));
+				if (pp_objects[i]->isBullet == false && xmbbModel.Contains(other) != DirectX::DISJOINT) {
+					pp_objects[i]->m_bActive = false;
+					m_bActive = false;
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
+
+XMFLOAT4X4* CGameObject::GetWorldMatrix()
+{
+	return &m_xmf4x4World;
+}
+
+
+
+//---폭발 오브젝트 만들기
+
+CExplosion::CExplosion() 
+{
+	std::default_random_engine dre;
+	std::uniform_real_distribution uid(-10.0f,10.0f);
+	XMFLOAT3 pos = GetPosition();
+	startPos = pos;
+	SetPosition(pos);
+	explorObjects = new CGameObject * [m_explosionCount];
+	CCubeMesh* pCubeMesh = new CCubeMesh(1.0f, 1.0f, 1.0f);
+	XMFLOAT3 dir;
+	for (int i = 0; i < m_explosionCount; ++i) {
+		explorObjects[i] = new CGameObject;
+		XMStoreFloat3(&dir, XMVector4Normalize(XMVectorSet(uid(dre), uid(dre), uid(dre), uid(dre))));
+		explorObjects[i]->SetPosition(pos);
+		explorObjects[i]->SetMesh(pCubeMesh);
+		explorObjects[i]->SetColor(RGB(255, 255, 0));
+
+		explorObjects[i]->SetMovingDirection(dir);
+		explorObjects[i]->SetMovingSpeed(50.0f);
+	}
+
+}
+
+void CExplosion::Animate(float fTimeElapsed) {
+	if (m_bActive) {
+		CGameObject::Animate(fTimeElapsed);
+	}
+	else {
+		for (int i = 0; i < m_explosionCount; ++i)
+			explorObjects[i]->Animate(fTimeElapsed);
+	}
+
+}
+void CExplosion::Render(HDC hDCFrameBuffer, CCamera* pCamera)
+{
+	if (m_bActive) {
+		CGameObject::Render(hDCFrameBuffer, pCamera);
+	}
+	else {
+		for (int i = 0; i < m_explosionCount; ++i){
+			explorObjects[i]->Render(hDCFrameBuffer, pCamera);
+		}
+	}
+
+}
+
+void CExplosion::SetParticlePosition()
+{
+	for (int i = 0; i < m_explosionCount; ++i)
+	{
+		XMFLOAT3 pos = GetPosition();
+		explorObjects[i]->SetPosition(pos);
+	}
 }

@@ -71,4 +71,4 @@ private:
 	unsigned long m_nCurrentFrameRate;
 	unsigned long m_FramePerSecond;
 	float m_fFPSTimeElapsed;
-};
+};
