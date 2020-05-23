@@ -224,8 +224,7 @@ CMapMesh::CMapMesh(float fWidth, float fHeight, float fDepth) :  CMesh(91){  //¼
 		SetPolygon(setcount, pRightLine);
 		startVertex += value;
 	}
-	m_xmBoundingBox = BoundingBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(fHalfWidth,
-		fHalfHeight, fHalfDepth));
+	m_xmBoundingBox = BoundingBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(fHalfWidth, fHalfHeight, fHalfDepth));
 }
 
 

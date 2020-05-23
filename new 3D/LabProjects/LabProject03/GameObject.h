@@ -81,7 +81,7 @@ class CBullet :public CGameObject
 
 
 public:
-	bool IsCollision(CGameObject**, int objectsCount);
+
 	CBullet(const XMFLOAT3&);
 
 	virtual void Move(XMFLOAT3& vDirection, float fSpeed);

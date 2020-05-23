@@ -97,7 +97,7 @@ class CMapMesh : public CMesh
 	int lineCount = { 20 };
 public:
 	CMapMesh(float fWidth = 30.0f, float fHeight = 30.0f, float fDepth = 100.0f);
-	//void Render(HDC hDCFrameBuffer);
+	
 	virtual ~CMapMesh() {};
 };
 

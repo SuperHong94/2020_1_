@@ -72,6 +72,7 @@ void CGameObject::Animate(float fElapsedTime)
 		m_fRotationSpeed * fElapsedTime);
 	if (m_fMovingSpeed != 0.0f) Move(m_xmf3MovingDirection,
 		m_fMovingSpeed * fElapsedTime);
+
 }
 
 void CGameObject::Render(HDC hDCFrameBuffer, CCamera* pCamera)
@@ -128,28 +129,6 @@ bool CGameObject::IsVisible(CCamera* pCamera)
 
 
 
-bool CBullet::IsCollision(CGameObject** pp_objects, int objectsCount)
-{
-	if (m_pMesh) {
-
-		BoundingBox xmbbModel = m_pMesh->m_xmBoundingBox;
-		xmbbModel.Transform(xmbbModel, XMLoadFloat4x4(&m_xmf4x4World));
-
-		for (int i = 0; i < objectsCount; ++i) {
-			if (pp_objects[i]->m_bActive) {
-				BoundingBox other = pp_objects[i]->m_pMesh->m_xmBoundingBox;
-				other.Transform(other, XMLoadFloat4x4(pp_objects[i]->GetWorldMatrix()));
-				if (pp_objects[i]->isBullet == false && xmbbModel.Contains(other) != DirectX::DISJOINT) {
-					pp_objects[i]->m_bActive = false;
-					m_bActive = false;
-					return true;
-				}
-			}
-		}
-	}
-	return false;
-}
-
 
 XMFLOAT4X4* CGameObject::GetWorldMatrix()
 {
@@ -188,8 +167,15 @@ void CExplosion::Animate(float fTimeElapsed) {
 		CGameObject::Animate(fTimeElapsed);
 	}
 	else {
+
 		for (int i = 0; i < m_explosionCount; ++i)
 			explorObjects[i]->Animate(fTimeElapsed);
+
+		XMFLOAT3 dis;
+		XMStoreFloat3(&dis, XMVector3Length(XMVectorSubtract(XMLoadFloat3(&startPos),
+			XMLoadFloat3(&explorObjects[0]->GetPosition()))));
+		if (dis.x> 20.0f)
+			m_bActive = true;
 	}
 
 }
@@ -208,9 +194,11 @@ void CExplosion::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 
 void CExplosion::SetParticlePosition()
 {
+	XMFLOAT3 pos = GetPosition();
+	startPos = pos;
 	for (int i = 0; i < m_explosionCount; ++i)
 	{
-		XMFLOAT3 pos = GetPosition();
+		
 		explorObjects[i]->SetPosition(pos);
 	}
 }

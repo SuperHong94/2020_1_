@@ -8,7 +8,7 @@ void CScene::BuildObjects()
 	CCubeMesh* pCubeMesh = new CCubeMesh(4.0f, 4.0f, 4.0f);
 
 	m_nObjects = 5;
-	m_ppObjects = new CExplosion*[m_nObjects];
+	m_ppObjects = new CExplosion * [m_nObjects];
 	m_ppObjects[0] = new CExplosion();
 	m_ppObjects[0]->SetMesh(pCubeMesh);
 	m_ppObjects[0]->SetColor(RGB(255, 0, 0));
@@ -108,16 +108,17 @@ bool CScene::IsCollision() {
 
 		BoundingBox xmbbModel = pBullet->m_pMesh->m_xmBoundingBox;
 		xmbbModel.Transform(xmbbModel, XMLoadFloat4x4(&pBullet->m_xmf4x4World));
-
-		for (int iExplosion = 0; iExplosion < m_nObjects; ++iExplosion) {
-			if (m_ppObjects[iExplosion]->m_bActive) {
-				BoundingBox other = m_ppObjects[iExplosion]->m_pMesh->m_xmBoundingBox;
-				other.Transform(other, XMLoadFloat4x4(m_ppObjects[iExplosion]->GetWorldMatrix()));
-				if (xmbbModel.Contains(other) != DirectX::DISJOINT) {
-					m_ppObjects[iExplosion]->SetParticlePosition();
-					m_ppObjects[iExplosion]->m_bActive = false;
-					pBullet->m_bActive = false;
-					IsContains = true;
+		if (pBullet->m_bActive) {
+			for (int iExplosion = 0; iExplosion < m_nObjects; ++iExplosion) {
+				if (m_ppObjects[iExplosion]->m_bActive) {
+					BoundingBox other = m_ppObjects[iExplosion]->m_pMesh->m_xmBoundingBox;
+					other.Transform(other, XMLoadFloat4x4(m_ppObjects[iExplosion]->GetWorldMatrix()));
+					if (xmbbModel.Contains(other) != DirectX::DISJOINT) {
+						m_ppObjects[iExplosion]->SetParticlePosition();
+						m_ppObjects[iExplosion]->m_bActive = false;
+						pBullet->m_bActive = false;
+						IsContains = true;
+					}
 				}
 			}
 		}
