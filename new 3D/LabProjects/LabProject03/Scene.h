@@ -9,7 +9,9 @@
 class CScene
 {
 public:
-	CScene(CPlayer* pPlayer) { m_pPlayer = pPlayer; }
+	CScene(CPlayer* pPlayer) { m_pPlayer = pPlayer; 
+	//피킹방향
+	}
 	virtual ~CScene() { }
 private:
 	int m_nObjects = 0;
@@ -17,10 +19,12 @@ private:
 	CPlayer* m_pPlayer = NULL;
 	CMap* m_pMap = NULL;
 
+
 	//CExplosion** m_ppExplosions = NULL;
 public:
-
+	bool IsPickingObject(int x, int y,CCamera* pCamera);
 	bool IsCollision();
+	bool IsCollision(XMFLOAT3); //피킹 검사
 	int GetObjectsCount();
 	virtual void BuildObjects();
 	virtual void ReleaseObjects();

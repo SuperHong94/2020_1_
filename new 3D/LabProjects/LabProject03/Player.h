@@ -35,6 +35,9 @@ public:
 	CBullet** bullets{ nullptr };
 	int curBulletCount = 0;
 	const int bulletCount{ 100 };
+
+
+	CExplosion* target=nullptr;//ÇÇÅ·Å¸°Ù
 	
 public:
 	XMFLOAT3 dir=XMFLOAT3(0,0,0);
@@ -56,10 +59,12 @@ public:
 	virtual void Animate(float fElapsedTime);
 	void SetCamera(CCamera* pCamera) { m_pCamera = pCamera; }
 	CCamera* GetCamera() { return(m_pCamera); }
-	
+
 	void Fire(); //ÃÑ¾Ë¹ß»ç
 	
 	XMFLOAT3 GetBulletPos() const;
+
+	void SetTarget(CExplosion* t); //ÇÇÅ· Å¸°Ù ¼³Á¤
 protected:
 	bool Initialize();
 };

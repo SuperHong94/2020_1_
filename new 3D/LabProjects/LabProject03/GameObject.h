@@ -26,7 +26,7 @@ public:
 	//게임 객체의 회전축을 나타내는 벡터이다. 
 	XMFLOAT3 m_xmf3RotationAxis = XMFLOAT3(0.0f, 1.0f, 0.0f);
 	float m_fRotationSpeed = 0.0f;
-
+	DWORD OriginalColor = RGB(255, 0, 0); 
 	//안보이기
 	bool IsVisible(CCamera* pCamera);
 

@@ -77,7 +77,7 @@ void CGameFramework::BuildObjects()
 	//비행기 메쉬를 생성하고 플레이어 객체에 연결한다.
 	CAirplaneMesh* pAirplaneMesh = new CAirplaneMesh(6.0f, 6.0f, 1.0f);
 	m_pPlayer = new CAirplanePlayer();
-	m_pPlayer->SetPosition(0.0f, 0.0f, 0.0f);
+	m_pPlayer->SetPosition(0.0f, 0.0f, -10.0f);
 	m_pPlayer->SetMesh(pAirplaneMesh);
 	m_pPlayer->SetColor(RGB(0, 0, 255));
 	m_pPlayer->SetCamera(pCamera);
@@ -107,6 +107,12 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT
 		::GetCursorPos(&m_ptOldCursorPos);
 		break;
 		//마우스 캡쳐를 해제한다. case WM_LBUTTONUP:
+	case WM_RBUTTONDOWN:
+		m_pScene->IsPickingObject(LOWORD(lParam), HIWORD(lParam), m_pPlayer->GetCamera());
+		break;
+	case WM_LBUTTONUP:
+		ReleaseCapture();
+		break;
 	case WM_RBUTTONUP:
 		::ReleaseCapture();
 		break;
@@ -196,6 +202,7 @@ void CGameFramework::ProcessInput()
 		//키 입력이 있으면 플레이어를 dwDirection 방향으로 이동한다(실제로는 속도 벡터를 변경한다).
 		if (dwDirection) m_pPlayer->Move(dwDirection, 0.15f);
 	}
+
 	if (::GetCapture() == m_hWnd)
 	{
 		/*마우스를 캡쳐했으면(마우스 클릭이 일어났으면) 마우스가 얼마만큼 이동하였는 가를 계산한다. 마우스
@@ -204,7 +211,9 @@ void CGameFramework::ProcessInput()
 		우의 클라이언트 영역에서 눌려진 상태를 의미한다. 마우스 버튼이 눌려진 상태에서 마우스를 좌우 또는
 		상하로 움직이면 플레이어를 x-축 또는 y-축으로 회전한다.*/
 		//마우스 커서를 화면에서 없앤다(보이지 않게 한다).
+
 		::SetCursor(NULL);
+
 		POINT ptCursorPos;
 		//현재 마우스 커서의 위치를 가져온다. 
 		::GetCursorPos(&ptCursorPos);
@@ -213,6 +222,7 @@ void CGameFramework::ProcessInput()
 		float cyMouseDelta = (float)(ptCursorPos.y - m_ptOldCursorPos.y) / 3.0f;
 		//마우스 커서의 위치를 마우스가 눌려졌던 위치로 설정한다.
 		::SetCursorPos(m_ptOldCursorPos.x, m_ptOldCursorPos.y);
+
 		if (cxMouseDelta || cyMouseDelta)
 		{
 			//마우스 이동이 있으면 플레이어를 회전한다.
@@ -223,8 +233,8 @@ void CGameFramework::ProcessInput()
 			else
 				m_pPlayer->Rotate(cyMouseDelta, cxMouseDelta, 0.0f);
 		}
-	}
 
+	}
 	//플레이어를 실제로 이동하고 카메라를 갱신한다. 마찰력의 영향을 속도 벡터에 적용한다.
 	m_pPlayer->Update(m_GameTimer.GetTimeElapsed());
 }
@@ -238,6 +248,19 @@ void CGameFramework::AnimateObjects()
 			for (int i = 0; i < m_pPlayer->curBulletCount; ++i) {
 				if (m_pPlayer->bullets[i]->m_bActive) {
 					m_pPlayer->bullets[i]->Animate(fTimeElapsed);
+					XMFLOAT3 dis;
+					XMStoreFloat3(&dis, XMVector3Length(XMVectorSubtract(XMLoadFloat3(&m_pPlayer->GetPosition()),
+						XMLoadFloat3(&m_pPlayer->bullets[i]->GetPosition()))));
+					if (dis.x > 20.0f) {
+						XMFLOAT3 dir;
+						if (m_pPlayer->target) {
+							XMFLOAT3 targetPos = m_pPlayer->target->GetPosition();
+							XMStoreFloat3(&dir, XMVector2Normalize(XMVectorSubtract(XMLoadFloat3(&targetPos), XMLoadFloat3(&m_pPlayer->bullets[i]->GetPosition()))));
+							m_pPlayer->bullets[i]->SetMovingDirection(dir);
+							m_pPlayer->bullets[i]->SetMovingSpeed(100.0f);
+
+						}
+					}
 				}
 			}
 
@@ -263,7 +286,7 @@ void CGameFramework::FrameAdvance()
 		if (m_pPlayer->bullets) {
 			for (int i = 0; i < m_pPlayer->curBulletCount; ++i) {
 				bool bIsVisible = m_pPlayer->bullets[i]->IsVisible(pCamera);
-				if (bIsVisible&& m_pPlayer->bullets[i]->m_bActive)
+				if (bIsVisible && m_pPlayer->bullets[i]->m_bActive)
 					m_pPlayer->bullets[i]->Render(m_hDCFrameBuffer, pCamera);
 			}
 		}

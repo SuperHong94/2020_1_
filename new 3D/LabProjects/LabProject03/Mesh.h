@@ -89,14 +89,14 @@ public:
 class CCubeMesh : public CMesh
 {
 public:
-	CCubeMesh(float fWidth = 4.0f, float fHeight = 4.0f, float fDepth = 4.0f);
+	CCubeMesh(float fWidth = 3.0f, float fHeight = 3.0f, float fDepth = 3.0f);
 	virtual ~CCubeMesh();
 };
 class CMapMesh : public CMesh
 {
 	int lineCount = { 20 };
 public:
-	CMapMesh(float fWidth = 30.0f, float fHeight = 30.0f, float fDepth = 100.0f);
+	CMapMesh(float fWidth = 50.0f, float fHeight = 50.0f, float fDepth = 200.0f);
 	
 	virtual ~CMapMesh() {};
 };

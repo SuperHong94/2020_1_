@@ -9,8 +9,8 @@ CPlayer::~CPlayer() {
 
 }
 bool CPlayer::Initialize() {
-	
-	bullets = new CBullet*[bulletCount];
+
+	bullets = new CBullet * [bulletCount];
 	if (bullets == nullptr) {
 		return false;
 	}
@@ -47,7 +47,7 @@ void CPlayer::Move(DWORD dwDirection, float fDistance)
 	if (dwDirection)
 	{
 		XMFLOAT3 xmf3Shift = XMFLOAT3(0, 0, 0);
-		
+
 		//화살표 키 ‘↑’를 누르면 로컬 z-축 방향으로 이동(전진)한다. ‘↓’를 누르면 반대 방향으로 이동한다.
 		if (dwDirection & DIR_FORWARD) {
 			XMStoreFloat3(&xmf3Shift,
@@ -75,7 +75,7 @@ void CPlayer::Move(DWORD dwDirection, float fDistance)
 		//dir = xmf3Shift;
 		Move(xmf3Shift, true);
 	}
-	
+
 }
 void CPlayer::Move(XMFLOAT3& xmf3Shift, bool bUpdateVelocity)
 {
@@ -91,7 +91,7 @@ void CPlayer::Move(XMFLOAT3& xmf3Shift, bool bUpdateVelocity)
 		//플레이어를 현재 위치 벡터에서 xmf3Shift 벡터만큼 이동한다.
 		XMStoreFloat3(&m_xmf3Position,
 			XMVectorAdd(XMLoadFloat3(&m_xmf3Position), XMLoadFloat3(&xmf3Shift)));
-		
+
 		//플레이어의 위치가 변경되었으므로 카메라의 위치도 xmf3Shift 벡터만큼 이동한다. 
 		if (m_pCamera) m_pCamera->Move(xmf3Shift);
 	}
@@ -237,11 +237,13 @@ void CPlayer::Fire()
 	bullets[curBulletCount]->SetColor(RGB(255, 0, 0));
 	bullets[curBulletCount]->SetRotationAxis(XMFLOAT3(0.0f, 0.0f, -1.0f));
 	bullets[curBulletCount]->SetRotationSpeed(100.0f);
-	XMStoreFloat3(&dir,XMVectorAdd(XMLoadFloat3(&dir),
-		XMVectorScale(XMLoadFloat3(&m_xmf3Look), 10.0f)));
+
+	XMStoreFloat3(&dir, XMVectorAdd(XMLoadFloat3(&dir),
+		XMLoadFloat3(&m_xmf3Look)));
+
 
 	bullets[curBulletCount]->SetMovingDirection(dir);
-	bullets[curBulletCount]->SetMovingSpeed(100.0f);
+	bullets[curBulletCount]->SetMovingSpeed(50.0f);
 
 
 	if (bullets[curBulletCount]) {
@@ -253,4 +255,8 @@ void CPlayer::Fire()
 }
 
 
-//위치받기
+
+void CPlayer::SetTarget(CExplosion* t)
+{
+	target = t;
+}

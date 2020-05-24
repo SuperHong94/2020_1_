@@ -1,3 +1,10 @@
-﻿  Mesh.cpp
+﻿  Camera.cpp
+  GameFramework.cpp
+  GameObject.cpp
+  GraphicsPipeline.cpp
+  Mesh.cpp
 C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Mesh.cpp(62,47): warning C4101: 'f3ProjectCamera' :참조되지 않은 지역 변수입니다.
-C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Mesh.cpp : fatal error C1090: PDB API를 호출하지 못했습니다. 오류 코드 '3': C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Debug\vc142.pdb
+  Player.cpp
+  Scene.cpp
+  코드를 생성하고 있습니다...
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Player.cpp : fatal error C1090: PDB API를 호출하지 못했습니다. 오류 코드 '3': C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Debug\vc142.pdb

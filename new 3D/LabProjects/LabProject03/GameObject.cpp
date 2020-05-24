@@ -174,8 +174,10 @@ void CExplosion::Animate(float fTimeElapsed) {
 		XMFLOAT3 dis;
 		XMStoreFloat3(&dis, XMVector3Length(XMVectorSubtract(XMLoadFloat3(&startPos),
 			XMLoadFloat3(&explorObjects[0]->GetPosition()))));
-		if (dis.x> 20.0f)
+		if (dis.x> 20.0f){
 			m_bActive = true;
+			m_dwColor = OriginalColor;
+		}
 	}
 
 }
