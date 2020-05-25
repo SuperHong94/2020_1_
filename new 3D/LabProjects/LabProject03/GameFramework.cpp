@@ -70,9 +70,9 @@ void CGameFramework::BuildObjects()
 {
 	CCamera* pCamera = new CCamera();
 	pCamera->SetViewport(0, 0, FRAMEBUFFER_WIDTH, FRAMEBUFFER_HEIGHT);
-	pCamera->GeneratePerspectiveProjectionMatrix(1.01f, 500.0f, 60.0f); //원본
+	pCamera->GeneratePerspectiveProjectionMatrix(0.01f, 500.0f, 90.0f); //원본
 
-	pCamera->SetFOVAngle(60.0f);
+	pCamera->SetFOVAngle(90.0f);
 
 	//비행기 메쉬를 생성하고 플레이어 객체에 연결한다.
 	CAirplaneMesh* pAirplaneMesh = new CAirplaneMesh(6.0f, 6.0f, 1.0f);
@@ -243,27 +243,7 @@ void CGameFramework::AnimateObjects()
 {
 	float fTimeElapsed = m_GameTimer.GetTimeElapsed();
 	if (m_pPlayer) {
-		m_pPlayer->Animate(fTimeElapsed);
-		if (m_pPlayer->bullets)
-			for (int i = 0; i < m_pPlayer->curBulletCount; ++i) {
-				if (m_pPlayer->bullets[i]->m_bActive) {
-					m_pPlayer->bullets[i]->Animate(fTimeElapsed);
-					XMFLOAT3 dis;
-					XMStoreFloat3(&dis, XMVector3Length(XMVectorSubtract(XMLoadFloat3(&m_pPlayer->GetPosition()),
-						XMLoadFloat3(&m_pPlayer->bullets[i]->GetPosition()))));
-					if (dis.x > 20.0f) {
-						XMFLOAT3 dir;
-						if (m_pPlayer->target) {
-							XMFLOAT3 targetPos = m_pPlayer->target->GetPosition();
-							XMStoreFloat3(&dir, XMVector2Normalize(XMVectorSubtract(XMLoadFloat3(&targetPos), XMLoadFloat3(&m_pPlayer->bullets[i]->GetPosition()))));
-							m_pPlayer->bullets[i]->SetMovingDirection(dir);
-							m_pPlayer->bullets[i]->SetMovingSpeed(100.0f);
-
-						}
-					}
-				}
-			}
-
+		m_pPlayer->Animate(fTimeElapsed);	
 	}
 	if (m_pScene) m_pScene->Animate(fTimeElapsed);
 

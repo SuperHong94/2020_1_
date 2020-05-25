@@ -7,10 +7,12 @@
 //8주차 수정
 class CPlayer : public CGameObject
 {
+
 public:
 	CPlayer();
-	virtual ~CPlayer(); 
-public:
+	virtual ~CPlayer();
+
+
 	//플레이어의 위치 벡터, x-축(Right), y-축(Up), z-축(Look) 벡터이다. 
 	XMFLOAT3 m_xmf3Position = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	XMFLOAT3 m_xmf3Right = XMFLOAT3(1.0f, 0.0f, 0.0f);
@@ -65,8 +67,11 @@ public:
 	XMFLOAT3 GetBulletPos() const;
 
 	void SetTarget(CExplosion* t); //피킹 타겟 설정
+	void Reload(float time);
 protected:
 	bool Initialize();
+	float maxShotDelay=0.2f;
+	float curShotDelay=0.0f;
 };
 
 class CAirplanePlayer : public CPlayer  //추가

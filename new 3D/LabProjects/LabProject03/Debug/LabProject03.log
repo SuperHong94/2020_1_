@@ -6,5 +6,10 @@
 C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Mesh.cpp(62,47): warning C4101: 'f3ProjectCamera' :참조되지 않은 지역 변수입니다.
   Player.cpp
   Scene.cpp
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(174,19): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(175,20): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   코드를 생성하고 있습니다...
-C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Player.cpp : fatal error C1090: PDB API를 호출하지 못했습니다. 오류 코드 '3': C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Debug\vc142.pdb
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.cpp(124): warning C4172: 지역 변수 또는 임시: Pos의 주소를 반환하고 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.cpp(139): warning C4715: 'CGameObject::IsVisible': 모든 제어 경로에서 값을 반환하지는 않습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Camera.cpp(9): warning C4172: 지역 변수 또는 임시의 주소를 반환하고 있습니다.
+  LabProject03.vcxproj -> C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\Debug\LabProject03.exe

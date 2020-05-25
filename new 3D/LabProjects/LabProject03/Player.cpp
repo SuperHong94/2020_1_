@@ -169,6 +169,7 @@ void CPlayer::LookAt(XMFLOAT3& xmf3LookAt, XMFLOAT3& xmf3Up)
 //이 함수는 매 프레임마다 프레임워크에서 호출된다. 플레이어의 속도 벡터에 중력과 마찰력 등을 적용하여 플레이어를 이동한다.
 void CPlayer::Update(float fTimeElapsed)
 {
+	Reload(fTimeElapsed);
 	Move(m_xmf3Velocity, false);
 	m_pCamera->Update(this, m_xmf3Position, fTimeElapsed);
 	m_pCamera->GenerateViewMatrix();
@@ -193,6 +194,32 @@ void CPlayer::Animate(float fElapsedTime)
 	//플레이어의 위치과 방향 벡터로 부터 따라 월드 변환 행렬을 구한다.
 	OnUpdateTransform();
 	CGameObject::Animate(fElapsedTime);
+	if (bullets) {
+		for (int i = 0; i < curBulletCount; ++i) {
+			if (bullets[i]->m_bActive) {
+				XMFLOAT3 dis;
+				XMStoreFloat3(&dis, XMVector3Length(XMVectorSubtract(XMLoadFloat3(&GetPosition()),
+					XMLoadFloat3(&bullets[i]->GetPosition()))));
+				if (dis.x > 100.0f) {
+					bullets[i]->m_bActive = false;
+					/*XMFLOAT3 dir;
+					if (m_pPlayer->target) {
+
+
+					}*/
+				}
+				if (bullets[i]->isLockOn&& dis.x > 20.0f) {
+					XMFLOAT3 targetPos = bullets[i]->target->GetPosition();
+					XMStoreFloat3(&dir, XMVector2Normalize(XMVectorSubtract(XMLoadFloat3(&targetPos),
+						XMLoadFloat3(&bullets[i]->GetPosition()))));
+					bullets[i]->SetMovingDirection(dir);
+					bullets[i]->SetMovingSpeed(100.0f);
+				}
+				bullets[i]->Animate(fElapsedTime);
+			}
+		}
+	}
+
 }
 
 /*플레이어의 위치와 회전축으로부터 월드 변환 행렬을 생성하는 함수이다. 플레이어의 Right 벡터가 월
@@ -228,9 +255,13 @@ XMFLOAT3 CPlayer::GetBulletPos() const
 
 void CPlayer::Fire()
 {
+	if (curShotDelay < maxShotDelay)
+		return;
+
 	bullets[curBulletCount] = new CBullet(GetBulletPos());
 	bullets[curBulletCount]->isBullet = true;
 	bullets[curBulletCount]->m_bActive = true;
+	bullets[curBulletCount]->isLockOn = false;
 	CCubeMesh* pCubeMesh = new CCubeMesh(1.0f, 1.0f, 1.0f);
 	dir = XMFLOAT3(0, 0, 0);
 	bullets[curBulletCount]->SetMesh(pCubeMesh);
@@ -245,16 +276,26 @@ void CPlayer::Fire()
 	bullets[curBulletCount]->SetMovingDirection(dir);
 	bullets[curBulletCount]->SetMovingSpeed(50.0f);
 
-
+	if (target) {
+		bullets[curBulletCount]->isLockOn = true;
+		bullets[curBulletCount]->SetColor(RGB(0, 255, 0));
+		bullets[curBulletCount]->target = target;
+		target = NULL;
+	}
 	if (bullets[curBulletCount]) {
 		if (curBulletCount < bulletCount)
 			curBulletCount++;
 		else
 			curBulletCount = 0;
 	}
+
+	curShotDelay = 0;
 }
 
-
+void CPlayer::Reload(float time)
+{
+	curShotDelay += time;
+}
 
 void CPlayer::SetTarget(CExplosion* t)
 {

@@ -96,9 +96,12 @@ void CCamera::GeneratePerspectiveProjectionMatrix(float
 {
 	float fAspectRatio = (float(m_Viewport.m_nWidth) /
 		float(m_Viewport.m_nHeight));
+	/*XMStoreFloat4x4(&m_xmf4x4Project,
+		XMMatrixPerspectiveFovLH(XMConvertToRadians(fFOVAngle), fAspectRatio,
+			fNearPlaneDistance, fFarPlaneDistance));*/
 	XMStoreFloat4x4(&m_xmf4x4Project,
 		XMMatrixPerspectiveFovLH(XMConvertToRadians(fFOVAngle), fAspectRatio,
-			fNearPlaneDistance, fFarPlaneDistance));
+			fNearPlaneDistance, fFarPlaneDistance)); 
 	
 }
 

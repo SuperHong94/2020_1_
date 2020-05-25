@@ -81,10 +81,12 @@ class CBullet :public CGameObject
 
 
 public:
-
+	bool isLockOn;
+	CGameObject* target;
 	CBullet(const XMFLOAT3&);
 
 	virtual void Move(XMFLOAT3& vDirection, float fSpeed);
+	virtual void Animate(float fElapsedTime);
 	virtual ~CBullet();
 
 };

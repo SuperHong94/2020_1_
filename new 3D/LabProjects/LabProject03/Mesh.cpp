@@ -61,6 +61,8 @@ void CMesh::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 {
 	XMFLOAT3 f3InitialProject, f3PreviousProject,f3ProjectCamera;
 	bool bPreviousInside = false, bInitialInside = false, bCurrentInside = false, bIntersectInside = false;
+
+
 	for (int j = 0; j < m_nPolygons; j++)
 	{
 		int nVertices = m_ppPolygons[j]->m_nVertices;
@@ -76,6 +78,7 @@ void CMesh::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 			bCurrentInside = (-1.0f <= f3CurrentProject.x) &&
 				(f3CurrentProject.x <= 1.0f) && (-1.0f <= f3CurrentProject.y) &&
 				(f3CurrentProject.y <= 1.0f);
+		
 			if (((0.0f <= f3CurrentProject.z) && (f3CurrentProject.z <= 1.0f)) && ((bCurrentInside || bPreviousInside))) {
 
 				::Draw2DLine(hDCFrameBuffer, f3PreviousProject, f3CurrentProject);

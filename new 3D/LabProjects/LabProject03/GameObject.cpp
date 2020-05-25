@@ -83,6 +83,17 @@ void CGameObject::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 		HPEN hPen = ::CreatePen(PS_SOLID, 0, m_dwColor);
 		HPEN hOldPen = (HPEN)::SelectObject(hDCFrameBuffer, hPen);
 
+		//int polyCount = m_pMesh->Get_nPolygons();
+		//CPolygon** ppPoly = m_pMesh->Get_ppPolygons();
+		//for (int i = 0; i < polyCount; ++i) {
+		//	int verCount = ppPoly[i]->m_nVertices;
+		//	CVertex* pVer = ppPoly[i]->m_pVertices;
+		//	for (int j = 0; j < verCount; ++j) {
+		//		
+		//		
+		//		
+		//	}
+		//}
 		m_pMesh->Render(hDCFrameBuffer, pCamera);
 		::SelectObject(hDCFrameBuffer, hOldPen);
 		::DeleteObject(hPen);
@@ -139,10 +150,10 @@ XMFLOAT4X4* CGameObject::GetWorldMatrix()
 
 //---폭발 오브젝트 만들기
 
-CExplosion::CExplosion() 
+CExplosion::CExplosion()
 {
 	std::default_random_engine dre;
-	std::uniform_real_distribution uid(-10.0f,10.0f);
+	std::uniform_real_distribution uid(-10.0f, 10.0f);
 	XMFLOAT3 pos = GetPosition();
 	startPos = pos;
 	SetPosition(pos);
@@ -174,20 +185,28 @@ void CExplosion::Animate(float fTimeElapsed) {
 		XMFLOAT3 dis;
 		XMStoreFloat3(&dis, XMVector3Length(XMVectorSubtract(XMLoadFloat3(&startPos),
 			XMLoadFloat3(&explorObjects[0]->GetPosition()))));
-		if (dis.x> 20.0f){
+		if (dis.x > 20.0f) {
 			m_bActive = true;
 			m_dwColor = OriginalColor;
 		}
 	}
 
 }
+
+void CBullet::Animate(float fTimeElapsed) {
+	if (m_bActive) {
+		CGameObject::Animate(fTimeElapsed);
+	}
+}
+
+
 void CExplosion::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 {
 	if (m_bActive) {
 		CGameObject::Render(hDCFrameBuffer, pCamera);
 	}
 	else {
-		for (int i = 0; i < m_explosionCount; ++i){
+		for (int i = 0; i < m_explosionCount; ++i) {
 			explorObjects[i]->Render(hDCFrameBuffer, pCamera);
 		}
 	}
@@ -200,7 +219,7 @@ void CExplosion::SetParticlePosition()
 	startPos = pos;
 	for (int i = 0; i < m_explosionCount; ++i)
 	{
-		
+
 		explorObjects[i]->SetPosition(pos);
 	}
 }
