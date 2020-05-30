@@ -83,7 +83,7 @@ public:
 	int Get_nPolygons() const;
 	CPolygon** Get_ppPolygons() const;
 	void SetPolygon(int nIndex, CPolygon* pPolygon);
-	virtual void Render(HDC hDCFrameBuffer,CCamera* pCamera);
+	virtual void Render(HDC hDCFrameBuffer);
 };
 
 class CCubeMesh : public CMesh
@@ -96,8 +96,8 @@ class CMapMesh : public CMesh
 {
 	int lineCount = { 20 };
 public:
-	CMapMesh(float fWidth = 50.0f, float fHeight = 50.0f, float fDepth = 200.0f);
-	
+	CMapMesh(float fWidth = MAPWIDTH, float fHeight = MAPHEIGHT, float fDepth = MAPDEPTH);
+
 	virtual ~CMapMesh() {};
 };
 
@@ -108,4 +108,7 @@ public:
 
 	virtual ~CAirplaneMesh() { }
 };
+
+
+
 //----------------

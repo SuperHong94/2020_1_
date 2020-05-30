@@ -1,0 +1,35 @@
+﻿  review2.cpp
+C:\Users\SuperHong\source\repos\2020_1_\STL\11week\day2\review2.cpp(80,4): warning C4834: 'nodiscard' 특성이 포함된 함수의 반환 값을 버리는 중
+C:\Users\SuperHong\source\repos\2020_1_\STL\11week\day2\review2.cpp(94,5): warning C4834: 'nodiscard' 특성이 포함된 함수의 반환 값을 버리는 중
+C:\Users\SuperHong\source\repos\2020_1_\STL\11week\day2\review2.cpp(107,6): warning C4834: 'nodiscard' 특성이 포함된 함수의 반환 값을 버리는 중
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\xmemory(671,103): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\vector(682): message : 컴파일되는 함수 템플릿 인스턴스화 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,double&>(_Alloc &,_Objty *const ,double &)'에 대한 참조를 확인하세요.
+          with
+          [
+              _Alloc=std::allocator<Test>,
+              _Ty=Test,
+              _Objty=Test
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\vector(687): message : 컴파일되는 함수 템플릿 인스턴스화 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,double&>(_Alloc &,_Objty *const ,double &)'에 대한 참조를 확인하세요.
+          with
+          [
+              _Alloc=std::allocator<Test>,
+              _Ty=Test,
+              _Objty=Test
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\vector(700): message : 컴파일되는 함수 템플릿 인스턴스화 '_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_back_with_unused_capacity<double&>(double &)'에 대한 참조를 확인하세요.
+          with
+          [
+              _Ty=Test
+          ]
+C:\Users\SuperHong\source\repos\2020_1_\STL\11week\day2\review2.cpp(67): message : 컴파일되는 함수 템플릿 인스턴스화 '_Ty &std::vector<_Ty,std::allocator<_Ty>>::emplace_back<double&>(double &)'에 대한 참조를 확인하세요.
+          with
+          [
+              _Ty=Test
+          ]
+  코드를 생성하고 있습니다.
+  7 of 338 functions ( 2.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  코드를 생성했습니다.
+  day2.vcxproj -> C:\Users\SuperHong\source\repos\2020_1_\STL\11week\Release\day2.exe

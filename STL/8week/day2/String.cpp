@@ -156,3 +156,18 @@ bool String::operator<(const String& rhs) const
 {
 	return getString() < rhs.getString();
 }
+String& String::operator+=(char c)
+{
+
+	char* temp = new char[len + 1];
+	memcpy(temp, p, len);  //원본임시저장소에 넣기
+	temp[len] = c;
+	len++;
+	if (this->p)
+		delete[] p;
+	p = new char[len];
+	memcpy(p, temp, len);
+	delete[] temp;
+	return *this;
+
+}

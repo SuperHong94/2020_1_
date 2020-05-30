@@ -94,7 +94,7 @@ void CGameObject::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 		//		
 		//	}
 		//}
-		m_pMesh->Render(hDCFrameBuffer, pCamera);
+		m_pMesh->Render(hDCFrameBuffer);
 		::SelectObject(hDCFrameBuffer, hOldPen);
 		::DeleteObject(hPen);
 	}
@@ -152,8 +152,10 @@ XMFLOAT4X4* CGameObject::GetWorldMatrix()
 
 CExplosion::CExplosion()
 {
-	std::default_random_engine dre;
+	std::random_device rd;
+	std::default_random_engine dre(rd());
 	std::uniform_real_distribution uid(-10.0f, 10.0f);
+	std::uniform_int_distribution ruid(0,255);
 	XMFLOAT3 pos = GetPosition();
 	startPos = pos;
 	SetPosition(pos);
@@ -170,7 +172,18 @@ CExplosion::CExplosion()
 		explorObjects[i]->SetMovingDirection(dir);
 		explorObjects[i]->SetMovingSpeed(50.0f);
 	}
-
+	
+	XMStoreFloat3(&m_dir, XMVector4Normalize(XMVectorSet(uid(dre), uid(dre), uid(dre), uid(dre)))); //기본 방향
+	CCubeMesh* pExCube = new CCubeMesh(4.0f, 4.0f, 4.0f);
+	SetMesh(pExCube);
+	OriginalColor=(RGB(ruid(dre),ruid(dre),ruid(dre)));
+	SetPosition(uid(dre), uid(dre), 50.f+uid(dre));
+	SetColor(OriginalColor);
+	SetRotationAxis(m_dir);
+	SetRotationSpeed(90.0f);
+	SetMovingSpeed(5.0f);
+	SetMovingDirection(m_dir);
+	
 }
 
 void CExplosion::Animate(float fTimeElapsed) {
@@ -222,4 +235,11 @@ void CExplosion::SetParticlePosition()
 
 		explorObjects[i]->SetPosition(pos);
 	}
+}
+
+
+XMFLOAT3 CExplosion::GetMovieReverseDir()
+{
+	XMStoreFloat3(&m_dir, XMVectorScale(XMLoadFloat3(&m_dir), -1.0f));
+	return m_dir;
 }

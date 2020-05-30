@@ -195,11 +195,12 @@
 #include <iostream>
 #include <set>
 #include <random>
+#include "String.h"
 using namespace std;
 
 int main()
 {
-	random_device rd;
+	/*random_device rd;
 	default_random_engine dre{ rd() };
 	uniform_int_distribution uid{ 1,45 };
 
@@ -211,5 +212,9 @@ int main()
 	cout << "ÀÌ¹ø ÁÖ ´çÃ·¹øÈ£: ";
 	for (auto& d : s)
 		cout << d << ' ';
-	cout << endl;
+	cout << endl;*/
+
+	String a = "¸ô¶óÂ¯³ª°ÔÇÏ°í";
+	a += 'a';
+	cout << a << std::endl;
 }

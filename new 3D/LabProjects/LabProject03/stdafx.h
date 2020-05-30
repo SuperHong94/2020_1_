@@ -26,7 +26,7 @@
 using namespace DirectX;
 using namespace DirectX::PackedVector;
 #pragma comment(lib, "winmm.lib")
-#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
+//#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console") 콘솔창에서 찍어보기위해서 설정
 #define FRAMEBUFFER_WIDTH		640
 #define FRAMEBUFFER_HEIGHT		480
 
@@ -50,8 +50,12 @@ using namespace DirectX::PackedVector;
 #define VK_S  0x53
 #define VK_A  0x41
 #define VK_D  0x44
+#define VK_Z  0x5A
+//MAP
 
-//총알 발사
+#define MAPWIDTH 30.0f
+#define MAPHEIGHT 30.0f
+#define MAPDEPTH  10.0f
 
 namespace Matrix4x4
 {

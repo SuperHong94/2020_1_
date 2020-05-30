@@ -94,6 +94,6 @@ public:
 
 	//20.5.4 Ãß°¡
 	bool operator<(const String& rhs) const;
-
+	String& operator+=(char c);
 };
 

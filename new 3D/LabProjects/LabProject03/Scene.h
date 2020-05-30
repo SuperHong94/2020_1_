@@ -17,7 +17,9 @@ private:
 	int m_nObjects = 0;
 	CExplosion** m_ppObjects = NULL;
 	CPlayer* m_pPlayer = NULL;
-	CMap* m_pMap = NULL;
+
+	int m_nMap = 0;
+	CMap** m_pMap = NULL;
 
 
 	//CExplosion** m_ppExplosions = NULL;
@@ -25,6 +27,7 @@ public:
 	bool IsPickingObject(int x, int y,CCamera* pCamera);
 	bool IsCollision();
 	bool IsCollision(XMFLOAT3); //피킹 검사
+	bool IsCollision(CExplosion* pObject); //오브젝트끼리검사
 	int GetObjectsCount();
 	virtual void BuildObjects();
 	virtual void ReleaseObjects();
@@ -35,4 +38,6 @@ public:
 		WPARAM wParam, LPARAM lParam) { }
 	virtual void OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID,
 		WPARAM wParam, LPARAM lParam) { }
+
+	void AllFire(); //모두파괴
 };

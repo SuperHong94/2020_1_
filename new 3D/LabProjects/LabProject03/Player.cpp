@@ -186,6 +186,7 @@ void CPlayer::Update(float fTimeElapsed)
 	if (fDeceleration > fLength) fDeceleration = fLength;
 	XMStoreFloat3(&m_xmf3Velocity, XMVectorAdd(xmvVelocity,
 		XMVectorScale(xmvDeceleration, fDeceleration)));
+	
 }
 
 
@@ -208,7 +209,7 @@ void CPlayer::Animate(float fElapsedTime)
 
 					}*/
 				}
-				if (bullets[i]->isLockOn&& dis.x > 20.0f) {
+				if (bullets[i]->isLockOn && dis.x > 20.0f) {
 					XMFLOAT3 targetPos = bullets[i]->target->GetPosition();
 					XMStoreFloat3(&dir, XMVector2Normalize(XMVectorSubtract(XMLoadFloat3(&targetPos),
 						XMLoadFloat3(&bullets[i]->GetPosition()))));
@@ -278,7 +279,7 @@ void CPlayer::Fire()
 
 	if (target) {
 		bullets[curBulletCount]->isLockOn = true;
-		bullets[curBulletCount]->SetColor(RGB(0, 255, 0));
+		bullets[curBulletCount]->SetColor(RGB(0, 0, 255));
 		bullets[curBulletCount]->target = target;
 		target = NULL;
 	}

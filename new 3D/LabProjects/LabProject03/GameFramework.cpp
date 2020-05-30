@@ -198,6 +198,8 @@ void CGameFramework::ProcessInput()
 		if (pKeyBuffer[VK_LCONTROL] & 0xF0) {
 			m_pPlayer->Fire();
 		}
+		if (pKeyBuffer[VK_SPACE] & 0xF0) 
+			m_pScene->AllFire();
 
 		//키 입력이 있으면 플레이어를 dwDirection 방향으로 이동한다(실제로는 속도 벡터를 변경한다).
 		if (dwDirection) m_pPlayer->Move(dwDirection, 0.15f);
@@ -255,7 +257,7 @@ void CGameFramework::FrameAdvance()
 	m_GameTimer.Tick(60.0f);
 	ProcessInput();
 	AnimateObjects();
-	ClearFrameBuffer(RGB(75, 45, 105));
+	ClearFrameBuffer(RGB(255, 255, 255));
 	CCamera* pCamera = m_pPlayer->GetCamera();
 	if (m_pScene) {
 		m_pScene->Render(m_hDCFrameBuffer, pCamera);

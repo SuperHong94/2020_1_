@@ -1,0 +1,47 @@
+﻿  Camera.cpp
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Camera.cpp(9,33): error C2440: 'return': 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Camera.cpp(9,17): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Camera.cpp(116,24): error C2664: 'void CCamera::Move(float,float,float)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Camera.cpp(116,15): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Camera.cpp(109,15): message : 'CCamera::Move' 선언을 참조하십시오.
+  GameFramework.cpp
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameFramework.cpp(85,57): error C2664: 'void CPlayer::SetCameraOffset(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameFramework.cpp(85,37): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Player.h(56,7): message : 'CPlayer::SetCameraOffset' 선언을 참조하십시오.
+  GameObject.cpp
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.cpp(107,33): error C2664: 'void CGameObject::SetPosition(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.cpp(107,22): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.cpp(24,19): message : 'CGameObject::SetPosition' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.cpp(157,51): error C2514: 'std::uniform_real_distribution': 클래스 템플릿을 생성할 수 없습니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\random(2697): message : 'std::uniform_real_distribution' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.cpp(158,43): error C2514: 'std::uniform_int_distribution': 클래스 템플릿을 생성할 수 없습니다.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\random(1921): message : 'std::uniform_int_distribution' 선언을 참조하십시오.
+  GraphicsPipeline.cpp
+  LabProject03.cpp
+  Mesh.cpp
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Mesh.cpp(62,48): warning C4101: 'f3ProjectCamera' :참조되지 않은 지역 변수입니다.
+  Player.cpp
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Player.cpp(101,31): error C2664: 'void CPlayer::Move(float,float,float)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DWORD'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Player.cpp(101,15): message : 이 변환을 수행할 수 있는 사용 가능한 사용자 정의 변환 연산자가 없거나 연산자를 호출할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Player.cpp(45,15): message : 'CPlayer::Move' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Player.cpp(270,70): error C2664: 'void CGameObject::SetRotationAxis(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Player.cpp(270,51): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.h(48,7): message : 'CGameObject::SetRotationAxis' 선언을 참조하십시오.
+  Scene.cpp
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(59,75): error C2664: 'void CGameObject::SetMovingDirection(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(59,73): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.h(45,7): message : 'CGameObject::SetMovingDirection' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(68,58): error C2664: 'void CPlayer::SetCameraOffset(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(68,38): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Player.h(56,7): message : 'CPlayer::SetCameraOffset' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(131,77): error C2664: 'void CGameObject::SetMovingDirection(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(131,75): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.h(45,7): message : 'CGameObject::SetMovingDirection' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(132,63): error C2664: 'void CGameObject::SetMovingDirection(DirectX::XMFLOAT3 &)': 인수 1을(를) 'DirectX::XMFLOAT3'에서 'DirectX::XMFLOAT3 &'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(132,61): message : 비const 참조는 lvalue에만 바인딩할 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\GameObject.h(45,7): message : 'CGameObject::SetMovingDirection' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(183,19): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SuperHong\source\repos\2020_1_\new 3D\LabProjects\LabProject03\Scene.cpp(184,20): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  stdafx.cpp
+  Timer.cpp
+  코드를 생성하고 있습니다...

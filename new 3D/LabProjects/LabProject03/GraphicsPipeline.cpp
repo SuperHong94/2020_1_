@@ -9,8 +9,7 @@ CViewport* CGraphicsPipeline::m_pViewport = NULL;
 
 XMFLOAT3 CGraphicsPipeline::Project(XMFLOAT3& xmf3Model)
 {
-	XMMATRIX xmmtxModelToProject =XMMatrixMultiply(XMLoadFloat4x4(m_pxmf4x4World),
-			XMLoadFloat4x4(m_pxmf4x4ViewProject));
+	XMMATRIX xmmtxModelToProject =XMMatrixMultiply(XMLoadFloat4x4(m_pxmf4x4World),XMLoadFloat4x4(m_pxmf4x4ViewProject));
 	XMFLOAT3 xmf3Project;
 	XMStoreFloat3(&xmf3Project,
 		XMVector3TransformCoord(XMLoadFloat3(&xmf3Model),

@@ -1,0 +1,6 @@
+이동키: 
+  w           pageUp
+a s  d        PageDown   화살키 
+
+
+오브젝트 모두 폭발 : 스페이스바

@@ -204,7 +204,7 @@ void CCamera::GenerateFrustum()
 {
 	m_xmFrustum.CreateFromMatrix(m_xmFrustum, XMLoadFloat4x4(&m_xmf4x4Project));
 
-	m_xmFrustum.Far = 100.0f;
+	m_xmFrustum.Far = 500.0f;
 	XMMATRIX xmmtxInversView = XMMatrixInverse(NULL, XMLoadFloat4x4(&m_xmf4x4View));
 	m_xmFrustum.Transform(m_xmFrustum, xmmtxInversView);
 	

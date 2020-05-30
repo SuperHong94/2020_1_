@@ -57,20 +57,17 @@ void Draw2DLine(HDC hDCFrameBuffer, XMFLOAT3& f3PreviousProject,
 }
 
 //8주차 수정 CPoint3D를 XMFLOAT3로 바꿈
-void CMesh::Render(HDC hDCFrameBuffer, CCamera* pCamera)
+void CMesh::Render(HDC hDCFrameBuffer)
 {
-	XMFLOAT3 f3InitialProject, f3PreviousProject,f3ProjectCamera;
+	XMFLOAT3 f3InitialProject, f3PreviousProject, f3ProjectCamera;
 	bool bPreviousInside = false, bInitialInside = false, bCurrentInside = false, bIntersectInside = false;
-
-
 	for (int j = 0; j < m_nPolygons; j++)
 	{
 		int nVertices = m_ppPolygons[j]->m_nVertices;
 		CVertex* pVertices = m_ppPolygons[j]->m_pVertices;
 		f3PreviousProject = f3InitialProject = CGraphicsPipeline::Project(pVertices[0].m_xmf3Position);
-		bPreviousInside = bInitialInside = (-1.0f <= f3InitialProject.x)
-			&& (f3InitialProject.x <= 1.0f) && (-1.0f <= f3InitialProject.y) &&
-			(f3InitialProject.y <= 1.0f);
+		bPreviousInside = bInitialInside = (-1.0f <= f3InitialProject.x) && (f3InitialProject.x <= 1.0f) && 
+			(-1.0f <= f3InitialProject.y) && (f3InitialProject.y <= 1.0f);
 
 		for (int i = 1; i < nVertices; i++)
 		{
@@ -78,17 +75,21 @@ void CMesh::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 			bCurrentInside = (-1.0f <= f3CurrentProject.x) &&
 				(f3CurrentProject.x <= 1.0f) && (-1.0f <= f3CurrentProject.y) &&
 				(f3CurrentProject.y <= 1.0f);
-		
-			if (((0.0f <= f3CurrentProject.z) && (f3CurrentProject.z <= 1.0f)) && ((bCurrentInside || bPreviousInside))) {
+
+			
+			if (((0.0f <=f3CurrentProject.z) && (f3CurrentProject.z <= 1.0f)) && ((bCurrentInside || bPreviousInside))
+				&& ((0.0f <= f3PreviousProject.z) && (f3PreviousProject.z <= 1.0f))) {
 
 				::Draw2DLine(hDCFrameBuffer, f3PreviousProject, f3CurrentProject);
 			}
 			f3PreviousProject = f3CurrentProject;
 			bPreviousInside = bCurrentInside;
 		}
-		if (((0.0f <= f3InitialProject.z) && (f3InitialProject.z <= 1.0f))
+		if (((0.0f <= f3InitialProject.z) && (f3InitialProject.z <= 1.0f)&& 
+			((0.0f <= f3PreviousProject.z) && (f3PreviousProject.z <= 1.0f)))
 			&& ((bInitialInside || bPreviousInside)))
 			::Draw2DLine(hDCFrameBuffer, f3PreviousProject, f3InitialProject);
+
 
 	}
 }
@@ -163,30 +164,30 @@ CCubeMesh::~CCubeMesh()
 
 
 
-CMapMesh::CMapMesh(float fWidth, float fHeight, float fDepth) :  CMesh(91){  //수정후
+CMapMesh::CMapMesh(float fWidth, float fHeight, float fDepth) : CMesh(83) {  //수정후
 
 	float fHalfWidth = fWidth * 0.5f;
 	float fHalfHeight = fHeight * 0.5f;
 	float fHalfDepth = fDepth * 0.5f;
 	int setcount = 0; //Set하는 개수;
 	int nowSetCount = 0; //현재셋카운트(루프돌리때 씀)
-	float value = fDepth / (float)(lineCount * 0.5); //중감하는량
+	float value = fDepth*0.5f; //중감하는량
 	float startVertex = -fHalfDepth; //시작위치
 
-	for (setcount = 0; setcount < lineCount/2; ++setcount) {
+	for (setcount = 0; setcount < 2; ++setcount) {
 		CPolygon* pFrontFace = new CPolygon(4);
 		pFrontFace->SetVertex(0, CVertex(-fHalfWidth, +fHalfHeight, startVertex));
 		pFrontFace->SetVertex(1, CVertex(+fHalfWidth, +fHalfHeight, startVertex));
 		pFrontFace->SetVertex(2, CVertex(+fHalfWidth, -fHalfHeight, startVertex));
 		pFrontFace->SetVertex(3, CVertex(-fHalfWidth, -fHalfHeight, startVertex));
-		SetPolygon(setcount, pFrontFace);	
+		SetPolygon(setcount, pFrontFace);
 		startVertex += value;
 	}
 	nowSetCount = setcount;
 	//윗면 세로줄그리자!
 	value = fWidth / ((float)(lineCount));
 	startVertex = -fHalfWidth;
-	for (; setcount < (lineCount+ nowSetCount); ++setcount) {
+	for (; setcount < (lineCount + nowSetCount); ++setcount) {
 		CPolygon* pTopline = new CPolygon(2);
 		pTopline->SetVertex(0, CVertex(startVertex, +fHalfHeight, fHalfDepth));
 		pTopline->SetVertex(1, CVertex(startVertex, +fHalfHeight, -fHalfDepth));
@@ -220,7 +221,7 @@ CMapMesh::CMapMesh(float fWidth, float fHeight, float fDepth) :  CMesh(91){  //�
 
 	//우측면 그리자!
 	startVertex = -fHalfHeight;
-	for (; setcount < (lineCount + nowSetCount)+1; ++setcount) {
+	for (; setcount < (lineCount + nowSetCount) + 1; ++setcount) {
 		CPolygon* pRightLine = new CPolygon(2);
 		pRightLine->SetVertex(0, CVertex(+fHalfWidth, startVertex, fHalfDepth));
 		pRightLine->SetVertex(1, CVertex(+fHalfWidth, startVertex, -fHalfDepth));

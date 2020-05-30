@@ -65,10 +65,11 @@ class CExplosion :public CGameObject
 	CGameObject** explorObjects{ nullptr };
 	XMFLOAT3 startPos;
 	const int m_explosionCount = 100;
+	XMFLOAT3 m_dir;
 public:
 	CExplosion();
 	virtual ~CExplosion() {};
-
+	XMFLOAT3 GetMovieReverseDir();
 	void SetParticlePosition();
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
 	virtual void Animate(float fElapsedTime);

@@ -16,7 +16,6 @@ T myAccumulate(InIter beg, InIter end, T initVal)
 	cout << "accumulate 구현" << endl;
 	while (beg != end) {
 		initVal += *beg;
-		cout << initVal<<endl;
 		++beg;
 	}
 	return initVal;
@@ -24,13 +23,20 @@ T myAccumulate(InIter beg, InIter end, T initVal)
 int main()
 {
 	ifstream in("중간시험정수.txt");
-	vector<int> v{ istream_iterator<int> {in}, istream_iterator<int>{} };
+	//vector<int> v{ istream_iterator<int> {in}, istream_iterator<int>{} };
+	vector<int> v;
+	int n{};
+	while (in >> n) {
+		v.push_back(n);
+	}
 	cout << v.size() << endl;
 
 	auto [min, max] = minmax_element(v.begin(), v.end());
 	cout << typeid(min).name() << endl;
 	cout << *min << '-' << *max << endl;
 
+	for (int d : v)
+		cout << d << '\n';
 	/*pair<vector<int>::iterator, vector<int>::iterator> p= minmax_element(v.begin(), v.end());
 	cout << *(p.first) <<'-' <<*(p.second) << endl;*/
 
