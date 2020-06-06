@@ -1,0 +1,22 @@
+어려웠던점 : 랜덤하게 50,000 : 50,000비율로 나누는 것 ->해결방법
+
+	cout << v.size() << endl;  //전체 개수 확인
+
+	//떼탈출 참가자와 챔피언스리그 참가자 수 
+	size_t championsCnt = count_if(v.begin(), v.end(), [](const Player& p) {
+		return p.GetIsChampion();
+		});
+	size_t escape = count_if(v.begin(), v.end(), [](const Player& p) {
+		return !(p.GetIsChampion());
+		});
+	cout << Player::ChampionCnt << endl;
+	cout << Player::breakoutCnt << endl;
+
+10'000개이상부터 짤리네
+
+읽을때 한꺼번에 컨테이너에 넣기
+
+파일이름을 string_view로 했음
+
+중복을 피하기위해 set컨테이너 활용
+매번 다르게 하기위해 random_device활용
