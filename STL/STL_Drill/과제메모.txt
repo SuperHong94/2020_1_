@@ -32,6 +32,7 @@ set에서 find 할때 class말고 string으로만 찾는 방법
 set의로 정렬 된 자료의 순위 얻기-> iterator 차이로 구함
 점수로 정렬하면 이름으로 찾기 못함
 
+iterator-1이 안되는거
 
 
 궁금한점
