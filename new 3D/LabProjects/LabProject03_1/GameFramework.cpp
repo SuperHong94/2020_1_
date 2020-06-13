@@ -5,7 +5,12 @@
 #include "stdafx.h"
 #include "GameFramework.h"
 
-//8주차 수정
+
+CGameFramework::CGameFramework()
+{
+	_tcscpy_s(m_pszFrameRate, _T("LabProject ("));;
+}
+
 void CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 {
 	::srand(timeGetTime());
@@ -13,7 +18,7 @@ void CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 	m_hWnd = hMainWnd;
 	BuildFrameBuffer();
 	BuildObjects();
-	_tcscpy_s(m_pszFrameRate, _T("LabProject ("));
+
 }
 void CGameFramework::OnDestroy()
 {
@@ -228,6 +233,18 @@ void CGameFramework::FrameAdvance()
 	if (m_pPlayer) m_pPlayer->Render(m_hDCFrameBuffer, pCamera);
 	PresentFrameBuffer();
 	//현재 프레임 레이트를 윈도우 캡션(타이틀 바)에 출력한다.
+	
+	m_pDXGISwapChain->Present(0, 0);
+
+	/*현재의 프레임 레이트를 문자열로 가져와서 주 윈도우의 타이틀로 출력한다. m_pszBuffer 문자열이
+	"LapProject ("으로 초기화되었으므로 (m_pszFrameRate+12)에서부터 프레임 레이트를 문자열로 출력
+	하여 “ FPS)” 문자열과 합친다
+	::_itow_s(m_nCurrentFrameRate, (m_pszFrameRate + 12), 37, 10);
+	::wcscat_s((m_pszFrameRate + 12), 37, _T(" FPS)"));
+	*/
+	
 	m_GameTimer.GetFrameRate(m_pszFrameRate + 12, 37);
 	::SetWindowText(m_hWnd, m_pszFrameRate);
+
+
 }

@@ -12,8 +12,8 @@ using namespace std;
 
 random_device rd; //더욱랜덤성있게
 default_random_engine dre(rd());
-normal_distribution<> nd{ 0.0, 1.0 };
 uniform_int_distribution<> uidName{ 'a','z' };
+normal_distribution<> nd{ 0.0, 1.0 };
 uniform_int_distribution<> uidIdLen{ 3,10 };  //id는 알파벳 3글자 이상 10글자 이하로
 uniform_real_distribution<> uidChampion{ 0.0,1.0 };  // uniform_int_distribution 보다 더욱 uniform하게
 
@@ -28,8 +28,7 @@ class Player
 public:
 	static size_t ChampionCnt;
 	static size_t breakoutCnt;
-	Player() = default;
-	Player(bool isChampion, unsigned int num);
+	Player();
 	void SetIsChampion(bool b);
 	bool GetIsChampion() const;
 	string GetId() const;
@@ -37,37 +36,18 @@ public:
 	unsigned int GetBreakout()const;
 	unsigned int GetChampionsLeague()const;
 	void SetScore(unsigned int num);
-	void show()const;
 	bool operator==(const string& rhs) const;
 };
 
-Player::Player(bool c, unsigned int num) :isChampion{ c }
+Player::Player()
 {
 	double d{};
 	for (int i = 0; i < uidIdLen(dre); ++i)
 		id += uidName(dre);
 
-	//isChampion ? championsLeague = num : breakout = num;
-	if (isChampion) {
-		championsLeague = num;
-		d = nd(dre);  //때탈출 점수
-		d = clamp(d, -5.0, 5.0);
-		d += 5.0; //[0~10]
-		d *= 290588702.6; //[0~2,905,887,026]
-		breakout = d;
-		//cout << "챔스" << ChampionCnt << id << endl;
-
-	}
-	else {
-		breakout = num;
-		d = nd(dre);//챔피언스리그 점수
-		d = clamp(d, -5.0, 5.0);
-		d += 5.0; //[0~10]
-		d *= 111267038.4; //[0~1,112,670,384]
-		championsLeague = d;
-		//cout << "떼탈출" << breakoutCnt << id << endl;
-
-	}
+	isChampion = false;
+	championsLeague = 0;
+	breakout = 0;
 }
 
 string Player::GetId() const
@@ -113,14 +93,7 @@ bool Player::operator==(const string& rhs) const
 
 
 
-void Player::show()const
-{
-	cout << id;
-	if (isChampion)
-		cout << "  챔피언스리그 점수: " << championsLeague << '\n';
-	else
-		cout << "  떼탈출 점수: " << breakout << '\n';
-}
+
 
 template<>  //set을위한 템플릿 특수화
 struct less<Player>
@@ -135,32 +108,31 @@ size_t Player::breakoutCnt = 0;
 
 
 bool SetRandomBool(bool isChampion);
-void InitSave(const string_view fname);
+void InitSave(vector<Player>& v);
 bool breakoutComp(const Player& a, const Player& b);
 bool championsLeagueComp(const Player& a, const Player& b);
 void SeasonStart(vector<Player>& v);
 void findPlayer(vector<Player>& v);
 double rankPercentPrint(double d);
 void Save(string_view fname, vector<Player>& v); //저장함수
+
 int main()
 {
 	const string_view fname = "플레이어10만명.bin";
-
-
-	vector<Player> v;
-	v.resize(totalNum);
+	vector<Player> v; //플레이어를 관리하는 벡터이다.
 	ifstream in(fname, ios::binary);
-	ifstream in1(fname, ios::binary);
 	if (!in) {
+		v.reserve(totalNum);
+		InitSave(v);
+		cout << "저장한 파일이 없어서 새로 플레이어" << v.size() << "명을 생성하였습니다." << endl;
 
-		InitSave(fname);
-		cout << "파일이 없어서 새로 만들고 저장했습니다. 다시시작해주세요!" << endl;
-		return 0;
 	}
-
-	in.read((char*)v.data(), sizeof(Player) * totalNum);  //벡터로 읽어 온다.
-	cout << "현재 전체 플레이어 수: " << totalNum << " 읽어온 플레이어 수: " << v.size() << endl;
-	cout << "저장파일 읽기 완료!" << endl;
+	else {
+		v.resize(totalNum);
+		in.read((char*)v.data(), sizeof(Player) * totalNum);  //벡터로 읽어 온다.
+		cout << "현재 전체 플레이어 수: " << totalNum << " 읽어온 플레이어 수: " << v.size() << endl;
+		cout << "저장파일 읽기 완료!" << endl;
+	}
 
 	/*for (const auto& d : v)
 		cout << d.GetId() << "- 챔스점수: " << d.GetChampionsLeague() << ", 때탈출점수: " << d.GetBreakout() << endl;*/
@@ -168,7 +140,7 @@ int main()
 	int menu = 0;
 	cout << "\n\n메뉴를 선택해주세요 (1. 새로운 시즌 시작 2.플레이어 검색 3. 저장 후 종료)\n";
 	while (cin >> menu) {
-			
+
 		switch (menu)
 		{
 		case 1:
@@ -190,13 +162,9 @@ int main()
 	}
 	cout << "잘못된 키입력으로 현재사항을 저장하고 종료합니다." << endl;
 	Save(fname, v);
-
-
-
-
-	//for (const auto& p : champions)
-	//	p.show();
 }
+
+
 void Save(string_view fname, vector<Player>& v)
 {
 	ofstream out(fname, ios::binary);
@@ -227,15 +195,20 @@ void SeasonStart(vector<Player>& v)
 			d += 5.0; //[0~10]
 			d *= 290588702.6; //[0~2,905,887,026]
 			Player::breakoutCnt++;
-			if (d > p.GetBreakout()){
+			if (d > p.GetBreakout()) {
 				p.SetScore(d);
 			}
 		}
 	}
+	//auto championsCnt = count_if(v.begin(), v.end(), [](const Player& p) {
+	//	return p.GetIsChampion();
+	//	});
+	//auto escapeCnt = count_if(v.begin(), v.end(), [](const Player& p) {
+	//	return !(p.GetIsChampion());
+	//	});
 
-	cout <<"때탈출 플레이어 수: "<< Player::breakoutCnt << endl;
-	cout<<"챔피언스리그 플레이어 수: " << Player::ChampionCnt << endl;
-
+	//cout << "때탈출 플레이어 수: " << escapeCnt << endl;
+	//cout << "챔피언스리그 플레이어 수: " << championsCnt << endl;
 	cout << "한 시즌을 완료하였습니다." << endl;
 }
 
@@ -255,8 +228,6 @@ void findPlayer(vector<Player>& v)
 	}
 	//for (const auto& d : breakOuts)  //잘 정렬되었는지 확인용
 	//	cout << d.GetId() << "- 챔스점수: " << d.GetChampionsLeague() << ", 때탈출점수: " << d.GetBreakout() << endl;
-
-
 	auto firstChamp = champions.begin().operator*();
 	auto lastChamp = prev(champions.end(), 1).operator*();
 	cout << "--------------------------------------------------------" << endl;
@@ -265,8 +236,8 @@ void findPlayer(vector<Player>& v)
 
 	auto firstBreak = breakOuts.begin().operator*();
 	auto lastBreak = prev(breakOuts.end(), 1).operator*();
-	cout << "\n현재 때탈출 1등: " << firstBreak.GetId() << " 점수 :" << firstBreak.GetBreakout() << endl;
-	cout << "현재 때탈출 꼴등: " << lastBreak.GetId() << " 점수 :" << lastBreak.GetBreakout() << endl << endl;
+	cout << "\n현재 떼탈출 1등: " << firstBreak.GetId() << " 점수 :" << firstBreak.GetBreakout() << endl;
+	cout << "현재 떼탈출 꼴등: " << lastBreak.GetId() << " 점수 :" << lastBreak.GetBreakout() << endl << endl;
 	cout << "--------------------------------------------------------" << endl;
 	cout << endl;
 	cout << endl;
@@ -274,10 +245,8 @@ void findPlayer(vector<Player>& v)
 	cout << "찾는 플레이어 이름을 입력하세요: ";
 	cin >> name;
 	double d{};
-
 	cout.setf(ios::fixed);
 	cout.precision(1);
-
 
 
 	{
@@ -290,10 +259,15 @@ void findPlayer(vector<Player>& v)
 
 			cout << endl;
 			if (iter != champions.begin())
-				cout << "        " << (*iter_decrement).GetId() << ' ' << it << "등 상위 " << rankPercentPrint(it) << "%" << " 점수 " << (*iter_decrement).GetChampionsLeague() << endl;
-			cout << "챔피언스리그 " << (*iter++).GetId() << ' ' << it + 1 << "등 상위 " << rankPercentPrint(it + 1) << "%" << " 점수 " << (*iter).GetChampionsLeague() << endl;
-			if (iter_increment != breakOuts.end())
-				cout << "       " << (*iter_increment).GetId() << ' ' << it + 2 << "등 상위 " << rankPercentPrint(it + 2) << "%" << " 점수 " << (*iter_increment).GetChampionsLeague() << endl;
+				cout << "        " << (*iter_decrement).GetId() << ' ' << it << "등 상위 " << rankPercentPrint(it) << "%"
+				<< " 점수 " << (*iter_decrement).GetChampionsLeague() << endl;
+
+			cout << "챔피언스리그 " << (*iter++).GetId() << ' ' << it + 1 << "등 상위 " << rankPercentPrint(it + 1) << "%"
+				<< " 점수 " << (*iter).GetChampionsLeague() << endl;
+
+						if (iter_increment != breakOuts.end())
+				cout << "       " << (*iter_increment).GetId() << ' ' << it + 2 << "등 상위 " << rankPercentPrint(it + 2) << "%"
+				<< " 점수 " << (*iter_increment).GetChampionsLeague() << endl;
 		}
 		else {
 			cout << "없는 플레이어 입니다.\n";
@@ -309,17 +283,25 @@ void findPlayer(vector<Player>& v)
 			auto iter_decrement = prev(iter, 1);
 			auto iter_increment = next(iter, 1);
 			if (iter != breakOuts.begin())
-				cout << "      " << (*iter_decrement).GetId() << ' ' << it << "등 상위 " << rankPercentPrint(it) << "%" << " 점수 " << (*iter_decrement).GetBreakout() << endl;
-			cout << "때탈출 " << (*(iter)).GetId() << ' ' << it + 1 << "등 상위 " << rankPercentPrint(it + 1) << "%" << " 점수 " << (*iter).GetBreakout() << endl;
+				cout << "      " << (*iter_decrement).GetId() << ' ' << it << "등 상위 " << rankPercentPrint(it) << "%"
+				<< " 점수 " << (*iter_decrement).GetBreakout() << endl;
+
+			cout << "떼탈출 " << (*(iter)).GetId() << ' ' << it + 1 << "등 상위 " << rankPercentPrint(it + 1) << "%" 
+				<< " 점수 " << (*iter).GetBreakout() << endl;
 			if (iter_increment != breakOuts.end())
-				cout << "      " << (*iter_increment).GetId() << ' ' << it + 2 << "등 상위 " << rankPercentPrint(it + 2) << "%" << " 점수 " << (*iter_increment).GetBreakout() << endl;
+				cout << "      " << (*iter_increment).GetId() << ' ' << it + 2 << "등 상위 " << rankPercentPrint(it + 2) << "%"
+				<< " 점수 " << (*iter_increment).GetBreakout() << endl;
+
+			cout << "\n해당플레이어는 이번시즌 ";
+			if ((*iter).GetIsChampion())
+				cout << " 챔피언스 리그를 플레이 했습니다." << endl;
+			else
+				cout << "떼탈출을 플레이 했습니다." << endl;
 		}
 	}
-
-
-
-
 }
+
+
 bool championsLeagueComp(const Player& a, const Player& b)
 {
 	return a.GetChampionsLeague() > b.GetChampionsLeague();  //내림차순으로 정렬
@@ -351,46 +333,25 @@ bool SetRandomBool(bool isChampion)
 
 }
 
-void InitSave(const string_view fileName)
+
+void InitSave(vector<Player>& v)
 {
-	bool isChampion = false;
-	double d{};
+
 	set<Player> s;  //중복되는 플레이어가 없게 set컨테이너 활용
-	ofstream out(fileName, ios::binary);
 
 	while (s.size() < totalNum) {
-		isChampion = SetRandomBool(isChampion);
 
 
-		if (isChampion) {  //챔피언스리그
-			d = nd(dre);
-			d = clamp(d, -5.0, 5.0);
-			d += 5.0; //[0~10]
-			d *= 111267038.4; //[0~1,112,670,384]
-			if (s.emplace(Player(isChampion, d)).second)
-				Player::ChampionCnt++;
+		s.emplace();
 
-		}
-		else { //떼탈출
-			d = nd(dre);
-			d = clamp(d, -5.0, 5.0);
-			d += 5.0; //[0~10]
-			d *= 290588702.6; //[0~2,905,887,026]
-			if (s.emplace(Player(isChampion, d)).second)
-				Player::breakoutCnt++;
-		}
 	}
 
-	/*auto championsCnt = count_if(s.begin(), s.end(), [](const Player& p) {
-		return p.GetIsChampion();
-		});
-	auto escapeCnt = count_if(s.begin(), s.end(), [](const Player& p) {
-		return !(p.GetIsChampion());
-		});
-	cout << championsCnt << endl;
-	cout << escapeCnt << endl;*/
-	for (const auto& p : s)   //파일에 쓰기
+	//cout << s.size() << endl;
+
+	//int i = 0;
+	for (const auto& p : s)   //벡터에 쓰기
 	{
-		out.write((char*)&p, sizeof(Player));
+		//cout << i++ << " " << p.GetId() << endl;
+		v.emplace_back(p);
 	}
 }

@@ -20,7 +20,7 @@
 #include <DirectXPackedVector.h>
 #include <DirectXColors.h> 
 #include <DirectXCollision.h>
-#include <Mmsystem.h>
+#include <mmsystem.h>
 //---
 using namespace DirectX; 
 using namespace DirectX::PackedVector;

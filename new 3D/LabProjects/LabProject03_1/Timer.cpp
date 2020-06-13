@@ -43,6 +43,7 @@ void CGameTimer::Tick(float fLockFPS)
 	{
 		m_nCurrentTime = ::timeGetTime();
 	}
+
 	//마지막으로 이 함수를 호출한 이후 경과한 시간을 계산한다
 	float fTimeElapsed = (m_nCurrentTime - m_nLastTime) * m_fTimeScale;	if (fLockFPS > 0.0f)
 	{
@@ -69,7 +70,8 @@ void CGameTimer::Tick(float fLockFPS)
 	{
 		::memmove(&m_fFrameTime[1], m_fFrameTime, (MAX_SAMPLE_COUNT - 1) * sizeof(float));
 		m_fFrameTime[0] = fTimeElapsed;
-		if (m_nSampleCount < MAX_SAMPLE_COUNT) m_nSampleCount++;
+		if (m_nSampleCount < MAX_SAMPLE_COUNT)
+			m_nSampleCount++;
 	}
 	//초당 프레임 수를 1 증가시키고 현재 프레임 처리 시간을 누적하여 저장한다.
 	m_nFramesPerSecond++;
@@ -82,12 +84,15 @@ void CGameTimer::Tick(float fLockFPS)
 	}
 	//누적된 프레임 처리 시간의 평균을 구하여 프레임 처리 시간을 구한다.
 	m_fTimeElapsed = 0.0f;
-	for (ULONG i = 0; i < m_nSampleCount; i++) m_fTimeElapsed += m_fFrameTime[i];
+	for (ULONG i = 0; i < m_nSampleCount; i++)
+		m_fTimeElapsed += m_fFrameTime[i];
 	if (m_nSampleCount > 0)
 		m_fTimeElapsed /= m_nSampleCount;
 }
 unsigned long CGameTimer::GetFrameRate(LPTSTR lpszString, int nCharacters)
 {
+
+	//현재 프레임 레이트를 문자열로 변환하여 lpszString 버퍼에 쓰고 "FPS"와 결합 한다.
 	if (lpszString)
 	{
 		_itow_s(m_nCurrentFrameRate, lpszString, nCharacters, 10);
@@ -95,7 +100,8 @@ unsigned long CGameTimer::GetFrameRate(LPTSTR lpszString, int nCharacters)
 	}
 	return(m_nCurrentFrameRate);
 }
+
 float CGameTimer::GetTimeElapsed()
 {
-	return(m_fTimeElapsed);
+	return m_fTimeElapsed;
 }

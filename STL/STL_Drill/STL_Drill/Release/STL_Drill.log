@@ -1,13 +1,9 @@
 ﻿  main.cpp
-C:\Users\SuperHong\source\repos\GitHub\2020_1_\STL\STL_Drill\STL_Drill\main.cpp(57,14): warning C4244: '=': 'double'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\SuperHong\source\repos\GitHub\2020_1_\STL\STL_Drill\STL_Drill\main.cpp(67,21): warning C4244: '=': 'double'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\SuperHong\source\repos\GitHub\2020_1_\STL\STL_Drill\STL_Drill\main.cpp(224,16): warning C4244: '인수': 'double'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\SuperHong\source\repos\GitHub\2020_1_\STL\STL_Drill\STL_Drill\main.cpp(233,16): warning C4244: '인수': 'double'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\SuperHong\source\repos\GitHub\2020_1_\STL\STL_Drill\STL_Drill\main.cpp(372,37): warning C4244: '인수': 'double'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\SuperHong\source\repos\GitHub\2020_1_\STL\STL_Drill\STL_Drill\main.cpp(381,37): warning C4244: '인수': 'double'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\STL\STL_Drill\STL_Drill\main.cpp(190,16): warning C4244: '인수': 'double'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\STL\STL_Drill\STL_Drill\main.cpp(199,16): warning C4244: '인수': 'double'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   코드를 생성하고 있습니다.
-  6 of 584 functions ( 1.0%) were compiled, the rest were copied from previous compilation.
+  1 of 588 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    4 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   STL_Drill.vcxproj -> C:\Users\SuperHong\source\repos\GitHub\2020_1_\STL\STL_Drill\Release\STL_Drill.exe
