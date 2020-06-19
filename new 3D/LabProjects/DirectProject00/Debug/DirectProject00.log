@@ -1,0 +1,5 @@
+﻿  DirectProject00.cpp
+GameFramework.obj : error LNK2019: _CreateDXGIFactory2@12"public: void __thiscall CGameFramework::CreateDirect3DDevice(void)" (?CreateDirect3DDevice@CGameFramework@@QAEXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+GameFramework.obj : error LNK2019: _DXGIGetDebugInterface1@12"public: void __thiscall CGameFramework::OnDestroy(void)" (?OnDestroy@CGameFramework@@QAEXXZ) 함수에서 참조되는 확인할 수 없는 외부 기호
+GameFramework.obj : error LNK2001: 확인할 수 없는 외부 기호 _DXGI_DEBUG_ALL
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\Debug\DirectProject00.exe : fatal error LNK1120: 3개의 확인할 수 없는 외부 참조입니다.
