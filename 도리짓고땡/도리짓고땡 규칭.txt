@@ -24,5 +24,6 @@
 1 1 1 1 1 num//4+1
 나누면 0~10
 
+Object Storage - Tiers and APIs (4:36) 자막하고 영상학 안맞ㅇ,ㅁ
 
 
