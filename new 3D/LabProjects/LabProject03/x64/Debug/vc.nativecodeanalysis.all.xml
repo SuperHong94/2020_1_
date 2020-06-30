@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?><DEFECTS><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject03\</FILEPATH>
+      <FILENAME>Mesh.h</FILENAME>
+      <LINE>40</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>'CVertex::m_xmf3Position' 변수가 초기화되지 않았습니다. 항상 멤버 변수를 초기화하세요(type.6).</DESCRIPTION>
+    <FUNCTION>CVertex::{ctor}</FUNCTION>
+    <DECORATED>??0CVertex@@QEAA@XZ</DECORATED>
+    <FUNCLINE>40</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>CVertex::m_xmf3Position</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject03\</FILEPATH>
+      <FILENAME>Camera.h</FILENAME>
+      <LINE>7</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>'CViewport::m_nTop' 변수가 초기화되지 않았습니다. 항상 멤버 변수를 초기화하세요(type.6).</DESCRIPTION>
+    <FUNCTION>CViewport::{ctor}</FUNCTION>
+    <DECORATED>??0CViewport@@QEAA@XZ</DECORATED>
+    <FUNCLINE>7</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>CViewport::m_nTop</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject03\</FILEPATH>
+      <FILENAME>GameFramework.h</FILENAME>
+      <LINE>14</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>'CGameFramework::m_rcClient' 변수가 초기화되지 않았습니다. 항상 멤버 변수를 초기화하세요(type.6).</DESCRIPTION>
+    <FUNCTION>CGameFramework::{ctor}</FUNCTION>
+    <DECORATED>??0CGameFramework@@QEAA@XZ</DECORATED>
+    <FUNCLINE>14</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>CGameFramework::m_rcClient</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject03\</FILEPATH>
+      <FILENAME>GameObject.cpp</FILENAME>
+      <LINE>105</LINE>
+      <COLUMN>9</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>'CBullet::target' 변수가 초기화되지 않았습니다. 항상 멤버 변수를 초기화하세요(type.6).</DESCRIPTION>
+    <FUNCTION>CBullet::{ctor}</FUNCTION>
+    <DECORATED>??0CBullet@@QEAA@AEBUXMFLOAT3@DirectX@@@Z</DECORATED>
+    <FUNCLINE>105</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>CBullet::target</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject03\</FILEPATH>
+      <FILENAME>LabProject03.cpp</FILENAME>
+      <LINE>22</LINE>
+      <COLUMN>13</COLUMN>
+    </SFA>
+    <DEFECTCODE>28251</DEFECTCODE>
+    <DESCRIPTION>'wWinMain'에 대한 주석이 일치하지 않습니다. 이 인스턴스에는 주석 없음이(가) 있습니다. c:\program files (x86)\windows kits\10\include\10.0.19041.0\um\winbase.h(1019)을(를) 참조하십시오. </DESCRIPTION>
+    <FUNCTION>wWinMain</FUNCTION>
+    <DECORATED>wWinMain</DECORATED>
+    <FUNCLINE>22</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT><DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject03\</FILEPATH>
+      <FILENAME>Timer.cpp</FILENAME>
+      <LINE>133</LINE>
+      <COLUMN>12</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>'CGameTimer::m_nCurrentPerformanceCounter' 변수가 초기화되지 않았습니다. 항상 멤버 변수를 초기화하세요(type.6).</DESCRIPTION>
+    <FUNCTION>CGameTimer::{ctor}</FUNCTION>
+    <DECORATED>??0CGameTimer@@QEAA@XZ</DECORATED>
+    <FUNCLINE>133</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>CGameTimer::m_nCurrentPerformanceCounter</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT></DEFECTS>

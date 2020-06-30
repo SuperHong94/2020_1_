@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject03\</FILEPATH>
+      <FILENAME>Mesh.h</FILENAME>
+      <LINE>40</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>'CVertex::m_xmf3Position' 변수가 초기화되지 않았습니다. 항상 멤버 변수를 초기화하세요(type.6).</DESCRIPTION>
+    <FUNCTION>CVertex::{ctor}</FUNCTION>
+    <DECORATED>??0CVertex@@QEAA@XZ</DECORATED>
+    <FUNCLINE>40</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>CVertex::m_xmf3Position</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject03\</FILEPATH>
+      <FILENAME>Camera.h</FILENAME>
+      <LINE>7</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>'CViewport::m_nTop' 변수가 초기화되지 않았습니다. 항상 멤버 변수를 초기화하세요(type.6).</DESCRIPTION>
+    <FUNCTION>CViewport::{ctor}</FUNCTION>
+    <DECORATED>??0CViewport@@QEAA@XZ</DECORATED>
+    <FUNCLINE>7</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>CViewport::m_nTop</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject03\</FILEPATH>
+      <FILENAME>Camera.h</FILENAME>
+      <LINE>7</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>'CViewport::m_nLeft' 변수가 초기화되지 않았습니다. 항상 멤버 변수를 초기화하세요(type.6).</DESCRIPTION>
+    <FUNCTION>CViewport::{ctor}</FUNCTION>
+    <DECORATED>??0CViewport@@QEAA@XZ</DECORATED>
+    <FUNCLINE>7</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>CViewport::m_nLeft</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject03\</FILEPATH>
+      <FILENAME>Camera.h</FILENAME>
+      <LINE>7</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>'CViewport::m_nWidth' 변수가 초기화되지 않았습니다. 항상 멤버 변수를 초기화하세요(type.6).</DESCRIPTION>
+    <FUNCTION>CViewport::{ctor}</FUNCTION>
+    <DECORATED>??0CViewport@@QEAA@XZ</DECORATED>
+    <FUNCLINE>7</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>CViewport::m_nWidth</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject03\</FILEPATH>
+      <FILENAME>Camera.h</FILENAME>
+      <LINE>7</LINE>
+      <COLUMN>1</COLUMN>
+    </SFA>
+    <DEFECTCODE>26495</DEFECTCODE>
+    <DESCRIPTION>'CViewport::m_nHeight' 변수가 초기화되지 않았습니다. 항상 멤버 변수를 초기화하세요(type.6).</DESCRIPTION>
+    <FUNCTION>CViewport::{ctor}</FUNCTION>
+    <DECORATED>??0CViewport@@QEAA@XZ</DECORATED>
+    <FUNCLINE>7</FUNCLINE>
+    <ADDITIONALINFO>
+      <targetSymbol>CViewport::m_nHeight</targetSymbol>
+    </ADDITIONALINFO>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

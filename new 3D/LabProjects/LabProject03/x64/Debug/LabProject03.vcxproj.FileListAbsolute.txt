@@ -1,0 +1,2 @@
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\x64\Debug\LabProject03.exe.lastcodeanalysissucceeded
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject03\x64\Debug\NativeCodeAnalysis.read.1.tlog

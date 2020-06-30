@@ -1,0 +1,15 @@
+﻿  Camera.cpp
+  GameFramework.cpp
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject03_1\GameFramework.cpp(237,2): error C2065: 'm_pDXGISwapChain': 선언되지 않은 식별자입니다.
+  GameObject.cpp
+  GraphicsPipeline.cpp
+  LabProject03_1.cpp
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject03_1\LabProject03_1.cpp(37,24): error C2065: 'IDC_LABPROJECT': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject03_1\LabProject03_1.cpp(46,44): error C2065: 'IDC_LABPROJECT': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject03_1\LabProject03_1.cpp(96,35): error C2065: 'IDI_LABPROJECT': 선언되지 않은 식별자입니다.
+  Mesh.cpp
+  Player.cpp
+  Scene.cpp
+  stdafx.cpp
+  Timer.cpp
+  코드를 생성하고 있습니다...
