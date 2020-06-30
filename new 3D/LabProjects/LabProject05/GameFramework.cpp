@@ -109,7 +109,7 @@ void CGameFramework::CreateDirect3DDevice()
 	//다중 샘플의 품질 수준이 1보다 크면 다중 샘플링을 활성화한다.
 
 	hResult = m_pd3dDevice->CreateFence(0, D3D12_FENCE_FLAG_NONE, __uuidof(ID3D12Fence), (void**)&m_pd3dFence); //펜스는 기본펜스로 만든다.
-	m_nFenceValue = 0;
+	m_nFenceValues[m_nSwapChainBufferIndex] = 0; //원래 m_nFenceValue = 0;이거였는데 따라하기 06에서 내가 수정함
 	//펜스를 생성하고 펜스 값을 0으로 설정한다. 
 
 	m_hFenceEvent = ::CreateEvent(NULL, FALSE, FALSE, NULL);
@@ -432,21 +432,23 @@ void CGameFramework::FrameAdvance()
 	D3D12_CPU_DESCRIPTOR_HANDLE d3dRtvCPUDescriptorHandle = m_pd3dRtvDescriptorHeap->GetCPUDescriptorHandleForHeapStart();
 	d3dRtvCPUDescriptorHandle.ptr += (m_nSwapChainBufferIndex * m_nRtvDescriptorIncrementSize);
 	//현재의 렌더 타겟에 해당하는 서술자의 CPU 주소(핸들)를 계산한다. 
-	D3D12_CPU_DESCRIPTOR_HANDLE d3dDsvCPUDescriptorHandle = m_pd3dDsvDescriptorHeap->GetCPUDescriptorHandleForHeapStart(); //이거 왜또넣었지?
+	D3D12_CPU_DESCRIPTOR_HANDLE d3dDsvCPUDescriptorHandle = m_pd3dDsvDescriptorHeap->GetCPUDescriptorHandleForHeapStart();
+	//깊이-스텐실 서술자의 CPU 주소를 계산한다.
 
+	m_pd3dCommandList->OMSetRenderTargets(1, &d3dRtvCPUDescriptorHandle, TRUE, &d3dDsvCPUDescriptorHandle);
+	//렌더 타겟 뷰(서술자)와 깊이-스텐실 뷰(서술자)를 출력-병합 단계(OM)에 연결한다. //렌더링 코드는 여기에 추가될 것이다.
 
 	float pfClearColor[4] = { 0.0f, 0.125f, 0.3f, 1.0f };
 	m_pd3dCommandList->ClearRenderTargetView(d3dRtvCPUDescriptorHandle, pfClearColor/*Colors::Azure*/, 0, NULL);
 	//원하는 색상으로 렌더 타겟(뷰)을 지운다. 
 
-	D3D12_CPU_DESCRIPTOR_HANDLE d3dDsvCPUDescriptorHandle = m_pd3dDsvDescriptorHeap->GetCPUDescriptorHandleForHeapStart();
-	//깊이-스텐실 서술자의 CPU 주소를 계산한다.
-
 	m_pd3dCommandList->ClearDepthStencilView(d3dDsvCPUDescriptorHandle, D3D12_CLEAR_FLAG_DEPTH | D3D12_CLEAR_FLAG_STENCIL, 1.0f, 0, 0, NULL);
 	//원하는 값으로 깊이-스텐실(뷰)을 지운다. 
 
-	m_pd3dCommandList->OMSetRenderTargets(1, &d3dRtvCPUDescriptorHandle, TRUE, &d3dDsvCPUDescriptorHandle);
-	//렌더 타겟 뷰(서술자)와 깊이-스텐실 뷰(서술자)를 출력-병합 단계(OM)에 연결한다. //렌더링 코드는 여기에 추가될 것이다.
+	
+	if (m_pScene) m_pScene->Render(m_pd3dCommandList);  //씬그리기
+	
+	
 
 	d3dResourceBarrier.Transition.StateBefore = D3D12_RESOURCE_STATE_RENDER_TARGET;
 	d3dResourceBarrier.Transition.StateAfter = D3D12_RESOURCE_STATE_PRESENT;
@@ -460,7 +462,8 @@ void CGameFramework::FrameAdvance()
 
 	ID3D12CommandList* ppd3dCommandLists[] = { m_pd3dCommandList };
 	m_pd3dCommandQueue->ExecuteCommandLists(1, ppd3dCommandLists);
-	//명령 리스트를 명령 큐에 추가하여 실행한다. WaitForGpuComplete();
+	//명령 리스트를 명령 큐에 추가하여 실행한다.
+	WaitForGpuComplete();
 	//GPU가 모든 명령 리스트를 실행할 때 까지 기다린다. 
 
 	DXGI_PRESENT_PARAMETERS dxgiPresentParameters;
@@ -479,6 +482,9 @@ void CGameFramework::FrameAdvance()
 하여 “ FPS)” 문자열과 합친다. ::_itow_s(m_nCurrentFrameRate, (m_pszFrameRate+12), 37, 10);
 ::wcscat_s((m_pszFrameRate+12), 37, _T(" FPS)"));
 */
+
+	MoveToNextFrame(); //다음프레임으로!
+
 	m_GameTimer.GetFrameRate(m_pszFrameRate + 14, 37);
 	::SetWindowText(m_hWnd, m_pszFrameRate); //윈도우 제목을 m_pszFrameRate
 	//m_nSwapChainBufferIndex = m_pdxgiSwapChain->GetCurrentBackBufferIndex(); //따라하기 4이후로 사라짐
