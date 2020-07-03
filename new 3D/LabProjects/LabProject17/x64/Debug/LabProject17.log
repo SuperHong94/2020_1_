@@ -1,0 +1,82 @@
+﻿  Camera.cpp
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,11): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,11): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,31): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(36,28): error C2061: 구문 오류: 식별자 'CMaterial'
+  GameFramework.cpp
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,11): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,11): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,31): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(36,28): error C2061: 구문 오류: 식별자 'CMaterial'
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Shader.h(49,18): error C2535: 'void CShader::UpdateShaderVariable(ID3D12GraphicsCommandList *,DirectX::XMFLOAT4X4 *)': 멤버 함수를 이미 정의했거나 선언했습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Shader.h(44): message : 'CShader::UpdateShaderVariable' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameFramework.cpp(352,71): warning C4244: '인수': 'WPARAM'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  GameObject.cpp
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,11): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,11): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,31): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(36,28): error C2061: 구문 오류: 식별자 'CMaterial'
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Shader.h(49,18): error C2535: 'void CShader::UpdateShaderVariable(ID3D12GraphicsCommandList *,DirectX::XMFLOAT4X4 *)': 멤버 함수를 이미 정의했거나 선언했습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Shader.h(44): message : 'CShader::UpdateShaderVariable' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(18,6): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(18,19): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(61,6): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(63,7): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(65,4): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(66,4): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(202,1): error C2084: 'void CGameObject::SetShader(CShader *)' 함수에 이미 본문이 있습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(21): message : 'SetShader'의 이전 정의를 참조하십시오.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(203,7): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(205,3): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(206,3): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(208,6): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(208,19): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(212,1): error C2511: 'void CGameObject::SetMaterial(CMaterial *)': 오버로드된 멤버 함수가 'CGameObject'에 없습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(6): message : 'CGameObject' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(213,6): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(213,19): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(214,2): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(215,6): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(215,19): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(219,7): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(219,20): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.cpp(220,2): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+  LabProject17.cpp
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,11): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,11): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,31): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(36,28): error C2061: 구문 오류: 식별자 'CMaterial'
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Shader.h(49,18): error C2535: 'void CShader::UpdateShaderVariable(ID3D12GraphicsCommandList *,DirectX::XMFLOAT4X4 *)': 멤버 함수를 이미 정의했거나 선언했습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Shader.h(44): message : 'CShader::UpdateShaderVariable' 선언을 참조하십시오.
+  Player.cpp
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,11): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,11): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,31): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(36,28): error C2061: 구문 오류: 식별자 'CMaterial'
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Shader.h(49,18): error C2535: 'void CShader::UpdateShaderVariable(ID3D12GraphicsCommandList *,DirectX::XMFLOAT4X4 *)': 멤버 함수를 이미 정의했거나 선언했습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Shader.h(44): message : 'CShader::UpdateShaderVariable' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Player.cpp(303,7): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Player.cpp(303,31): error C2065: 'm_pMaterial': 선언되지 않은 식별자입니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Player.cpp(311,1): error C2084: 'CAirplanePlayer::CAirplanePlayer(ID3D12Device *,ID3D12GraphicsCommandList *,ID3D12RootSignature *)' 함수에 이미 본문이 있습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Player.cpp(6): message : '{ctor}'의 이전 정의를 참조하십시오.
+  Scene.cpp
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,11): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,11): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,31): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(36,28): error C2061: 구문 오류: 식별자 'CMaterial'
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Shader.h(49,18): error C2535: 'void CShader::UpdateShaderVariable(ID3D12GraphicsCommandList *,DirectX::XMFLOAT4X4 *)': 멤버 함수를 이미 정의했거나 선언했습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Shader.h(44): message : 'CShader::UpdateShaderVariable' 선언을 참조하십시오.
+  Shader.cpp
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,11): error C2143: 구문 오류: ';'이(가) '*' 앞에 없습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,11): error C4430: 형식 지정자가 없습니다. int로 가정합니다. 참고: C++에서는 기본 int를 지원하지 않습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(19,31): error C2238: ';' 앞에 예기치 않은 토큰이 있습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(36,28): error C2061: 구문 오류: 식별자 'CMaterial'
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Shader.h(49,18): error C2535: 'void CShader::UpdateShaderVariable(ID3D12GraphicsCommandList *,DirectX::XMFLOAT4X4 *)': 멤버 함수를 이미 정의했거나 선언했습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Shader.h(44): message : 'CShader::UpdateShaderVariable' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Shader.cpp(257,1): error C2084: 'D3D12_SHADER_BYTECODE CPlayerShader::CreateVertexShader(ID3DBlob **)' 함수에 이미 본문이 있습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Shader.cpp(213): message : 'CreateVertexShader'의 이전 정의를 참조하십시오.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Shader.cpp(262,1): error C2084: 'D3D12_SHADER_BYTECODE CPlayerShader::CreatePixelShader(ID3DBlob **)' 함수에 이미 본문이 있습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Shader.cpp(218): message : 'CreatePixelShader'의 이전 정의를 참조하십시오.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\Shader.cpp(403,66): error C2039: 'm_pMaterial': 'CGameObject'의 멤버가 아닙니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\LabProject17\GameObject.h(6): message : 'CGameObject' 선언을 참조하십시오.
+  코드를 생성하고 있습니다...

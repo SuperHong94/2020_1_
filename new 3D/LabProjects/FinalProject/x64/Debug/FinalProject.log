@@ -1,0 +1,17 @@
+﻿  FinalProject.cpp
+  GameFramework.cpp
+  Object.cpp
+  Player.cpp
+  Scene.cpp
+  Shader.cpp
+  코드를 생성하고 있습니다...
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\FinalProject\FinalProject.cpp(69): warning C4715: 'wWinMain': 모든 제어 경로에서 값을 반환하지는 않습니다.
+Shader.obj : error LNK2001: 확인할 수 없는 외부 기호 "public: virtual void __cdecl CObjectsShader::BuildObjects(struct ID3D12Device *,struct ID3D12GraphicsCommandList *)" (?BuildObjects@CObjectsShader@@UEAAXPEAUID3D12Device@@PEAUID3D12GraphicsCommandList@@@Z)
+Shader.obj : error LNK2001: 확인할 수 없는 외부 기호 "public: virtual void __cdecl CObjectsShader::AnimateObjects(float)" (?AnimateObjects@CObjectsShader@@UEAAXM@Z)
+Shader.obj : error LNK2001: 확인할 수 없는 외부 기호 "public: virtual void __cdecl CObjectsShader::ReleaseObjects(void)" (?ReleaseObjects@CObjectsShader@@UEAAXXZ)
+Shader.obj : error LNK2001: 확인할 수 없는 외부 기호 "public: virtual struct D3D12_SHADER_BYTECODE __cdecl CObjectsShader::CreateVertexShader(struct ID3D10Blob * *)" (?CreateVertexShader@CObjectsShader@@UEAA?AUD3D12_SHADER_BYTECODE@@PEAPEAUID3D10Blob@@@Z)
+Shader.obj : error LNK2001: 확인할 수 없는 외부 기호 "public: virtual struct D3D12_SHADER_BYTECODE __cdecl CObjectsShader::CreatePixelShader(struct ID3D10Blob * *)" (?CreatePixelShader@CObjectsShader@@UEAA?AUD3D12_SHADER_BYTECODE@@PEAPEAUID3D10Blob@@@Z)
+Shader.obj : error LNK2001: 확인할 수 없는 외부 기호 "public: virtual void __cdecl CObjectsShader::CreateShader(struct ID3D12Device *,struct ID3D12RootSignature *)" (?CreateShader@CObjectsShader@@UEAAXPEAUID3D12Device@@PEAUID3D12RootSignature@@@Z)
+Shader.obj : error LNK2001: 확인할 수 없는 외부 기호 "public: virtual void __cdecl CObjectsShader::ReleaseUploadBuffers(void)" (?ReleaseUploadBuffers@CObjectsShader@@UEAAXXZ)
+Shader.obj : error LNK2001: 확인할 수 없는 외부 기호 "public: virtual void __cdecl CObjectsShader::Render(struct ID3D12GraphicsCommandList *,class CCamera *)" (?Render@CObjectsShader@@UEAAXPEAUID3D12GraphicsCommandList@@PEAVCCamera@@@Z)
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\x64\Debug\FinalProject.exe : fatal error LNK1120: 8개의 확인할 수 없는 외부 참조입니다.
