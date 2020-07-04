@@ -45,9 +45,9 @@ public:
 	void Release() { if (--m_nReferences <= 0) delete this; }
 
 	void ReleaseUploadBuffers();
-
-protected:
 	BoundingBox						m_xmBoundingBox;
+protected:
+	
 
 	UINT							m_nVertices = 0;
 	XMFLOAT3* m_pxmf3Positions = NULL;

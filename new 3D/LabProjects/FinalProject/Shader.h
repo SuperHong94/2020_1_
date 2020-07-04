@@ -80,6 +80,9 @@ public:
 		* pd3dGraphicsRootSignature);
 	virtual void ReleaseUploadBuffers();
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
+
+	CGameObject** GetObjects();
+	int GetObjectCnt();
 protected:
 	CGameObject** m_ppObjects = NULL;
 	int m_nObjects = 0;

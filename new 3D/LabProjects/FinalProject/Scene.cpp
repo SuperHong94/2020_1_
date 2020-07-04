@@ -7,6 +7,7 @@
 
 CScene::CScene()
 {
+
 }
 
 CScene::~CScene()
@@ -89,7 +90,7 @@ void CScene::AnimateObjects(float fTimeElapsed)
 	{
 		m_pShaders[i].AnimateObjects(fTimeElapsed);
 	}
-	
+
 }
 
 bool CScene::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
@@ -118,5 +119,21 @@ void CScene::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera
 	{
 		m_pShaders[j].Render(pd3dCommandList, pCamera);
 	}
+}
+
+
+
+void CScene::SetPlayer(CPlayer* pPlayer)
+{
+	m_pPlayer = pPlayer;
+}
+
+bool CScene::IsCollision()
+{
+	bool IsContains = false;
+
+	CGameObject** ppObjects = m_pShaders[0].GetObjects();
+
+	return IsContains;
 }
 

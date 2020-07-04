@@ -26,9 +26,7 @@ protected:
 
 	CCamera						*m_pCamera = NULL;
 
-	CBullet* bullets = NULL;
-	size_t currentBullet = 0;
-	size_t bulletCnt = 0;
+	
 
 	//ÃÑ¾Ë µô·¹ÀÌ
 	float maxShotDelay = 0.2f;
@@ -37,7 +35,9 @@ protected:
 public:
 	CPlayer();
 	virtual ~CPlayer();
-
+	CBullet* bullets = NULL;
+	size_t currentBullet = 0;
+	size_t bulletCnt = 0;
 	XMFLOAT3 GetPosition() { return(m_xmf3Position); }
 	XMFLOAT3 GetLookVector() { return(m_xmf3Look); }
 	XMFLOAT3 GetUpVector() { return(m_xmf3Up); }

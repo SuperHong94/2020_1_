@@ -334,3 +334,12 @@ void CObjectsShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera*
 		}
 	}
 }
+
+CGameObject** CObjectsShader::GetObjects()
+{
+	return m_ppObjects;
+}
+int CObjectsShader::GetObjectCnt()
+{
+	return m_nObjects;
+}
