@@ -86,10 +86,12 @@ void CScene::ReleaseUploadBuffers()
 }
 void CScene::AnimateObjects(float fTimeElapsed)
 {
+
 	for (int i = 0; i < m_nShaders; i++)
 	{
 		m_pShaders[i].AnimateObjects(fTimeElapsed);
 	}
+	IsCollision();
 
 }
 
@@ -132,8 +134,27 @@ bool CScene::IsCollision()
 {
 	bool IsContains = false;
 
-	CGameObject** ppObjects = m_pShaders[0].GetObjects();
+	CUfoObject** ppObjects = m_pShaders[0].GetObjects();
+	int nObjects = m_pShaders[0].GetObjectCnt();
+	for (int iBullet = 0; iBullet < m_pPlayer->bulletCnt; ++iBullet) {
+		if (m_pPlayer->bullets[iBullet].GetIsActive()) //활성화되어있는 총알이라면
+		{
+			CBullet* pBullet = &m_pPlayer->bullets[iBullet];
+			BoundingBox xmbbModel = pBullet->m_pMesh->m_xmBoundingBox;
+			xmbbModel.Transform(xmbbModel, XMLoadFloat4x4(&pBullet->m_xmf4x4World));
+			for (int i = 0; i < nObjects; ++i) {
+				BoundingBox other = ppObjects[i]->m_pMesh->m_xmBoundingBox;
+				other.Transform(other, XMLoadFloat4x4(&ppObjects[i]->m_xmf4x4World));
+				if (xmbbModel.Contains(other) != DirectX::DISJOINT) {
+					ppObjects[i]->SetParticlePosition();
+					ppObjects[i]->SetIsActive(false);
 
+					pBullet->SetIsActive(false);
+					IsContains = true;
+				}
+			}
+		}
+	}
 	return IsContains;
 }
 

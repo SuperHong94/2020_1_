@@ -252,49 +252,56 @@ void CObjectsShader::CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature*
 
 void CObjectsShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
 {
-	CMesh* pUfoMesh = new CMesh(pd3dDevice, pd3dCommandList, "Models/UFO.txt");
-	CMesh* pFlyerMesh = new CMesh(pd3dDevice, pd3dCommandList, "Models/FlyerPlayership.txt");
+	m_pMap = new CMap(pd3dDevice, pd3dCommandList);
+	m_pMap->SetPosition(0.0f, 0.0f, 0.0f);
 
+	//CMesh* pUfoMesh = new CMesh(pd3dDevice, pd3dCommandList, "Models/UFO.txt");
+	//CMesh* pFlyerMesh = new CMesh(pd3dDevice, pd3dCommandList, "Models/FlyerPlayership.txt");
+	
 	m_nObjects = 5;
-	m_ppObjects = new CGameObject * [m_nObjects];
+	m_ppObjects = new CUfoObject * [m_nObjects];
 
 	//CPseudoLightingShader* pShader = new CPseudoLightingShader();
 
 
-	m_ppObjects[0] = new CGameObject();
-	m_ppObjects[0]->SetMesh(pUfoMesh);
+	m_ppObjects[0] = new CUfoObject(pd3dDevice, pd3dCommandList);
+	//m_ppObjects[0]->SetMesh(pUfoMesh);
 	//m_ppObjects[0]->SetShader(pShader);
 	m_ppObjects[0]->SetPosition(6.0f, 0.0f, 13.0f);
 	m_ppObjects[0]->SetColor(XMFLOAT3(0.7f, 0.0f, 0.0f));
 
-	m_ppObjects[1] = new CGameObject();
-	m_ppObjects[1]->SetMesh(pUfoMesh);
+	m_ppObjects[1] = new CUfoObject(pd3dDevice, pd3dCommandList);
+
 	//m_ppObjects[1]->SetShader(pShader);
 	m_ppObjects[1]->SetPosition(10.0f, -2.0f, 8.0f);
 	m_ppObjects[1]->SetColor(XMFLOAT3(0.0f, 0.7f, 0.0f));
 
-	m_ppObjects[2] = new CGameObject();
-	m_ppObjects[2]->SetMesh(pUfoMesh);
+	m_ppObjects[2] = new CUfoObject(pd3dDevice, pd3dCommandList);
+	//m_ppObjects[2]->SetMesh(pUfoMesh);
 	//m_ppObjects[2]->SetShader(pShader);
 	m_ppObjects[2]->SetPosition(-5.0f, -4.0f, 11.0f);
 	m_ppObjects[2]->SetColor(XMFLOAT3(0.0f, 0.0f, 0.7f));
 
-	m_ppObjects[3] = new CGameObject();
-	m_ppObjects[3]->SetMesh(pUfoMesh);
+	m_ppObjects[3] = new CUfoObject(pd3dDevice, pd3dCommandList);
+	//m_ppObjects[3]->SetMesh(pUfoMesh);
 	//m_ppObjects[3]->SetShader(pShader);
 	m_ppObjects[3]->SetPosition(-10.0f, -2.0f, 8.0f);
 
-	m_ppObjects[4] = new CGameObject();
-	m_ppObjects[4]->SetMesh(pFlyerMesh);
+	m_ppObjects[4] = new CUfoObject(pd3dDevice, pd3dCommandList);
+	//m_ppObjects[4]->SetMesh(pFlyerMesh);
 	//m_ppObjects[4]->SetShader(pShader);
 	m_ppObjects[4]->SetPosition(0.0f, 4.0f, 20.0f);
-	m_ppObjects[4]->Rotate(0.0f, 180.0f, 0.0f);
+	//m_ppObjects[4]->Rotate(0.0f, 180.0f, 0.0f);
 	m_ppObjects[4]->SetColor(XMFLOAT3(0.25f, 0.75f, 0.65f));
+
+	
+
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
 }
 
 void CObjectsShader::ReleaseObjects()
 {
+
 	if (m_ppObjects)
 	{
 		for (int j = 0; j < m_nObjects; j++)
@@ -303,6 +310,8 @@ void CObjectsShader::ReleaseObjects()
 		}
 		delete[] m_ppObjects;
 	}
+	if (m_pMap)
+		delete m_pMap;
 }
 
 void CObjectsShader::AnimateObjects(float fTimeElapsed)
@@ -326,6 +335,8 @@ void CObjectsShader::ReleaseUploadBuffers()
 void CObjectsShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
 {
 	CShader::Render(pd3dCommandList, pCamera);
+	if (m_pMap) //¸Ê±×¸®±â
+		m_pMap->Render(pd3dCommandList, pCamera);
 	for (int j = 0; j < m_nObjects; j++)
 	{
 		if (m_ppObjects[j])
@@ -335,7 +346,7 @@ void CObjectsShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera*
 	}
 }
 
-CGameObject** CObjectsShader::GetObjects()
+CUfoObject** CObjectsShader::GetObjects()
 {
 	return m_ppObjects;
 }

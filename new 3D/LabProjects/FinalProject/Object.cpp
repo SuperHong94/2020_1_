@@ -33,7 +33,12 @@ void CGameObject::SetShader(CShader* pShader)
 
 void CGameObject::Animate(float fTimeElapsed)
 {
+	SetPosition(m_xmf4x4World._41 + m_dir.x * m_fMovingSpeed,
+		m_xmf4x4World._42 + m_dir.y * m_fMovingSpeed, m_xmf4x4World._43 +
+		m_dir.z * m_fMovingSpeed);
 }
+
+
 
 void CGameObject::CreateShaderVariables(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
 {
@@ -139,10 +144,52 @@ void CGameObject::Rotate(XMFLOAT3* pxmf3Axis, float fAngle)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-CUfoObject::CUfoObject()
+//맵만들기
+
+CMap::CMap(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
+{
+	CCubeMeshDiffused* pCubeMesh = new CCubeMeshDiffused(pd3dDevice, pd3dCommandList, 5.0f, 5.0f, 5.0f);
+	SetMesh(pCubeMesh);
+	SetPosition(0.0f, 0.0f, 0.0f);
+	SetMovingSpeed(0.0f);
+	SetColor(XMFLOAT3(0.0f, 0.0f, 0.0f));
+	SetIsActive(true);
+}
+CMap::~CMap()
 {
 
+}
+
+///
+CUfoObject::CUfoObject(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
+{
+	std::random_device rd;
+	std::default_random_engine dre(rd());
+	std::uniform_real_distribution uid(-10.0f, 10.0f);
+	std::uniform_real_distribution ruid(0.0f, 1.0f);
+	CMesh* pUfoMesh = new CMesh(pd3dDevice, pd3dCommandList, "Models/UFO.txt"); //적 오프젝트
+	CCubeMeshDiffused* pCubeMesh = new CCubeMeshDiffused(pd3dDevice, pd3dCommandList, 1.0f, 1.0f, 1.0f);//폭발메쉬
+	XMFLOAT3 pos = GetPosition();
+	startPos = pos; //나중에 파티클 제거 할때 처음위치랑 비교
+	explorObjects = new CGameObject * [m_explosionCount];
+
+	XMFLOAT3 dir;
+	for (int i = 0; i < m_explosionCount; ++i) {
+		explorObjects[i] = new CGameObject;
+		XMStoreFloat3(&dir, XMVector4Normalize(XMVectorSet(uid(dre), uid(dre), uid(dre), uid(dre))));
+		explorObjects[i]->SetPosition(pos);
+		explorObjects[i]->SetMesh(pCubeMesh);
+		explorObjects[i]->SetColor(XMFLOAT3(1.0f, 1.0f, 0.0f));  //색깔 설정
+
+		explorObjects[i]->SetMovingDirection(dir);
+		explorObjects[i]->SetMovingSpeed(0.5f);
+	}
+
+	XMStoreFloat3(&m_dir, XMVector4Normalize(XMVectorSet(uid(dre), uid(dre), uid(dre), uid(dre)))); //기본 방향
+	SetMesh(pUfoMesh);
+	SetPosition(uid(dre), uid(dre), 50.f + uid(dre));
+	SetColor(XMFLOAT3(ruid(dre), ruid(dre), ruid(dre)));
+	SetIsActive(true);
 }
 
 CUfoObject::~CUfoObject()
@@ -151,10 +198,57 @@ CUfoObject::~CUfoObject()
 }
 
 
+void CUfoObject::Animate(float fTimeElapsed) {
+	if (isActive) {
+		CGameObject::Animate(fTimeElapsed);
+	}
+	else {
 
+		for (int i = 0; i < m_explosionCount; ++i)
+			explorObjects[i]->Animate(fTimeElapsed);
+
+		XMFLOAT3 dis;
+		XMStoreFloat3(&dis, XMVector3Length(XMVectorSubtract(XMLoadFloat3(&startPos),
+			XMLoadFloat3(&explorObjects[0]->GetPosition()))));
+		if (dis.x > 20.0f) {
+			isActive = true;
+			//m_dwColor = OriginalColor;
+		}
+	}
+
+}
+
+void CUfoObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
+{
+	if (isActive) {
+		CGameObject::Render(pd3dCommandList, pCamera);
+	}
+	else {
+		for (int i = 0; i < m_explosionCount; ++i) {
+			explorObjects[i]->Render(pd3dCommandList, pCamera);
+		}
+	}
+}
+
+
+
+void CUfoObject::SetParticlePosition()
+{
+	XMFLOAT3 pos = GetPosition();
+	startPos = pos;
+	for (int i = 0; i < m_explosionCount; ++i)
+	{
+
+		explorObjects[i]->SetPosition(pos);
+	}
+}
+
+
+
+//---------------총알
 CBullet::CBullet()
 {
-	isActive = false; //초기에는 활성화 안됨
+	isActive=false; //초기에는 활성화 안됨
 	isLockon = false;
 }
 
@@ -179,15 +273,15 @@ void CBullet::Animate(float fTimeElapsed) {
 }
 
 
-bool CBullet::GetIsActive()
+bool CGameObject::GetIsActive()
 {
 	return isActive;
 }
-void CBullet::SetIsActive(bool active)
+void CGameObject::SetIsActive(bool active)
 {
 	isActive = active;
 }
 
-void CBullet::SetMovingDirection(XMFLOAT3& Direction) {
-	XMStoreFloat3(&dir, XMVector3Normalize(XMLoadFloat3(&Direction)));
+void CGameObject::SetMovingDirection(XMFLOAT3& Direction) {
+	XMStoreFloat3(&m_dir, XMVector3Normalize(XMLoadFloat3(&Direction)));
 }

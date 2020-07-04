@@ -81,9 +81,10 @@ public:
 	virtual void ReleaseUploadBuffers();
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 
-	CGameObject** GetObjects();
+	CUfoObject** GetObjects();
 	int GetObjectCnt();
 protected:
-	CGameObject** m_ppObjects = NULL;
+	CUfoObject** m_ppObjects = NULL;
 	int m_nObjects = 0;
+	CMap* m_pMap = NULL;
 };
