@@ -54,6 +54,13 @@ using Microsoft::WRL::ComPtr;
 #define DIR_UP					0x10
 #define DIR_DOWN				0x20
 
+//WASD로도 이동가능하게 추가
+#define VK_W  0x57
+#define VK_S  0x53
+#define VK_A  0x41
+#define VK_D  0x44
+#define VK_Z  0x5A
+
 #define RANDOM_COLOR			XMFLOAT4(rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX))
 
 #define _WITH_DIERECTX_MATH_FRUSTUM

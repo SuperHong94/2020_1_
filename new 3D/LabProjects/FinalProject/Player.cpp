@@ -37,16 +37,18 @@ CPlayer::~CPlayer()
 	ReleaseShaderVariables();
 
 	if (m_pCamera) delete m_pCamera;
+	if (bullets)
+		delete[] bullets;
 }
 
-void CPlayer::CreateShaderVariables(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList)
+void CPlayer::CreateShaderVariables(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
 {
 	if (m_pCamera) m_pCamera->CreateShaderVariables(pd3dDevice, pd3dCommandList);
 
 	CGameObject::CreateShaderVariables(pd3dDevice, pd3dCommandList);
 }
 
-void CPlayer::UpdateShaderVariables(ID3D12GraphicsCommandList *pd3dCommandList)
+void CPlayer::UpdateShaderVariables(ID3D12GraphicsCommandList* pd3dCommandList)
 {
 	if (m_pCamera) m_pCamera->UpdateShaderVariables(pd3dCommandList);
 
@@ -94,31 +96,48 @@ void CPlayer::Rotate(float x, float y, float z)
 	DWORD nCurrentCameraMode = m_pCamera->GetMode();
 	if ((nCurrentCameraMode == FIRST_PERSON_CAMERA) || (nCurrentCameraMode == THIRD_PERSON_CAMERA))
 	{
+		//카메라를 x, y, z 만큼 회전한다. 플레이어를 회전하면 카메라가 회전하게 된다. 
+		m_pCamera->Rotate(x, y, z);
 		if (x != 0.0f)
 		{
-			m_fPitch += x;
+			/*m_fPitch += x;
 			if (m_fPitch > +89.0f) { x -= (m_fPitch - 89.0f); m_fPitch = +89.0f; }
-			if (m_fPitch < -89.0f) { x -= (m_fPitch + 89.0f); m_fPitch = -89.0f; }
+			if (m_fPitch < -89.0f) { x -= (m_fPitch + 89.0f); m_fPitch = -89.0f; }*/
+			XMMATRIX xmmtxRotate =
+				XMMatrixRotationAxis(XMLoadFloat3(&m_xmf3Right),
+					XMConvertToRadians(x));
+			XMStoreFloat3(&m_xmf3Look,
+				XMVector3TransformNormal(XMLoadFloat3(&m_xmf3Look), xmmtxRotate));
+			XMStoreFloat3(&m_xmf3Up,
+				XMVector3TransformNormal(XMLoadFloat3(&m_xmf3Up), xmmtxRotate));
 		}
 		if (y != 0.0f)
 		{
-			m_fYaw += y;
-			if (m_fYaw > 360.0f) m_fYaw -= 360.0f;
-			if (m_fYaw < 0.0f) m_fYaw += 360.0f;
+			XMMATRIX xmmtxRotate =
+				XMMatrixRotationAxis(XMLoadFloat3(&m_xmf3Up),
+					XMConvertToRadians(y));
+			XMStoreFloat3(&m_xmf3Look,
+				XMVector3TransformNormal(XMLoadFloat3(&m_xmf3Look), xmmtxRotate));
+			XMStoreFloat3(&m_xmf3Right,
+				XMVector3TransformNormal(XMLoadFloat3(&m_xmf3Right), xmmtxRotate));
 		}
 		if (z != 0.0f)
 		{
-			m_fRoll += z;
-			if (m_fRoll > +20.0f) { z -= (m_fRoll - 20.0f); m_fRoll = +20.0f; }
-			if (m_fRoll < -20.0f) { z -= (m_fRoll + 20.0f); m_fRoll = -20.0f; }
+			XMMATRIX xmmtxRotate =
+				XMMatrixRotationAxis(XMLoadFloat3(&m_xmf3Look),
+					XMConvertToRadians(z));
+			XMStoreFloat3(&m_xmf3Up,
+				XMVector3TransformNormal(XMLoadFloat3(&m_xmf3Up), xmmtxRotate));
+			XMStoreFloat3(&m_xmf3Right,
+				XMVector3TransformNormal(XMLoadFloat3(&m_xmf3Right), xmmtxRotate));
 		}
-		m_pCamera->Rotate(x, y, z);
-		if (y != 0.0f)
+
+		/*if (y != 0.0f)
 		{
 			XMMATRIX xmmtxRotate = XMMatrixRotationAxis(XMLoadFloat3(&m_xmf3Up), XMConvertToRadians(y));
 			m_xmf3Look = Vector3::TransformNormal(m_xmf3Look, xmmtxRotate);
 			m_xmf3Right = Vector3::TransformNormal(m_xmf3Right, xmmtxRotate);
-		}
+		}*/
 	}
 	else if (nCurrentCameraMode == SPACESHIP_CAMERA)
 	{
@@ -150,6 +169,7 @@ void CPlayer::Rotate(float x, float y, float z)
 
 void CPlayer::Update(float fTimeElapsed)
 {
+	Reload(fTimeElapsed);
 	m_xmf3Velocity = Vector3::Add(m_xmf3Velocity, Vector3::ScalarProduct(m_xmf3Gravity, fTimeElapsed, false));
 	float fLength = sqrtf(m_xmf3Velocity.x * m_xmf3Velocity.x + m_xmf3Velocity.z * m_xmf3Velocity.z);
 	float fMaxVelocityXZ = m_fMaxVelocityXZ * fTimeElapsed;
@@ -176,22 +196,24 @@ void CPlayer::Update(float fTimeElapsed)
 	float fDeceleration = (m_fFriction * fTimeElapsed);
 	if (fDeceleration > fLength) fDeceleration = fLength;
 	m_xmf3Velocity = Vector3::Add(m_xmf3Velocity, Vector3::ScalarProduct(m_xmf3Velocity, -fDeceleration, true));
+
+	
 }
 
-CCamera *CPlayer::OnChangeCamera(DWORD nNewCameraMode, DWORD nCurrentCameraMode)
+CCamera* CPlayer::OnChangeCamera(DWORD nNewCameraMode, DWORD nCurrentCameraMode)
 {
-	CCamera *pNewCamera = NULL;
+	CCamera* pNewCamera = NULL;
 	switch (nNewCameraMode)
 	{
-		case FIRST_PERSON_CAMERA:
-			pNewCamera = new CFirstPersonCamera(m_pCamera);
-			break;
-		case THIRD_PERSON_CAMERA:
-			pNewCamera = new CThirdPersonCamera(m_pCamera);
-			break;
-		case SPACESHIP_CAMERA:
-			pNewCamera = new CSpaceShipCamera(m_pCamera);
-			break;
+	case FIRST_PERSON_CAMERA:
+		pNewCamera = new CFirstPersonCamera(m_pCamera);
+		break;
+	case THIRD_PERSON_CAMERA:
+		pNewCamera = new CThirdPersonCamera(m_pCamera);
+		break;
+	case SPACESHIP_CAMERA:
+		pNewCamera = new CSpaceShipCamera(m_pCamera);
+		break;
 	}
 	if (nCurrentCameraMode == SPACESHIP_CAMERA)
 	{
@@ -229,21 +251,43 @@ void CPlayer::OnPrepareRender()
 	m_xmf4x4World._41 = m_xmf3Position.x; m_xmf4x4World._42 = m_xmf3Position.y; m_xmf4x4World._43 = m_xmf3Position.z;
 }
 
-void CPlayer::Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera)
+void CPlayer::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
 {
 	DWORD nCameraMode = (pCamera) ? pCamera->GetMode() : 0x00;
-	if (nCameraMode == THIRD_PERSON_CAMERA) CGameObject::Render(pd3dCommandList, pCamera);
+	if (nCameraMode == THIRD_PERSON_CAMERA)
+		CGameObject::Render(pd3dCommandList, pCamera);
+	if (bullets)
+		for (int i = 0; i < bulletCnt; ++i)
+			if (bullets[i].GetIsActive())
+				bullets[i].Render(pd3dCommandList, pCamera);
 }
 
+void CPlayer::Animate(float fElapsedTime)
+{
+	if (bullets) {
+		for (int i = 0; i < bulletCnt; ++i) {
+			if (bullets[i].GetIsActive())
+				bullets[i].Animate(fElapsedTime);
+		}
+	}
+
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CAirplanePlayer
 
-CAirplanePlayer::CAirplanePlayer(ID3D12Device *pd3dDevice, ID3D12GraphicsCommandList *pd3dCommandList, ID3D12RootSignature *pd3dGraphicsRootSignature)
+CAirplanePlayer::CAirplanePlayer(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, ID3D12RootSignature* pd3dGraphicsRootSignature)
 {
-	CMesh *pAirplaneMesh = new CMesh(pd3dDevice, pd3dCommandList, "Models/FlyerPlayership.txt");
+	CMesh* pAirplaneMesh = new CMesh(pd3dDevice, pd3dCommandList, "Models/FlyerPlayership.txt");
 
 	SetMesh(pAirplaneMesh);
 
+	CCubeMeshDiffused* bulletMesh = new CCubeMeshDiffused(pd3dDevice, pd3dCommandList); //총알 매쉬 생성
+	bulletCnt = 100; //총알 개수는 100개입니다.
+	bullets = new CBullet[bulletCnt];
+
+	for (int i = 0; i < bulletCnt; ++i) {
+		bullets[i].SetMesh(bulletMesh);
+	}
 	m_pCamera = ChangeCamera(THIRD_PERSON_CAMERA, 0.0f);
 
 	SetPosition(XMFLOAT3(0.0f, 0.0f, 0.0f));
@@ -251,11 +295,11 @@ CAirplanePlayer::CAirplanePlayer(ID3D12Device *pd3dDevice, ID3D12GraphicsCommand
 
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
 
-	CPseudoLightingShader *pShader = new CPseudoLightingShader();
+	CPseudoLightingShader* pShader = new CPseudoLightingShader();
 	pShader->CreateShader(pd3dDevice, pd3dGraphicsRootSignature);
 	pShader->CreateShaderVariables(pd3dDevice, pd3dCommandList);
 
-	SetShader(pShader);
+	//SetShader(pShader);
 }
 
 CAirplanePlayer::~CAirplanePlayer()
@@ -267,7 +311,7 @@ void CAirplanePlayer::OnPrepareRender()
 	CPlayer::OnPrepareRender();
 }
 
-CCamera *CAirplanePlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
+CCamera* CAirplanePlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
 {
 	DWORD nCurrentCameraMode = (m_pCamera) ? m_pCamera->GetMode() : 0x00;
 	if (nCurrentCameraMode == nNewCameraMode) return(m_pCamera);
@@ -317,4 +361,32 @@ CCamera *CAirplanePlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
 	Update(fTimeElapsed);
 
 	return(m_pCamera);
+}
+
+void CPlayer::Fire()
+{
+	if (curShotDelay < maxShotDelay)
+		return;
+	bullets[currentBullet].SetIsActive(true);
+	bullets[currentBullet].SetPosition(GetPosition());
+
+
+	XMStoreFloat3(&bullets[currentBullet].dir, XMVectorAdd(XMLoadFloat3(&bullets[currentBullet].dir),
+		XMLoadFloat3(&m_xmf3Look)));
+
+
+
+
+	if (currentBullet < bulletCnt)
+		currentBullet++;
+	else
+		currentBullet = 0;
+
+	curShotDelay = 0;
+
+}
+
+void CPlayer::Reload(float time)
+{
+	curShotDelay += time;
 }

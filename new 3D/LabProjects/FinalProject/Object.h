@@ -52,6 +52,10 @@ public:
 
 	void Rotate(float fPitch = 10.0f, float fYaw = 10.0f, float fRoll = 10.0f);
 	void Rotate(XMFLOAT3 *pxmf3Axis, float fAngle);
+	
+
+	
+	
 };
 
 class CUfoObject : public CGameObject
@@ -61,3 +65,18 @@ public:
 	virtual ~CUfoObject();
 };
 
+
+class CBullet :public CGameObject
+{
+	bool isActive;
+	bool isLockon;
+public:
+	XMFLOAT3 dir = XMFLOAT3(0, 0, 0);
+	CBullet();
+	bool GetIsActive();
+	void SetIsActive(bool active);
+	virtual void Move(XMFLOAT3& vDirection, float fSpeed);
+	virtual void Animate(float fElapsedTime);
+	void SetMovingDirection(XMFLOAT3& direction);
+	virtual ~CBullet();
+};

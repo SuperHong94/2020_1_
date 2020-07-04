@@ -26,6 +26,14 @@ protected:
 
 	CCamera						*m_pCamera = NULL;
 
+	CBullet* bullets = NULL;
+	size_t currentBullet = 0;
+	size_t bulletCnt = 0;
+
+	//ÃÑ¾Ë µô·¹ÀÌ
+	float maxShotDelay = 0.2f;
+	float curShotDelay = 0.0f;
+
 public:
 	CPlayer();
 	virtual ~CPlayer();
@@ -72,6 +80,10 @@ public:
 	virtual CCamera *ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed) { return(NULL); }
 	virtual void OnPrepareRender();
 	virtual void Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera = NULL);
+
+	virtual void Animate(float fElapsedTime);
+	void Fire();///ÃÑ¾Ë ¹ß»ç!
+	void Reload(float time);
 };
 
 class CAirplanePlayer : public CPlayer

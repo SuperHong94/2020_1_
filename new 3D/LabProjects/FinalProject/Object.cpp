@@ -17,14 +17,14 @@ CGameObject::~CGameObject()
 	if (m_pShader) m_pShader->Release();
 }
 
-void CGameObject::SetMesh(CMesh *pMesh)
+void CGameObject::SetMesh(CMesh* pMesh)
 {
 	if (m_pMesh) m_pMesh->Release();
 	m_pMesh = pMesh;
 	if (m_pMesh) m_pMesh->AddRef();
 }
 
-void CGameObject::SetShader(CShader *pShader)
+void CGameObject::SetShader(CShader* pShader)
 {
 	if (m_pShader) m_pShader->Release();
 	m_pShader = pShader;
@@ -52,7 +52,7 @@ void CGameObject::ReleaseShaderVariables()
 {
 }
 
-void CGameObject::Render(ID3D12GraphicsCommandList *pd3dCommandList, CCamera *pCamera)
+void CGameObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
 {
 	OnPrepareRender();
 
@@ -79,6 +79,8 @@ void CGameObject::SetPosition(XMFLOAT3 xmf3Position)
 {
 	SetPosition(xmf3Position.x, xmf3Position.y, xmf3Position.z);
 }
+
+
 
 XMFLOAT3 CGameObject::GetPosition()
 {
@@ -130,7 +132,7 @@ void CGameObject::Rotate(float fPitch, float fYaw, float fRoll)
 	m_xmf4x4World = Matrix4x4::Multiply(mtxRotate, m_xmf4x4World);
 }
 
-void CGameObject::Rotate(XMFLOAT3 *pxmf3Axis, float fAngle)
+void CGameObject::Rotate(XMFLOAT3* pxmf3Axis, float fAngle)
 {
 	XMMATRIX mtxRotate = XMMatrixRotationAxis(XMLoadFloat3(pxmf3Axis), XMConvertToRadians(fAngle));
 	m_xmf4x4World = Matrix4x4::Multiply(mtxRotate, m_xmf4x4World);
@@ -149,3 +151,43 @@ CUfoObject::~CUfoObject()
 }
 
 
+
+CBullet::CBullet()
+{
+	isActive = false; //초기에는 활성화 안됨
+	isLockon = false;
+}
+
+CBullet::~CBullet()
+{
+
+}
+
+
+void CBullet::Move(XMFLOAT3& vDirection, float fSpeed)
+{
+	SetPosition(m_xmf4x4World._41 + vDirection.x * fSpeed,
+		m_xmf4x4World._42 + vDirection.y * fSpeed, m_xmf4x4World._43 +
+		vDirection.z * fSpeed);
+}
+
+
+void CBullet::Animate(float fTimeElapsed) {
+	if (isActive) {
+		Move(dir, 100.0f * fTimeElapsed);
+	}
+}
+
+
+bool CBullet::GetIsActive()
+{
+	return isActive;
+}
+void CBullet::SetIsActive(bool active)
+{
+	isActive = active;
+}
+
+void CBullet::SetMovingDirection(XMFLOAT3& Direction) {
+	XMStoreFloat3(&dir, XMVector3Normalize(XMLoadFloat3(&Direction)));
+}

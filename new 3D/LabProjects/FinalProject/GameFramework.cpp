@@ -34,7 +34,7 @@ CGameFramework::CGameFramework()
 	m_pScene = NULL;
 	m_pCamera = NULL;
 
-	_tcscpy_s(m_pszFrameRate, _T("FinalProject("));
+	_tcscpy_s(m_pszFrameRate, _T("FinalProject ("));
 }
 
 CGameFramework::~CGameFramework()
@@ -462,12 +462,19 @@ void CGameFramework::ProcessInput()
 	DWORD dwDirection = 0;
 	if (::GetKeyboardState(pKeysBuffer))
 	{
+		if (pKeysBuffer[VK_W] & 0xF0)  dwDirection |= DIR_FORWARD;//w
+		if (pKeysBuffer[VK_A] & 0xF0)  dwDirection |= DIR_LEFT;//w
+		if (pKeysBuffer[VK_S] & 0xF0)  dwDirection |= DIR_BACKWARD;//w
+		if (pKeysBuffer[VK_D] & 0xF0)  dwDirection |= DIR_RIGHT;//w
 		if (pKeysBuffer[VK_UP] & 0xF0) dwDirection |= DIR_FORWARD;
 		if (pKeysBuffer[VK_DOWN] & 0xF0) dwDirection |= DIR_BACKWARD;
 		if (pKeysBuffer[VK_LEFT] & 0xF0) dwDirection |= DIR_LEFT;
 		if (pKeysBuffer[VK_RIGHT] & 0xF0) dwDirection |= DIR_RIGHT;
 		if (pKeysBuffer[VK_PRIOR] & 0xF0) dwDirection |= DIR_UP;
 		if (pKeysBuffer[VK_NEXT] & 0xF0) dwDirection |= DIR_DOWN;
+
+		if (pKeysBuffer[VK_LCONTROL] & 0xF0) //왼쪽 컨트롤 키누르면 총알 발사
+			m_pPlayer->Fire();
 	}
 
 	float cxDelta = 0.0f, cyDelta = 0.0f;
@@ -499,6 +506,8 @@ void CGameFramework::ProcessInput()
 void CGameFramework::AnimateObjects()
 {
 	if (m_pScene) m_pScene->AnimateObjects(m_GameTimer.GetTimeElapsed());
+	if (m_pPlayer)
+		m_pPlayer->Animate(m_GameTimer.GetTimeElapsed());
 }
 
 void CGameFramework::CreateShaderVariables()
