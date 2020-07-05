@@ -197,7 +197,7 @@ void CPlayer::Update(float fTimeElapsed)
 	if (fDeceleration > fLength) fDeceleration = fLength;
 	m_xmf3Velocity = Vector3::Add(m_xmf3Velocity, Vector3::ScalarProduct(m_xmf3Velocity, -fDeceleration, true));
 
-	
+
 }
 
 CCamera* CPlayer::OnChangeCamera(DWORD nNewCameraMode, DWORD nCurrentCameraMode)
@@ -325,7 +325,7 @@ CCamera* CAirplanePlayer::ChangeCamera(DWORD nNewCameraMode, float fTimeElapsed)
 		m_pCamera = OnChangeCamera(FIRST_PERSON_CAMERA, nCurrentCameraMode);
 		m_pCamera->SetTimeLag(0.0f);
 		m_pCamera->SetOffset(XMFLOAT3(0.0f, 20.0f, 0.0f));
-		m_pCamera->GenerateProjectionMatrix(1.01f, 500.0f, ASPECT_RATIO, 60.0f);
+		m_pCamera->GenerateProjectionMatrix(1.01f, 5000.0f, ASPECT_RATIO, 60.0f);
 		m_pCamera->SetViewport(0, 0, FRAME_BUFFER_WIDTH, FRAME_BUFFER_HEIGHT, 0.0f, 1.0f);
 		m_pCamera->SetScissorRect(0, 0, FRAME_BUFFER_WIDTH, FRAME_BUFFER_HEIGHT);
 		break;
@@ -367,16 +367,23 @@ void CPlayer::Fire()
 {
 	if (curShotDelay < maxShotDelay)
 		return;
+
 	bullets[currentBullet].SetIsActive(true);
 	bullets[currentBullet].SetPosition(GetPosition());
 	bullets[currentBullet].SetStartPos(GetPosition());
+	bullets[currentBullet].SetColor(XMFLOAT3(1.0f, 1.0f, 1.0f));
 	bullets[currentBullet].dir = XMFLOAT3(0.0f, 0.0f, 0.0f);
 
 	XMStoreFloat3(&bullets[currentBullet].dir, XMVectorAdd(XMLoadFloat3(&bullets[currentBullet].dir),
-		XMLoadFloat3(&m_xmf3Look)));
+		XMLoadFloat3(&m_xmf3Look))); //총알이 플레이어 바라보는 방향으로 나감
 
 
-
+	if (target) {
+		bullets[currentBullet].SetIsLockon(true); //타겟이 있으면 Lockon true로한다.
+		bullets[currentBullet].SetColor(XMFLOAT3(0.0f, 0.0f, 1.0f)); //총알색깔 바꾸어준다.
+		bullets[currentBullet].SetTarget(target);
+		target = NULL;
+	}
 
 	if (currentBullet < bulletCnt)
 		currentBullet++;

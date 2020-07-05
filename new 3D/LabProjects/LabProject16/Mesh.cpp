@@ -424,8 +424,7 @@ CSphereMeshDiffused::~CSphereMeshDiffused()
 
 
 
-int CMesh::CheckRayIntersection(XMFLOAT3& xmf3RayOrigin, XMFLOAT3& xmf3RayDirection,
-	float* pfNearHitDistance)
+int CMesh::CheckRayIntersection(XMFLOAT3& xmf3RayOrigin, XMFLOAT3& xmf3RayDirection,float* pfNearHitDistance)
 {
 	//하나의 메쉬에서 광선은 여러 개의 삼각형과 교차할 수 있다. 교차하는 삼각형들 중 가장 가까운 삼각형을 찾는다. 
 	int nIntersections = 0;
@@ -441,8 +440,7 @@ int CMesh::CheckRayIntersection(XMFLOAT3& xmf3RayOrigin, XMFLOAT3& xmf3RayDirect
 	XMVECTOR xmRayOrigin = XMLoadFloat3(&xmf3RayOrigin);
 	XMVECTOR xmRayDirection = XMLoadFloat3(&xmf3RayDirection);
 	//모델 좌표계의 광선과 메쉬의 바운딩 박스(모델 좌표계)와의 교차를 검사한다. 
-	bool bIntersected = m_xmBoundingBox.Intersects(xmRayOrigin, xmRayDirection,
-		*pfNearHitDistance);
+	bool bIntersected = m_xmBoundingBox.Intersects(xmRayOrigin, xmRayDirection,*pfNearHitDistance);
 	//모델 좌표계의 광선이 메쉬의 바운딩 박스와 교차하면 메쉬와의 교차를 검사한다. 
 	if (bIntersected)
 	{

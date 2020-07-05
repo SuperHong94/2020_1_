@@ -49,7 +49,7 @@ public:
 	void SetPosition(XMFLOAT3 xmf3Position);
 
 	void SetColor(XMFLOAT3 xmf3Color) { m_xmf3Color = xmf3Color; }
-
+	XMFLOAT3 GetRColor() { return XMFLOAT3(-m_xmf3Color.x, -m_xmf3Color.y, -m_xmf3Color.z); }
 	void MoveStrafe(float fDistance = 1.0f);
 	void MoveUp(float fDistance = 1.0f);
 	void MoveForward(float fDistance = 1.0f);
@@ -61,13 +61,6 @@ public:
 	bool GetIsActive();
 	void SetIsActive(bool active);
 
-	bool IsVisible(CCamera* pCamera = NULL);
-
-	//모델 좌표계의 픽킹 광선을 생성한다.
-	void GenerateRayForPicking(XMFLOAT3& xmf3PickPosition, XMFLOAT4X4& xmf4x4View, XMFLOAT3* pxmf3PickRayOrigin, XMFLOAT3* pxmf3PickRayDirection);
-	//카메라 좌표계의 한 점에 대한 모델 좌표계의 픽킹 광선을 생성하고 객체와의 교차를 검사한다.
-	int PickObjectByRayIntersection(XMFLOAT3& xmf3PickPosition, XMFLOAT4X4& xmf4x4View, float* pfHitDistance);
-
 };
 
 class CUfoObject : public CGameObject //이것이 폭팔할 것이다.
@@ -75,7 +68,7 @@ class CUfoObject : public CGameObject //이것이 폭팔할 것이다.
 	CGameObject** explorObjects{ nullptr }; //폭발파티클
 	const int m_explosionCount = 100;
 	XMFLOAT3 startPos;
-	XMFLOAT3 m_dir;
+	XMFLOAT3 OriginalColor;
 public:
 	CUfoObject(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList);
 	virtual ~CUfoObject();
@@ -94,18 +87,20 @@ public:
 };
 
 
-
 class CBullet :public CGameObject
 {
-
+	CUfoObject* target;
 	bool isLockon;
 	XMFLOAT3 startPos;
 public:
 	XMFLOAT3 dir = XMFLOAT3(0, 0, 0);
 	CBullet();
-	void SetStartPos(XMFLOAT3& pos);
 	virtual void Move(XMFLOAT3& vDirection, float fSpeed);
 	virtual void Animate(float fElapsedTime);
-
+	void SetStartPos(XMFLOAT3& pos) { startPos = pos; };
+	void SetIsLockon(bool lockon) { isLockon = lockon; };
+	bool GetIsLockon() { return isLockon; };
+	void SetTarget(CUfoObject* t) { target = t; };
+	CUfoObject* GetTarget() { return target; };
 	virtual ~CBullet();
 };

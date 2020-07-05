@@ -45,9 +45,9 @@ public:
 	void Release() { if (--m_nReferences <= 0) delete this; }
 
 	void ReleaseUploadBuffers();
-	BoundingOrientedBox						m_xmBoundingBox;
+	BoundingBox						m_xmBoundingBox;
 protected:
-	
+
 
 	UINT							m_nVertices = 0;
 	XMFLOAT3* m_pxmf3Positions = NULL;
@@ -84,11 +84,6 @@ public:
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList);
 
 	void LoadMeshFromFile(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, char* pstrFileName);
-
-	BoundingOrientedBox GetBoundingBox() { return(m_xmBoundingBox); }
-
-	int CheckRayIntersection(XMFLOAT3& xmRayPosition, XMFLOAT3& xmRayDirection, float
-		* pfNearHitDistance);
 };
 
 class CCubeMeshDiffused : public CMesh

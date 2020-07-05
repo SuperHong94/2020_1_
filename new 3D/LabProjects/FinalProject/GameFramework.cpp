@@ -325,8 +325,7 @@ void CGameFramework::OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM
 	{
 	case WM_LBUTTONDOWN:
 	case WM_RBUTTONDOWN:
-		
-		m_pSelectedObject = m_pScene->PickObjectPointedByCursor(LOWORD(lParam), HIWORD(lParam), m_pCamera);
+		m_pScene->IsPickingObject(LOWORD(lParam), HIWORD(lParam), m_pPlayer->GetCamera());
 		::SetCapture(hWnd);
 		::GetCursorPos(&m_ptOldCursorPos);
 		break;
@@ -458,19 +457,11 @@ void CGameFramework::ReleaseObjects()
 	if (m_pScene) m_pScene->ReleaseObjects();
 	if (m_pScene) delete m_pScene;
 }
-void CGameFramework::ProcessSelectedObject(DWORD dwDirection, float cxDelta, float
-	cyDelta)
-{
-	//픽킹으로 선택한 게임 객체가 있으면 키보드를 누르거나 마우스를 움직이면 게임 개체를 이동 또는 회전한다. 
-	
-	m_pSelectedObject->SetColor(XMFLOAT3(cyDelta, cxDelta, 0.0f));
-	
-}
+
 void CGameFramework::ProcessInput()
 {
 	static UCHAR pKeysBuffer[256];
 	DWORD dwDirection = 0;
-	
 	if (::GetKeyboardState(pKeysBuffer))
 	{
 		if (pKeysBuffer[VK_W] & 0xF0)  dwDirection |= DIR_FORWARD;//w
@@ -489,10 +480,6 @@ void CGameFramework::ProcessInput()
 	}
 
 	float cxDelta = 0.0f, cyDelta = 0.0f;
-	if (m_pSelectedObject)
-	{
-		ProcessSelectedObject(dwDirection, cxDelta, cyDelta);
-	}
 	if (GetCapture() == m_hWnd)
 	{
 		::SetCursor(NULL);

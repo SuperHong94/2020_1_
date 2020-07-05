@@ -1,8 +1,5 @@
-﻿  stdafx.cpp
-  Camera.cpp
-  FinalProject.cpp
+﻿  FinalProject.cpp
   GameFramework.cpp
-  Mesh.cpp
   Object.cpp
   Player.cpp
   Scene.cpp

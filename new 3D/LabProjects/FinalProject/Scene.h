@@ -28,10 +28,11 @@ public:
 
 	void ReleaseUploadBuffers();
 
-	bool IsCollision();//충돌 체크함수
-	void SetPlayer(CPlayer* pPlayer);
 
-	CUfoObject* PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera);
+	bool IsPickingObject(int x, int y, CCamera* pCamera); //피킹함수
+	bool IsCollision();//충돌 체크함수
+	bool IsCollision(XMFLOAT3); //피킹 검사
+	void SetPlayer(CPlayer* pPlayer);
 
 protected:
 	ID3D12RootSignature* m_pd3dGraphicsRootSignature = NULL;

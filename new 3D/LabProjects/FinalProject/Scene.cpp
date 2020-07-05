@@ -147,10 +147,10 @@ bool CScene::IsCollision()
 		if (m_pPlayer->bullets[iBullet].GetIsActive()) //활성화되어있는 총알이라면
 		{
 			CBullet* pBullet = &m_pPlayer->bullets[iBullet];
-			BoundingOrientedBox xmbbModel = pBullet->m_pMesh->m_xmBoundingBox;
+			BoundingBox xmbbModel = pBullet->m_pMesh->m_xmBoundingBox;
 			xmbbModel.Transform(xmbbModel, XMLoadFloat4x4(&pBullet->m_xmf4x4World));
 			for (int i = 0; i < nObjects; ++i) {
-				BoundingOrientedBox other = ppObjects[i]->m_pMesh->m_xmBoundingBox;
+				BoundingBox other = ppObjects[i]->m_pMesh->m_xmBoundingBox;
 				other.Transform(other, XMLoadFloat4x4(&ppObjects[i]->m_xmf4x4World));
 				if (xmbbModel.Contains(other) != DirectX::DISJOINT) {
 					ppObjects[i]->SetParticlePosition();
@@ -166,34 +166,68 @@ bool CScene::IsCollision()
 }
 
 
-
-CUfoObject* CScene::PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera)
+bool CScene::IsCollision(XMFLOAT3 ray)
 {
-	if (!pCamera) return(NULL);
+	bool IsContains = false;
+
+	CUfoObject** ppObjects = m_pShaders[0].GetObjects();
+	int nObjects = m_pShaders[0].GetObjectCnt();
+	for (int i = 0; i < nObjects; ++i) {
+		if (ppObjects[i]->GetIsActive()) {
+			BoundingBox other = ppObjects[i]->m_pMesh->m_xmBoundingBox;
+			other.Transform(other, XMLoadFloat4x4(&ppObjects[i]->m_xmf4x4World));
+			other.Transform(other, XMLoadFloat4x4(&m_pPlayer->GetCamera()->GetViewMatrix()));
+			if (other.Contains(XMLoadFloat3(&ray)) != DirectX::DISJOINT) {
+				ppObjects[i]->SetColor(XMFLOAT3(1.0f, 1.0f, 1.0f));
+				m_pPlayer->SetTarget(ppObjects[i]);
+
+				IsContains = true;
+				return IsContains;
+			}
+		}
+	}
+	return IsContains;
+}
+
+bool CScene::IsPickingObject(int x, int y, CCamera* pCamera)
+{
+	if (!pCamera) return(false);
+	bool isPicking = false;
+	XMFLOAT3 ralyDir = XMFLOAT3(0.0f, 0.0f, 0.0f); //광선방향
+
+
+
+	//float fHalfWidth = pCamera->m_Viewport.m_nWidth * 0.5;
+	//float fHalfHeight = pCamera->m_Viewport.m_nHeight * 0.5;
+
+	////투영변환후의 x좌표
+	//float projectX = (x - fHalfWidth - pCamera->m_Viewport.m_nLeft) / fHalfWidth;
+	//float projectY = -1.0f * ((y - pCamera->m_Viewport.m_nTop - fHalfHeight) / fHalfHeight);
+
+
+	////투영변환 전의 카메라좌표계의 좌표
+	//float cameraX = projectX / pCamera->m_xmf4x4Project._11;
+	//float cameraY = projectY / pCamera->m_xmf4x4Project._22;
+	//float cameraZ = 1.0f;
 	XMFLOAT4X4 xmf4x4View = pCamera->GetViewMatrix();
 	XMFLOAT4X4 xmf4x4Projection = pCamera->GetProjectionMatrix();
 	D3D12_VIEWPORT d3dViewport = pCamera->GetViewport();
 	XMFLOAT3 xmf3PickPosition;
 	/*화면 좌표계의 점 (xClient, yClient)를 화면 좌표 변환의 역변환과 투영 변환의 역변환을 한다. 그 결과는 카메라
 	좌표계의 점이다. 투영 평면이 카메라에서 z-축으로 거리가 1이므로 z-좌표는 1로 설정한다.*/
-	xmf3PickPosition.x = (((2.0f * xClient) / d3dViewport.Width) - 1) /
-		xmf4x4Projection._11;
-	xmf3PickPosition.y = -(((2.0f * yClient) / d3dViewport.Height) - 1) /
-		xmf4x4Projection._22;
+	xmf3PickPosition.x = (((2.0f * x) / d3dViewport.Width) - 1) / xmf4x4Projection._11;
+	xmf3PickPosition.y = -(((2.0f * y) / d3dViewport.Height) - 1) / xmf4x4Projection._22;
 	xmf3PickPosition.z = 1.0f;
-	int nIntersected = 0;
-	float fHitDistance = FLT_MAX, fNearestHitDistance = FLT_MAX;
-	CUfoObject* pIntersectedObject = NULL, * pNearestObject = NULL;
-	//셰이더의 모든 게임 객체들에 대한 마우스 픽킹을 수행하여 카메라와 가장 가까운 게임 객체를 구한다. 
-	for (int i = 0; i < m_nShaders; i++)
-	{
-		pIntersectedObject = m_pShaders[i].PickObjectByRayIntersection(xmf3PickPosition,
-			xmf4x4View, &fHitDistance);
-		if (pIntersectedObject && (fHitDistance < fNearestHitDistance))
-		{
-			fNearestHitDistance = fHitDistance;
-			pNearestObject = pIntersectedObject;
-		}
+
+	ralyDir = XMFLOAT3(xmf3PickPosition.x, xmf3PickPosition.y, xmf3PickPosition.z); //광선방향
+	XMStoreFloat3(&ralyDir, XMVector2Normalize(XMLoadFloat3(&ralyDir)));
+	XMFLOAT3 ray;
+	float maxDis = 500.0f; //광선최대거리
+
+	for (float i = maxDis; i > 0.0f; i -= 0.01f) {
+		XMStoreFloat3(&ray, XMVectorScale(XMLoadFloat3(&ralyDir), i));
+		//std::cout << ray.x << ' ' << ray.y << ' ' << ray.z << std::endl;
+		isPicking = IsCollision(ray);
 	}
-	return(pNearestObject);
+	return isPicking;
 }

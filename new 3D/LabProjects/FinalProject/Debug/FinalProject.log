@@ -1,0 +1,9 @@
+﻿  stdafx.cpp
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\FinalProject\stdafx.h(156,70): error C2665: 'Vector3::Angle': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\FinalProject\stdafx.h(154,15): message : 'float Vector3::Angle(DirectX::XMFLOAT3 &,DirectX::XMFLOAT3 &)'일 수 있습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\FinalProject\stdafx.h(148,15): message : 또는       'float Vector3::Angle(DirectX::XMVECTOR &,DirectX::XMVECTOR &)'
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\FinalProject\stdafx.h(156,70): message : 인수 목록 '(DirectX::XMVECTOR, DirectX::XMVECTOR)'을(를) 일치시키는 동안
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\FinalProject\stdafx.h(175,68): error C2665: 'Vector3::TransformCoord': 2개의 오버로드 중 모든 인수 형식을 변환할 수 있는 오버로드가 없습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\FinalProject\stdafx.h(173,18): message : 'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMFLOAT4X4 &)'일 수 있습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\FinalProject\stdafx.h(166,18): message : 또는       'DirectX::XMFLOAT3 Vector3::TransformCoord(DirectX::XMFLOAT3 &,DirectX::XMMATRIX &)'
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\FinalProject\stdafx.h(175,68): message : 인수 목록 '(DirectX::XMFLOAT3, DirectX::XMMATRIX)'을(를) 일치시키는 동안

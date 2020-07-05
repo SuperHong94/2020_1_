@@ -80,8 +80,7 @@ public:
 		* pd3dGraphicsRootSignature);
 	virtual void ReleaseUploadBuffers();
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
-	virtual CUfoObject* PickObjectByRayIntersection(XMFLOAT3& xmf3PickPosition,
-		XMFLOAT4X4& xmf4x4View, float* pfNearHitDistance);
+
 	CUfoObject** GetObjects();
 	int GetObjectCnt();
 protected:
@@ -93,7 +92,6 @@ protected:
 class CMapShader :public CShader
 {
 protected:
-	ID3D12PipelineState* m_pMapPipeline = NULL;
 	CMap* m_pMap = NULL;
 public:
 	CMapShader();
@@ -104,6 +102,4 @@ public:
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 	virtual void AnimateObjects(float fTimeElapsed);
 	virtual void ReleaseUploadBuffers();
-	virtual void CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature* pd3dGraphicsRootSignature);
-	virtual void OnPrepareRender(ID3D12GraphicsCommandList* pd3dCommandList);
 };
