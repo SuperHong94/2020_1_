@@ -1,7 +1,4 @@
 ﻿  Shader.cpp
-  코드를 생성하고 있습니다.
-  1 of 474 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    4 functions had inline decision re-evaluated but remain unchanged
-  코드를 생성했습니다.
-  FinalProject.vcxproj -> C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\x64\Release\FinalProject.exe
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\FinalProject\Shader.cpp(145,126): error C2664: 'HRESULT ID3D12Device::CreateGraphicsPipelineState(const D3D12_GRAPHICS_PIPELINE_STATE_DESC *,const IID &,void **)': 인수 3을(를) 'void *'에서 'void **'(으)로 변환할 수 없습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\new 3D\LabProjects\FinalProject\Shader.cpp(145,103): message : 'void*'에서 'void'가 아닌 포인터로 변환하려면 명시적 캐스트가 필요합니다.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\d3d12.h(7947,43): message : 'ID3D12Device::CreateGraphicsPipelineState' 선언을 참조하십시오.

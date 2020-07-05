@@ -86,5 +86,20 @@ public:
 protected:
 	CUfoObject** m_ppObjects = NULL;
 	int m_nObjects = 0;
+
+};
+
+class CMapShader :public CShader
+{
+protected:
 	CMap* m_pMap = NULL;
+public:
+	CMapShader();
+	~CMapShader();
+	virtual D3D12_RASTERIZER_DESC CreateRasterizerState();
+	virtual void BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList
+		* pd3dCommandList);
+	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
+	virtual void AnimateObjects(float fTimeElapsed);
+	virtual void ReleaseUploadBuffers();
 };

@@ -111,7 +111,7 @@ inline float NDFBlinnPhongNormalizedTerm(float NdotH, float fRoughnessToSpecPowe
 
 float4 PSPseudoLighting(VS_OUTPUT input) : SV_TARGET
 {
-	float4 cColor = float4(0.0f, 0.0f, 0.0f, 1.0f);
+	float4 cColor = float4(0.5f, 0.2f, 0.0f, 1.0f);
 
 	float3 f3Normal = normalize(input.normalW);
 	float3 f3ToCamera = normalize(gf3CameraPosition - input.positionW);

@@ -93,3 +93,13 @@ public:
 	CCubeMeshDiffused(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, float fWidth = 2.0f, float fHeight = 2.0f, float fDepth = 2.0f);
 	virtual ~CCubeMeshDiffused();
 };
+
+
+
+class CMapMesh : public CMesh
+{
+public:
+	//직육면체의 가로, 세로, 깊이의 길이를 지정하여 직육면체 메쉬를 생성한다.
+	CMapMesh(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList, float fWidth = 100.0f, float fHeight = 100.0f, float fDepth = 100.0f);
+	virtual ~CMapMesh();
+};

@@ -148,7 +148,7 @@ void CGameObject::Rotate(XMFLOAT3* pxmf3Axis, float fAngle)
 
 CMap::CMap(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
 {
-	CCubeMeshDiffused* pCubeMesh = new CCubeMeshDiffused(pd3dDevice, pd3dCommandList, 5.0f, 5.0f, 5.0f);
+	CMapMesh* pCubeMesh = new CMapMesh(pd3dDevice, pd3dCommandList, 50.0f, 50.0f, 100.0f);
 	SetMesh(pCubeMesh);
 	SetPosition(0.0f, 0.0f, 0.0f);
 	SetMovingSpeed(0.0f);

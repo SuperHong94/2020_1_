@@ -22,6 +22,10 @@ void CScene::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* p
 	m_pShaders = new CObjectsShader[m_nShaders];
 	m_pShaders[0].CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
 	m_pShaders[0].BuildObjects(pd3dDevice, pd3dCommandList);
+	
+	m_pMap = new CMapShader();
+	m_pMap->CreateShader(pd3dDevice, m_pd3dGraphicsRootSignature);
+	m_pMap->BuildObjects(pd3dDevice, pd3dCommandList);
 
 }
 
@@ -80,6 +84,7 @@ void CScene::ReleaseObjects()
 
 void CScene::ReleaseUploadBuffers()
 {
+	m_pMap->ReleaseUploadBuffers();
 	for (int i = 0; i < m_nShaders; i++)
 		m_pShaders[i].ReleaseUploadBuffers();
 
@@ -87,6 +92,7 @@ void CScene::ReleaseUploadBuffers()
 void CScene::AnimateObjects(float fTimeElapsed)
 {
 
+	m_pMap->AnimateObjects(fTimeElapsed);
 	for (int i = 0; i < m_nShaders; i++)
 	{
 		m_pShaders[i].AnimateObjects(fTimeElapsed);
@@ -121,6 +127,7 @@ void CScene::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera
 	{
 		m_pShaders[j].Render(pd3dCommandList, pCamera);
 	}
+	m_pMap->Render(pd3dCommandList, pCamera);
 }
 
 

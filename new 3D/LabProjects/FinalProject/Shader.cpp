@@ -66,6 +66,7 @@ D3D12_RASTERIZER_DESC CShader::CreateRasterizerState()
 	::ZeroMemory(&d3dRasterizerDesc, sizeof(D3D12_RASTERIZER_DESC));
 	d3dRasterizerDesc.FillMode = D3D12_FILL_MODE_SOLID;
 	d3dRasterizerDesc.CullMode = D3D12_CULL_MODE_BACK;
+	d3dRasterizerDesc.CullMode = D3D12_CULL_MODE_NONE;
 	d3dRasterizerDesc.FrontCounterClockwise = FALSE;
 	d3dRasterizerDesc.DepthBias = 0;
 	d3dRasterizerDesc.DepthBiasClamp = 0.0f;
@@ -252,12 +253,11 @@ void CObjectsShader::CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature*
 
 void CObjectsShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
 {
-	m_pMap = new CMap(pd3dDevice, pd3dCommandList);
-	m_pMap->SetPosition(0.0f, 0.0f, 0.0f);
+
 
 	//CMesh* pUfoMesh = new CMesh(pd3dDevice, pd3dCommandList, "Models/UFO.txt");
 	//CMesh* pFlyerMesh = new CMesh(pd3dDevice, pd3dCommandList, "Models/FlyerPlayership.txt");
-	
+
 	m_nObjects = 5;
 	m_ppObjects = new CUfoObject * [m_nObjects];
 
@@ -294,7 +294,7 @@ void CObjectsShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsComman
 	//m_ppObjects[4]->Rotate(0.0f, 180.0f, 0.0f);
 	m_ppObjects[4]->SetColor(XMFLOAT3(0.25f, 0.75f, 0.65f));
 
-	
+
 
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
 }
@@ -310,8 +310,6 @@ void CObjectsShader::ReleaseObjects()
 		}
 		delete[] m_ppObjects;
 	}
-	if (m_pMap)
-		delete m_pMap;
 }
 
 void CObjectsShader::AnimateObjects(float fTimeElapsed)
@@ -335,8 +333,7 @@ void CObjectsShader::ReleaseUploadBuffers()
 void CObjectsShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
 {
 	CShader::Render(pd3dCommandList, pCamera);
-	if (m_pMap) //¸Ê±×¸®±â
-		m_pMap->Render(pd3dCommandList, pCamera);
+
 	for (int j = 0; j < m_nObjects; j++)
 	{
 		if (m_ppObjects[j])
@@ -353,4 +350,70 @@ CUfoObject** CObjectsShader::GetObjects()
 int CObjectsShader::GetObjectCnt()
 {
 	return m_nObjects;
+}
+
+CMapShader::CMapShader()
+{
+
+}
+CMapShader::~CMapShader()
+{
+
+}
+
+
+
+
+D3D12_RASTERIZER_DESC CMapShader::CreateRasterizerState()
+{
+	D3D12_RASTERIZER_DESC d3dRasterizerDesc;
+	::ZeroMemory(&d3dRasterizerDesc, sizeof(D3D12_RASTERIZER_DESC));
+	d3dRasterizerDesc.FillMode = D3D12_FILL_MODE_SOLID;
+	d3dRasterizerDesc.CullMode = D3D12_CULL_MODE_NONE;
+	d3dRasterizerDesc.FrontCounterClockwise = FALSE;
+	d3dRasterizerDesc.DepthBias = 0;
+	d3dRasterizerDesc.DepthBiasClamp = 0.0f;
+	d3dRasterizerDesc.SlopeScaledDepthBias = 0.0f;
+	d3dRasterizerDesc.DepthClipEnable = TRUE;
+	d3dRasterizerDesc.MultisampleEnable = FALSE;
+	d3dRasterizerDesc.AntialiasedLineEnable = FALSE;
+	d3dRasterizerDesc.ForcedSampleCount = 0;
+	return d3dRasterizerDesc;
+}
+
+
+void CMapShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
+{
+	m_pMap = new CMap(pd3dDevice, pd3dCommandList);
+	m_pMap->SetPosition(0.0f, 0.0f, 0.0f);
+	CreateShaderVariables(pd3dDevice, pd3dCommandList);
+}
+
+
+
+void CMapShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
+{
+	CShader::Render(pd3dCommandList, pCamera);
+
+
+	if (m_pMap)
+		m_pMap->Render(pd3dCommandList, pCamera);
+
+}
+
+
+void CMapShader::AnimateObjects(float fTimeElapsed)
+{
+
+	m_pMap->Animate(fTimeElapsed);
+
+}
+
+
+void CMapShader::ReleaseUploadBuffers()
+{
+	if (m_pMap)
+	{
+		m_pMap->ReleaseUploadBuffers();
+	}
 }
