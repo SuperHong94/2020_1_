@@ -477,6 +477,9 @@ void CGameFramework::ProcessInput()
 
 		if (pKeysBuffer[VK_LCONTROL] & 0xF0) //왼쪽 컨트롤 키누르면 총알 발사
 			m_pPlayer->Fire();
+
+		if (pKeysBuffer[VK_SPACE] & 0xF0) //전부폭발
+			m_pScene->AllFire();
 	}
 
 	float cxDelta = 0.0f, cyDelta = 0.0f;

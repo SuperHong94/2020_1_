@@ -32,6 +32,7 @@ protected:
 #ifdef _WITH_DIERECTX_MATH_FRUSTUM
 	BoundingFrustum					m_xmFrustumView;
 	BoundingFrustum					m_xmFrustumWorld;
+	BoundingFrustum m_xmFrustum;
 	XMFLOAT4X4						m_xmf4x4InverseView;
 #else
 	XMFLOAT4						m_pxmf4FrustumPlanes[6];
@@ -101,6 +102,8 @@ public:
 	void CalculateFrustumPlanes();
 	bool IsInFrustum(BoundingBox& xmBoundingBox);
 	bool IsInFrustum(BoundingOrientedBox& xmBoundingBox);
+
+	void GenerateFrustum();
 };
 
 class CSpaceShipCamera : public CCamera

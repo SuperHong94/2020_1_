@@ -33,6 +33,12 @@ void CGameObject::SetShader(CShader* pShader)
 
 void CGameObject::Animate(float fTimeElapsed)
 {
+	XMMATRIX xmmtxRotate =
+		XMMatrixRotationAxis(XMLoadFloat3(&m_dir),
+			XMConvertToRadians(2.0f));
+	XMStoreFloat4x4(&m_xmf4x4World, XMMatrixMultiply(xmmtxRotate,
+		XMLoadFloat4x4(&m_xmf4x4World)));
+
 	SetPosition(m_xmf4x4World._41 + m_dir.x * m_fMovingSpeed,
 		m_xmf4x4World._42 + m_dir.y * m_fMovingSpeed, m_xmf4x4World._43 +
 		m_dir.z * m_fMovingSpeed);
@@ -66,6 +72,7 @@ void CGameObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pC
 	UpdateShaderVariables(pd3dCommandList);
 
 	if (m_pMesh) m_pMesh->Render(pd3dCommandList);
+
 }
 
 void CGameObject::ReleaseUploadBuffers()
@@ -148,7 +155,7 @@ void CGameObject::Rotate(XMFLOAT3* pxmf3Axis, float fAngle)
 
 CMap::CMap(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList)
 {
-	CMapMesh* pCubeMesh = new CMapMesh(pd3dDevice, pd3dCommandList, 50.0f, 50.0f, 100.0f);
+	CMapMesh* pCubeMesh = new CMapMesh(pd3dDevice, pd3dCommandList, MAPWIDTH, MAPHEIGHT, MAPDEPTH);
 	SetMesh(pCubeMesh);
 	SetPosition(0.0f, 0.0f, 0.0f);
 	SetMovingSpeed(0.0f);
@@ -166,7 +173,7 @@ CUfoObject::CUfoObject(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3d
 	std::random_device rd;
 	std::default_random_engine dre(rd());
 	std::uniform_real_distribution uid(-10.0f, 10.0f);
-	std::uniform_real_distribution ruid(0.0f, 1.0f);
+	std::uniform_real_distribution ruid(-0.05f, 0.1f);
 	CMesh* pUfoMesh = new CMesh(pd3dDevice, pd3dCommandList, "Models/UFO.txt"); //적 오프젝트
 	CCubeMeshDiffused* pCubeMesh = new CCubeMeshDiffused(pd3dDevice, pd3dCommandList, 1.0f, 1.0f, 1.0f);//폭발메쉬
 	XMFLOAT3 pos = GetPosition();
@@ -187,10 +194,13 @@ CUfoObject::CUfoObject(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3d
 
 	XMStoreFloat3(&m_dir, XMVector4Normalize(XMVectorSet(uid(dre), uid(dre), uid(dre), uid(dre)))); //기본 방향
 	SetMesh(pUfoMesh);
-	SetPosition(uid(dre), uid(dre), 50.f + uid(dre));
-	OriginalColor = XMFLOAT3(ruid(dre), ruid(dre), ruid(dre));
+	SetPosition(uid(dre) * (uid(dre)) * 0.3f, uid(dre) * (uid(dre)) * 0.5f, (MAPDEPTH * ruid(dre)) + uid(dre));
+	OriginalColor = m_dir;
 	SetColor(OriginalColor);
 	SetIsActive(true);
+
+	Rotate(&m_dir, 100.0f);
+	SetMovingDirection(m_dir);
 }
 
 CUfoObject::~CUfoObject()
@@ -200,6 +210,8 @@ CUfoObject::~CUfoObject()
 
 
 void CUfoObject::Animate(float fTimeElapsed) {
+
+
 	if (isActive) {
 		CGameObject::Animate(fTimeElapsed);
 	}
@@ -245,7 +257,11 @@ void CUfoObject::SetParticlePosition()
 	}
 }
 
-
+XMFLOAT3 CUfoObject::GetMovieReverseDir()
+{
+	XMStoreFloat3(&m_dir, XMVectorScale(XMLoadFloat3(&m_dir), -1.0f)); //역방향
+	return m_dir;
+}
 
 //---------------총알
 CBullet::CBullet()
@@ -274,7 +290,7 @@ void CBullet::Animate(float fTimeElapsed) {
 	}
 	XMFLOAT3 dis;
 	XMStoreFloat3(&dis, XMVector3Length(XMVectorSubtract(XMLoadFloat3(&startPos), XMLoadFloat3(&GetPosition()))));
-	if (dis.x > 200.0f) {  //일정이상 멀어지면 비활성화
+	if (dis.x > MAPDEPTH) {  //일정이상 멀어지면 비활성화
 		isActive = false;
 	}
 	if (isLockon && dis.x > 20.0f) { //락온 상태이고 플레이어와 어느정도 떨어지면 유도미사일
@@ -298,4 +314,17 @@ void CGameObject::SetIsActive(bool active)
 
 void CGameObject::SetMovingDirection(XMFLOAT3& Direction) {
 	XMStoreFloat3(&m_dir, XMVector3Normalize(XMLoadFloat3(&Direction)));
+}
+
+
+
+bool CGameObject::IsVisible(CCamera* pCamera)
+{
+	OnPrepareRender();
+	bool bIsVisible = false;
+	BoundingOrientedBox xmBoundingBox = m_pMesh->m_xmBoundingBox;
+	//모델 좌표계의 바운딩 박스를 월드 좌표계로 변환한다. 
+	xmBoundingBox.Transform(xmBoundingBox, XMLoadFloat4x4(&m_xmf4x4World));
+	if (pCamera) bIsVisible = pCamera->IsInFrustum(xmBoundingBox);
+	return(bIsVisible);
 }

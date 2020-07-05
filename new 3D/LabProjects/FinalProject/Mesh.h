@@ -45,7 +45,7 @@ public:
 	void Release() { if (--m_nReferences <= 0) delete this; }
 
 	void ReleaseUploadBuffers();
-	BoundingBox						m_xmBoundingBox;
+	BoundingOrientedBox						m_xmBoundingBox;
 protected:
 
 

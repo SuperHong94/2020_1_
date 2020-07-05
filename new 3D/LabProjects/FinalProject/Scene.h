@@ -33,6 +33,7 @@ public:
 	bool IsCollision();//충돌 체크함수
 	bool IsCollision(XMFLOAT3); //피킹 검사
 	void SetPlayer(CPlayer* pPlayer);
+	void AllFire();
 
 protected:
 	ID3D12RootSignature* m_pd3dGraphicsRootSignature = NULL;

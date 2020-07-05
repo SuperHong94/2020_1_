@@ -76,13 +76,14 @@ public:
 	virtual D3D12_INPUT_LAYOUT_DESC CreateInputLayout();
 	virtual D3D12_SHADER_BYTECODE CreateVertexShader(ID3DBlob** ppd3dShaderBlob);
 	virtual D3D12_SHADER_BYTECODE CreatePixelShader(ID3DBlob** ppd3dShaderBlob);
-	virtual void CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature
-		* pd3dGraphicsRootSignature);
+	virtual void CreateShader(ID3D12Device* pd3dDevice, ID3D12RootSignature* pd3dGraphicsRootSignature);
 	virtual void ReleaseUploadBuffers();
 	virtual void Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera);
 
 	CUfoObject** GetObjects();
 	int GetObjectCnt();
+	bool IsCollision(CUfoObject* pObject); //오브젝트끼리검사
+	void AllFire();
 protected:
 	CUfoObject** m_ppObjects = NULL;
 	int m_nObjects = 0;

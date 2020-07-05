@@ -91,13 +91,23 @@ void CScene::ReleaseUploadBuffers()
 }
 void CScene::AnimateObjects(float fTimeElapsed)
 {
+	float halfWidth = MAPWIDTH * 0.5f;
+	float halfHeight = MAPHEIGHT * 0.5f;
+	IsCollision();
 
-	m_pMap->AnimateObjects(fTimeElapsed);
 	for (int i = 0; i < m_nShaders; i++)
 	{
 		m_pShaders[i].AnimateObjects(fTimeElapsed);
 	}
-	IsCollision();
+
+
+	XMFLOAT3 pos = m_pPlayer->GetPosition();
+
+	if (pos.x <= -halfWidth || pos.y >= halfHeight || pos.x >= halfWidth || pos.y <= -halfHeight ||
+		pos.z >= MAPDEPTH*0.2f || pos.z <= -MAPDEPTH * 0.2f) {
+		m_pPlayer->SetPosition(XMFLOAT3(0.0f, 0.0f, 0.0f));
+		m_pPlayer->ChangeCamera(THIRD_PERSON_CAMERA, 0.0f);
+	}
 
 }
 
@@ -147,10 +157,10 @@ bool CScene::IsCollision()
 		if (m_pPlayer->bullets[iBullet].GetIsActive()) //활성화되어있는 총알이라면
 		{
 			CBullet* pBullet = &m_pPlayer->bullets[iBullet];
-			BoundingBox xmbbModel = pBullet->m_pMesh->m_xmBoundingBox;
+			BoundingOrientedBox xmbbModel = pBullet->m_pMesh->m_xmBoundingBox;
 			xmbbModel.Transform(xmbbModel, XMLoadFloat4x4(&pBullet->m_xmf4x4World));
 			for (int i = 0; i < nObjects; ++i) {
-				BoundingBox other = ppObjects[i]->m_pMesh->m_xmBoundingBox;
+				BoundingOrientedBox other = ppObjects[i]->m_pMesh->m_xmBoundingBox;
 				other.Transform(other, XMLoadFloat4x4(&ppObjects[i]->m_xmf4x4World));
 				if (xmbbModel.Contains(other) != DirectX::DISJOINT) {
 					ppObjects[i]->SetParticlePosition();
@@ -174,11 +184,11 @@ bool CScene::IsCollision(XMFLOAT3 ray)
 	int nObjects = m_pShaders[0].GetObjectCnt();
 	for (int i = 0; i < nObjects; ++i) {
 		if (ppObjects[i]->GetIsActive()) {
-			BoundingBox other = ppObjects[i]->m_pMesh->m_xmBoundingBox;
+			BoundingOrientedBox other = ppObjects[i]->m_pMesh->m_xmBoundingBox;
 			other.Transform(other, XMLoadFloat4x4(&ppObjects[i]->m_xmf4x4World));
 			other.Transform(other, XMLoadFloat4x4(&m_pPlayer->GetCamera()->GetViewMatrix()));
 			if (other.Contains(XMLoadFloat3(&ray)) != DirectX::DISJOINT) {
-				ppObjects[i]->SetColor(XMFLOAT3(1.0f, 1.0f, 1.0f));
+				ppObjects[i]->SetColor(ppObjects[i]->GetMovieReverseDir());
 				m_pPlayer->SetTarget(ppObjects[i]);
 
 				IsContains = true;
@@ -197,18 +207,7 @@ bool CScene::IsPickingObject(int x, int y, CCamera* pCamera)
 
 
 
-	//float fHalfWidth = pCamera->m_Viewport.m_nWidth * 0.5;
-	//float fHalfHeight = pCamera->m_Viewport.m_nHeight * 0.5;
-
-	////투영변환후의 x좌표
-	//float projectX = (x - fHalfWidth - pCamera->m_Viewport.m_nLeft) / fHalfWidth;
-	//float projectY = -1.0f * ((y - pCamera->m_Viewport.m_nTop - fHalfHeight) / fHalfHeight);
-
-
-	////투영변환 전의 카메라좌표계의 좌표
-	//float cameraX = projectX / pCamera->m_xmf4x4Project._11;
-	//float cameraY = projectY / pCamera->m_xmf4x4Project._22;
-	//float cameraZ = 1.0f;
+	
 	XMFLOAT4X4 xmf4x4View = pCamera->GetViewMatrix();
 	XMFLOAT4X4 xmf4x4Projection = pCamera->GetProjectionMatrix();
 	D3D12_VIEWPORT d3dViewport = pCamera->GetViewport();
@@ -230,4 +229,9 @@ bool CScene::IsPickingObject(int x, int y, CCamera* pCamera)
 		isPicking = IsCollision(ray);
 	}
 	return isPicking;
+}
+
+void CScene::AllFire()
+{
+	m_pShaders[0].AllFire();
 }

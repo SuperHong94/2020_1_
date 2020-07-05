@@ -60,7 +60,7 @@ public:
 	void SetMovingSpeed(float fSpeed) { m_fMovingSpeed = fSpeed; }
 	bool GetIsActive();
 	void SetIsActive(bool active);
-
+	bool IsVisible(CCamera* pCamera = NULL);
 };
 
 class CUfoObject : public CGameObject //¿Ã∞Õ¿Ã ∆¯∆»«“ ∞Õ¿Ã¥Ÿ.

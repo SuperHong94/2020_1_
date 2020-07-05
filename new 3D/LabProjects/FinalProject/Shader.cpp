@@ -258,42 +258,16 @@ void CObjectsShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsComman
 	//CMesh* pUfoMesh = new CMesh(pd3dDevice, pd3dCommandList, "Models/UFO.txt");
 	//CMesh* pFlyerMesh = new CMesh(pd3dDevice, pd3dCommandList, "Models/FlyerPlayership.txt");
 
-	m_nObjects = 5;
+	m_nObjects = 15;
 	m_ppObjects = new CUfoObject * [m_nObjects];
 
 	//CPseudoLightingShader* pShader = new CPseudoLightingShader();
 
 
-	m_ppObjects[0] = new CUfoObject(pd3dDevice, pd3dCommandList);
-	//m_ppObjects[0]->SetMesh(pUfoMesh);
-	//m_ppObjects[0]->SetShader(pShader);
-	m_ppObjects[0]->SetPosition(6.0f, 0.0f, 13.0f);
-	m_ppObjects[0]->SetColor(XMFLOAT3(0.7f, 0.0f, 0.0f));
-
-	m_ppObjects[1] = new CUfoObject(pd3dDevice, pd3dCommandList);
-
-	//m_ppObjects[1]->SetShader(pShader);
-	m_ppObjects[1]->SetPosition(10.0f, -2.0f, 8.0f);
-	m_ppObjects[1]->SetColor(XMFLOAT3(0.0f, 0.7f, 0.0f));
-
-	m_ppObjects[2] = new CUfoObject(pd3dDevice, pd3dCommandList);
-	//m_ppObjects[2]->SetMesh(pUfoMesh);
-	//m_ppObjects[2]->SetShader(pShader);
-	m_ppObjects[2]->SetPosition(-5.0f, -4.0f, 11.0f);
-	m_ppObjects[2]->SetColor(XMFLOAT3(0.0f, 0.0f, 0.7f));
-
-	m_ppObjects[3] = new CUfoObject(pd3dDevice, pd3dCommandList);
-	//m_ppObjects[3]->SetMesh(pUfoMesh);
-	//m_ppObjects[3]->SetShader(pShader);
-	m_ppObjects[3]->SetPosition(-10.0f, -2.0f, 8.0f);
-
-	m_ppObjects[4] = new CUfoObject(pd3dDevice, pd3dCommandList);
-	//m_ppObjects[4]->SetMesh(pFlyerMesh);
-	//m_ppObjects[4]->SetShader(pShader);
-	m_ppObjects[4]->SetPosition(0.0f, 4.0f, 20.0f);
-	//m_ppObjects[4]->Rotate(0.0f, 180.0f, 0.0f);
-	m_ppObjects[4]->SetColor(XMFLOAT3(0.25f, 0.75f, 0.65f));
-
+	for (int i = 0; i < m_nObjects; ++i) {
+		m_ppObjects[i] = new CUfoObject(pd3dDevice, pd3dCommandList);
+	}
+	
 
 
 	CreateShaderVariables(pd3dDevice, pd3dCommandList);
@@ -314,8 +288,15 @@ void CObjectsShader::ReleaseObjects()
 
 void CObjectsShader::AnimateObjects(float fTimeElapsed)
 {
+	float halfWidth = MAPWIDTH * 0.5f;
+	float halfHeight = MAPHEIGHT * 0.5f;
 	for (int j = 0; j < m_nObjects; j++)
 	{
+		IsCollision(m_ppObjects[j]); //오브젝트끼리 부디치는지 확인
+		XMFLOAT3 pos = m_ppObjects[j]->GetPosition();
+		if (pos.x <= -halfWidth || pos.y >= halfHeight || pos.x >= halfWidth || pos.y <= -halfHeight ||
+			pos.z >= MAPDEPTH * 0.5f || pos.z <= -MAPDEPTH * 0.5f)
+			m_ppObjects[j]->SetMovingDirection(m_ppObjects[j]->GetMovieReverseDir());
 		m_ppObjects[j]->Animate(fTimeElapsed);
 	}
 }
@@ -340,6 +321,14 @@ void CObjectsShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera*
 		{
 			m_ppObjects[j]->Render(pd3dCommandList, pCamera);
 		}
+	}
+}
+
+void CObjectsShader::AllFire()
+{
+	for (int i = 0; i < m_nObjects; ++i) {
+		m_ppObjects[i]->SetParticlePosition();
+		m_ppObjects[i]->SetIsActive(false);
 	}
 }
 
@@ -415,5 +404,30 @@ void CMapShader::ReleaseUploadBuffers()
 	if (m_pMap)
 	{
 		m_pMap->ReleaseUploadBuffers();
+	}
+}
+
+
+
+bool CObjectsShader::IsCollision(CUfoObject* pObject)
+{
+	bool IsContains = false;
+
+	BoundingOrientedBox xmbbModel = pObject->m_pMesh->m_xmBoundingBox;
+	xmbbModel.Transform(xmbbModel, XMLoadFloat4x4(&pObject->m_xmf4x4World));
+	if (pObject->GetIsActive()) {
+		for (int i = 0; i < m_nObjects; ++i) {
+			if (m_ppObjects[i]->GetIsActive()) {
+				BoundingOrientedBox other = m_ppObjects[i]->m_pMesh->m_xmBoundingBox;
+				other.Transform(other, XMLoadFloat4x4(&m_ppObjects[i]->m_xmf4x4World));
+				if (xmbbModel.Contains(other) != DirectX::DISJOINT) {
+					m_ppObjects[i]->SetMovingDirection(m_ppObjects[i]->GetMovieReverseDir());
+					pObject->SetMovingDirection(pObject->GetMovieReverseDir());
+
+					IsContains = true;
+					return IsContains;
+				}
+			}
+		}
 	}
 }

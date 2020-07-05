@@ -61,6 +61,11 @@ using Microsoft::WRL::ComPtr;
 #define VK_D  0x44
 #define VK_Z  0x5A
 
+//∏ ≈©±‚
+#define MAPWIDTH 100.0f
+#define MAPHEIGHT 100.0f
+#define MAPDEPTH  500.0f
+
 #define RANDOM_COLOR			XMFLOAT4(rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX))
 
 #define _WITH_DIERECTX_MATH_FRUSTUM
