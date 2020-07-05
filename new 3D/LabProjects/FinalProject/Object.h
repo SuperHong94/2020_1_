@@ -61,6 +61,13 @@ public:
 	bool GetIsActive();
 	void SetIsActive(bool active);
 
+	bool IsVisible(CCamera* pCamera = NULL);
+
+	//모델 좌표계의 픽킹 광선을 생성한다.
+	void GenerateRayForPicking(XMFLOAT3& xmf3PickPosition, XMFLOAT4X4& xmf4x4View, XMFLOAT3* pxmf3PickRayOrigin, XMFLOAT3* pxmf3PickRayDirection);
+	//카메라 좌표계의 한 점에 대한 모델 좌표계의 픽킹 광선을 생성하고 객체와의 교차를 검사한다.
+	int PickObjectByRayIntersection(XMFLOAT3& xmf3PickPosition, XMFLOAT4X4& xmf4x4View, float* pfHitDistance);
+
 };
 
 class CUfoObject : public CGameObject //이것이 폭팔할 것이다.
@@ -85,14 +92,18 @@ public:
 	CMap(ID3D12Device* pd3dDevice, ID3D12GraphicsCommandList* pd3dCommandList);
 	virtual ~CMap();
 };
+
+
+
 class CBullet :public CGameObject
 {
 
 	bool isLockon;
+	XMFLOAT3 startPos;
 public:
 	XMFLOAT3 dir = XMFLOAT3(0, 0, 0);
 	CBullet();
-
+	void SetStartPos(XMFLOAT3& pos);
 	virtual void Move(XMFLOAT3& vDirection, float fSpeed);
 	virtual void Animate(float fElapsedTime);
 

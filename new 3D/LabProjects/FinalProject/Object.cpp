@@ -60,12 +60,12 @@ void CGameObject::ReleaseShaderVariables()
 void CGameObject::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
 {
 	OnPrepareRender();
+	if (IsVisible(pCamera)) {
+		UpdateShaderVariables(pd3dCommandList);
+		if (m_pShader) m_pShader->Render(pd3dCommandList, pCamera);
 
-	if (m_pShader) m_pShader->Render(pd3dCommandList, pCamera);
-
-	UpdateShaderVariables(pd3dCommandList);
-
-	if (m_pMesh) m_pMesh->Render(pd3dCommandList);
+		if (m_pMesh) m_pMesh->Render(pd3dCommandList);
+	}
 }
 
 void CGameObject::ReleaseUploadBuffers()
@@ -143,6 +143,18 @@ void CGameObject::Rotate(XMFLOAT3* pxmf3Axis, float fAngle)
 	m_xmf4x4World = Matrix4x4::Multiply(mtxRotate, m_xmf4x4World);
 }
 
+
+bool CGameObject::IsVisible(CCamera* pCamera)
+{
+	OnPrepareRender();
+	bool bIsVisible = false;
+	BoundingOrientedBox xmBoundingBox = m_pMesh->GetBoundingBox();
+	//모델 좌표계의 바운딩 박스를 월드 좌표계로 변환한다. 
+	xmBoundingBox.Transform(xmBoundingBox, XMLoadFloat4x4(&m_xmf4x4World));
+	if (pCamera) bIsVisible = pCamera->IsInFrustum(xmBoundingBox);
+	return(bIsVisible);
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //맵만들기
 
@@ -210,7 +222,7 @@ void CUfoObject::Animate(float fTimeElapsed) {
 		XMFLOAT3 dis;
 		XMStoreFloat3(&dis, XMVector3Length(XMVectorSubtract(XMLoadFloat3(&startPos),
 			XMLoadFloat3(&explorObjects[0]->GetPosition()))));
-		if (dis.x > 20.0f) {
+		if (dis.x > 30.0f) {
 			isActive = true;
 			//m_dwColor = OriginalColor;
 		}
@@ -248,7 +260,7 @@ void CUfoObject::SetParticlePosition()
 //---------------총알
 CBullet::CBullet()
 {
-	isActive=false; //초기에는 활성화 안됨
+	isActive = false; //초기에는 활성화 안됨
 	isLockon = false;
 }
 
@@ -260,16 +272,27 @@ CBullet::~CBullet()
 
 void CBullet::Move(XMFLOAT3& vDirection, float fSpeed)
 {
-	SetPosition(m_xmf4x4World._41 + vDirection.x * fSpeed,
-		m_xmf4x4World._42 + vDirection.y * fSpeed, m_xmf4x4World._43 +
-		vDirection.z * fSpeed);
+	if (isActive)
+		SetPosition(m_xmf4x4World._41 + vDirection.x * fSpeed,
+			m_xmf4x4World._42 + vDirection.y * fSpeed, m_xmf4x4World._43 +
+			vDirection.z * fSpeed);
 }
 
 
 void CBullet::Animate(float fTimeElapsed) {
 	if (isActive) {
 		Move(dir, 100.0f * fTimeElapsed);
+		XMFLOAT3 dis;
+		XMStoreFloat3(&dis, XMVector3Length(XMVectorSubtract(XMLoadFloat3(&startPos),
+			XMLoadFloat3(&GetPosition()))));
+		if (dis.x > 200.0f) {  //일정이상 멀어지면 비활성화
+			isActive = false;
+
+		}
 	}
+}
+void CBullet::SetStartPos(XMFLOAT3& pos) {
+	startPos = pos;
 }
 
 
@@ -285,3 +308,35 @@ void CGameObject::SetIsActive(bool active)
 void CGameObject::SetMovingDirection(XMFLOAT3& Direction) {
 	XMStoreFloat3(&m_dir, XMVector3Normalize(XMLoadFloat3(&Direction)));
 }
+
+
+void CGameObject::GenerateRayForPicking(XMFLOAT3& xmf3PickPosition, XMFLOAT4X4& xmf4x4View, XMFLOAT3* pxmf3PickRayOrigin, XMFLOAT3* pxmf3PickRayDirection)
+{
+	XMFLOAT4X4 xmf4x4WorldView = Matrix4x4::Multiply(m_xmf4x4World, xmf4x4View);
+	XMFLOAT4X4 xmf4x4Inverse = Matrix4x4::Inverse(xmf4x4WorldView);
+	XMFLOAT3 xmf3CameraOrigin(0.0f, 0.0f, 0.0f);
+	//카메라 좌표계의 원점을 모델 좌표계로 변환한다.
+	*pxmf3PickRayOrigin = Vector3::TransformCoord(xmf3CameraOrigin, xmf4x4Inverse);
+	//카메라 좌표계의 점(마우스 좌표를 역변환하여 구한 점)을 모델 좌표계로 변환한다.
+	*pxmf3PickRayDirection = Vector3::TransformCoord(xmf3PickPosition, xmf4x4Inverse);
+	//광선의 방향 벡터를 구한다.
+	*pxmf3PickRayDirection = Vector3::Normalize(Vector3::Subtract(*pxmf3PickRayDirection, *pxmf3PickRayOrigin));
+}
+
+
+int CGameObject::PickObjectByRayIntersection(XMFLOAT3& xmf3PickPosition, XMFLOAT4X4&xmf4x4View, float* pfHitDistance)
+{
+	int nIntersected = 0;
+	if (m_pMesh)
+	{
+		XMFLOAT3 xmf3PickRayOrigin, xmf3PickRayDirection;
+		//모델 좌표계의 광선을 생성한다.
+		GenerateRayForPicking(xmf3PickPosition, xmf4x4View, &xmf3PickRayOrigin, &xmf3PickRayDirection);
+		//모델 좌표계의 광선과 메쉬의 교차를 검사한다.
+		nIntersected = m_pMesh->CheckRayIntersection(xmf3PickRayOrigin, xmf3PickRayDirection, pfHitDistance);
+	}
+	return(nIntersected);
+}
+
+
+

@@ -31,6 +31,8 @@ public:
 	bool IsCollision();//충돌 체크함수
 	void SetPlayer(CPlayer* pPlayer);
 
+	CUfoObject* PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera);
+
 protected:
 	ID3D12RootSignature* m_pd3dGraphicsRootSignature = NULL;
 

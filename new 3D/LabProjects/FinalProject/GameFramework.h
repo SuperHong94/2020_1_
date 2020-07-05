@@ -39,6 +39,7 @@ public:
 	void WaitForGpuComplete();
 	void MoveToNextFrame();
 
+	void ProcessSelectedObject(DWORD dwDirection, float cxDelta, float cyDelta);
 	void OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
 	void OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
 	LRESULT CALLBACK OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
@@ -88,5 +89,9 @@ private:
 
 	CGameTimer					m_GameTimer;
 	_TCHAR						m_pszFrameRate[50];
+
+
+
+	CUfoObject* m_pSelectedObject = NULL;
 };
 
