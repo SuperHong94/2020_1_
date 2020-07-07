@@ -218,6 +218,15 @@ bool CScene::IsPickingObject(int x, int y, CCamera* pCamera)
 	xmf3PickPosition.y = -(((2.0f * y) / d3dViewport.Height) - 1) / xmf4x4Projection._22;
 	xmf3PickPosition.z = 1.0f;
 
+
+	XMFLOAT4X4 xmf4x4Inverse = Matrix4x4::Inverse(xmf4x4View);
+	float cameraX = xmf3PickPosition.x / xmf4x4Projection._11;
+	float cameraY = xmf3PickPosition.y / xmf4x4Projection._22;
+	float cameraZ = 1.0f;
+
+	ralyDir = XMFLOAT3(cameraX, cameraY, cameraZ); //±§º±πÊ«‚
+
+
 	ralyDir = XMFLOAT3(xmf3PickPosition.x, xmf3PickPosition.y, xmf3PickPosition.z); //±§º±πÊ«‚
 	XMStoreFloat3(&ralyDir, XMVector2Normalize(XMLoadFloat3(&ralyDir)));
 	XMFLOAT3 ray;
