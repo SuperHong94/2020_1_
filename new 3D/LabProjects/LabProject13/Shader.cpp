@@ -297,13 +297,13 @@ void CObjectsShader::ReleaseUploadBuffers()
 void CObjectsShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera* pCamera)
 {
 	CShader::Render(pd3dCommandList, pCamera);
-	/*for (int j = 0; j < m_nObjects; j++)
+	for (int j = 0; j < m_nObjects; j++)
 	{
 		if (m_ppObjects[j])
 		{
 			m_ppObjects[j]->Render(pd3dCommandList, pCamera);
 		}
-	}*/
+	}
 }
 
 CInstancingShader::CInstancingShader()
@@ -412,9 +412,9 @@ void CInstancingShader::BuildObjects(ID3D12Device* pd3dDevice, ID3D12GraphicsCom
 void CInstancingShader::Render(ID3D12GraphicsCommandList* pd3dCommandList, CCamera
 	* pCamera)
 {
+	UpdateShaderVariables(pd3dCommandList);
 	CObjectsShader::Render(pd3dCommandList, pCamera);
 	//모든 게임 객체의 인스턴싱 데이터를 버퍼에 저장한다. 
-	UpdateShaderVariables(pd3dCommandList);
 	//하나의 정점 데이터를 사용하여 모든 게임 객체(인스턴스)들을 렌더링한다.
-	m_ppObjects[0]->Render(pd3dCommandList, pCamera, m_nObjects);
+//	m_ppObjects[0]->Render(pd3dCommandList, pCamera, m_nObjects);
 }

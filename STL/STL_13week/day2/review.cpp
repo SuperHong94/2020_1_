@@ -33,7 +33,7 @@ my_distance(Initer b, Initer e, forward_iterator_tag)
 
 
 template<class Initer>
-typename iterator_traits<Initer>::difference_type
+typename iterator_traits<Initer>::difference_type 
 my_distance(Initer b, Initer e)
 {
 	/*if constexpr (is_same_v<iterator_traits<Initer>::iterator_category, random_access_iterator_tag>)
@@ -44,6 +44,7 @@ my_distance(Initer b, Initer e)
 			d++;
 		return d;
 	}*/
+
 	return my_distance(b, e, iterator_traits<Initer>::iterator_category());
 
 }

@@ -70,15 +70,16 @@ void CGameFramework::CreateDirect3DDevice()
 		pd3dDebugController->EnableDebugLayer();
 		pd3dDebugController->Release();
 	}
-	nDXGIFactoryFlags |= DXGI_CREATE_FACTORY_DEBUG;
+	nDXGIFactoryFlags |= DXGI_CREATE_FACTORY_DEBUG;  //디버그모드일때는 플래그 0아니네
 #endif
 	hResult = ::CreateDXGIFactory2(nDXGIFactoryFlags, __uuidof(IDXGIFactory4), (void**)&m_pdxgiFactory);
 	IDXGIAdapter1* pd3dAdapter = NULL;
+
 	for (UINT i = 0; DXGI_ERROR_NOT_FOUND != m_pdxgiFactory->EnumAdapters1(i, &pd3dAdapter); i++) //그래픽카드 찾기
 	{
 		DXGI_ADAPTER_DESC1 dxgiAdapterDesc;
 		pd3dAdapter->GetDesc1(&dxgiAdapterDesc); //그래픽카드 정보얻기
-		if (dxgiAdapterDesc.Flags & DXGI_ADAPTER_FLAG_SOFTWARE)
+		if (dxgiAdapterDesc.Flags & DXGI_ADAPTER_FLAG_SOFTWARE)  //소프트웨어 어댑터이면 계속
 			continue;
 		if (SUCCEEDED(D3D12CreateDevice(pd3dAdapter, D3D_FEATURE_LEVEL_12_0, _uuidof(ID3D12Device), (void**)&m_pd3dDevice)))
 			break; //하나 만들면 빠져나온다.
@@ -133,6 +134,7 @@ void CGameFramework::CreateCommandQueueAndList()
 	D3D12_COMMAND_QUEUE_DESC d3dCommandQueueDesc;
 	::ZeroMemory(&d3dCommandQueueDesc, sizeof(D3D12_COMMAND_QUEUE_DESC));
 	d3dCommandQueueDesc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE; //기본 명령 큐
+
 	d3dCommandQueueDesc.Type = D3D12_COMMAND_LIST_TYPE_DIRECT; //GPU가 직접 실행할 수 있는 명령버퍼(리스트)
 	HRESULT hResult = m_pd3dDevice->CreateCommandQueue(&d3dCommandQueueDesc, _uuidof(ID3D12CommandQueue), (void**)&m_pd3dCommandQueue);
 	//직접(Direct) 명령 큐를 생성한다.
@@ -418,7 +420,8 @@ void CGameFramework::FrameAdvance()
 
 	ID3D12CommandList* ppd3dCommandLists[] = { m_pd3dCommandList };
 	m_pd3dCommandQueue->ExecuteCommandLists(1, ppd3dCommandLists);
-	//명령 리스트를 명령 큐에 추가하여 실행한다. WaitForGpuComplete();
+	//명령 리스트를 명령 큐에 추가하여 실행한다.
+	WaitForGpuComplete();
 	//GPU가 모든 명령 리스트를 실행할 때 까지 기다린다. 
 
 	DXGI_PRESENT_PARAMETERS dxgiPresentParameters;

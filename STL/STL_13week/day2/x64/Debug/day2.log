@@ -1,0 +1,5 @@
+﻿  review.cpp
+  String.cpp
+  코드를 생성하고 있습니다...
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\STL\STL_13week\day2\String.cpp(64): warning C4715: 'String::operator=': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  day2.vcxproj -> C:\Users\SuperHong\source\repos\GitHub\2020_1_\STL\STL_13week\x64\Debug\day2.exe

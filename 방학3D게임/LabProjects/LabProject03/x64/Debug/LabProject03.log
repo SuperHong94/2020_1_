@@ -1,0 +1,8 @@
+﻿  stdafx.cpp
+  GameFramework.cpp
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\방학3D게임\LabProjects\LabProject03\GameFramework.h(58,18): error C2535: 'CGameFramework::CGameFramework(void)': 멤버 함수를 이미 정의했거나 선언했습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\방학3D게임\LabProjects\LabProject03\GameFramework.h(5): message : 'CGameFramework::CGameFramework' 선언을 참조하십시오.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\방학3D게임\LabProjects\LabProject03\GameFramework.h(59,19): error C2535: 'CGameFramework::~CGameFramework(void)': 멤버 함수를 이미 정의했거나 선언했습니다.
+C:\Users\SuperHong\source\repos\GitHub\2020_1_\방학3D게임\LabProjects\LabProject03\GameFramework.h(6): message : 'CGameFramework::~CGameFramework' 선언을 참조하십시오.
+  LabProject03.cpp
+  코드를 생성하고 있습니다...
