@@ -17,7 +17,7 @@
 #include <string>
 #include <wrl.h>
 #include <shellapi.h>
-
+#include <mmsystem.h>
 #include <d3d12.h>
 #include <dxgi1_4.h>
 #include <d3dcompiler.h>
@@ -34,7 +34,7 @@ using namespace DirectX;
 using namespace DirectX::PackedVector;
 
 using Microsoft::WRL::ComPtr;
-
+#pragma comment(lib, "winmm.lib")  //이건 내가추가함
 #pragma comment(lib,"d3dcompiler.lib")
 #pragma comment(lib,"d3d12.lib")
 #pragma comment(lib,"dxgi.lib")
